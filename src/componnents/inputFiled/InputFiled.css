@@ -4,8 +4,8 @@
   flex-direction: column;
   width: 360px;
   height: 52px;
-  border-bottom: 0.5px solid #000000;
   outline: none;
+  box-shadow: 5px 5px 10px #0000008c;
 }
 
 .input-container:focus-within label {

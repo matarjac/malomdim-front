@@ -13,7 +13,8 @@
   align-items: center;
   padding: 40px 116px;
   gap: 40px;
-  box-shadow: 2px 4px 10px rgba(175, 175, 175, 0.25);
+  box-shadow: 5px 5px 10px #000000;
+  background-color:slateblue;
 }
 .info {
   display: flex;
