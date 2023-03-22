@@ -24,6 +24,9 @@
 }
 .info > span {
   letter-spacing: 2.67px;
+  font-size: 30px;
+  font-style: oblique;
+  font-weight: bold;
 }
 .info > p {
   font-size: 18px;

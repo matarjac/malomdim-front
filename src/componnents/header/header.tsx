@@ -1,12 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
-const Footer: React.FC = () => {
-const navigat = useNavigate();
+const Header: React.FC = () => {
+  const navigat = useNavigate();
 
-  return <div>
-     <button className="sing-up-btu" onClick={() => navigat("/SingUpPage")}>Sing Up</button>
-  </div>;
+  return (
+    <div>
+      <div className="nav-bar">
+        <button className="sing-up-btu" onClick={() => navigat("/")}>
+          Home
+        </button>
+        <button className="sing-up-btu" onClick={() => navigat("/SingUpPage")}>
+          Sing Up
+        </button>
+      </div>
+    </div>
+  );
 };
 
-export default Footer;
+export default Header;

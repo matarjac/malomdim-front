@@ -1,16 +1,19 @@
+.nav-bar{
+  display: flex;
+  gap: 5px;
+  height: 10vh;
+  padding: 10px;
+}
 .sing-up-btu {
   all: unset;
-  cursor: pointer;
   font-size: 15px;
   font-weight: bold;
-  position: absolute;
   width: fit-content;
-  top: 3%;
-  left: 59%;
   width: fit-content;
   color: #352dd6;
   right: -5%;
   background-color:seashell;
   border: solid 1px black;
   padding: 5px;
+  height: 30px;
 }
