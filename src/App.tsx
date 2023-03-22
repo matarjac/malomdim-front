@@ -13,6 +13,7 @@ function App() {
             <Route index element={<HomePage />} />
             {/* ex to more routes
             <Route path="resturants" element={<Resturants />} /> */}
+            
           </Route>  
         </Routes>
       </BrowserRouter>
