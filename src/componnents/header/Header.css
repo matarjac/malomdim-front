@@ -6,6 +6,7 @@
   background-color: rgb(215, 225, 250);
   align-items: center;
   justify-content: space-around;
+  border-bottom: antiquewhite solid ;
 }
 .sing-up-btu {
   all: unset;
