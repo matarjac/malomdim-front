@@ -23,7 +23,7 @@ function App() {
     </>
   );
 }
-
+document.body.className = 'gradient-bg'; 
 export default App;
 
 

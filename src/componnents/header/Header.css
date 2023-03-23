@@ -1,9 +1,8 @@
 .nav-bar {
   display: flex;
   gap: 5px;
-  height: 4vh;
   padding: 10px;
-  background-color: rgb(215, 225, 250);
+  background-Image: linear-gradient(rgba(157, 150, 239, 0.8),rgba(180, 144, 238, 0.822));
   align-items: center;
   justify-content: space-around;
   border-bottom: antiquewhite solid ;

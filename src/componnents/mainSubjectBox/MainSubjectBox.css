@@ -1,0 +1,95 @@
+.navigation {
+  position: fixed;
+  top: 20%;
+  right: 50%;
+  transform: translate(50%, 50%);
+  width: 500px;
+  height: 60px;
+  background-color: #fff;
+  box-shadow: 0 25px 35px rgba(0, 0, 0, 1);
+  display: flex;
+  justify-content: space-between;
+  transition: height 0.5s;
+  transition-delay: 0s, 0.75s;
+  align-items: center;
+}
+.navigation.active {
+  height: 800px;
+}
+.headerMainSubBox {
+  width: 500px;
+  height: 60px;
+  display: flex;
+  top: 1px;
+  justify-content: space-between;
+  position: fixed;
+  align-items: center;
+  border-bottom:1px solid #ccc4c4;
+}
+.navigation .mainSubBox {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+}
+.navigation .mainSubBox .mainSubImg {
+  position: relative;
+  min-width: 60px;
+  height: 60px;
+  overflow: hidden;
+  background-color: #ccc4c4;
+  border-radius: 50%;
+  border: 10px solid #fff;
+}
+.navigation .mainSubBox .mainSubImg img {
+  position: absolute;
+  height: 70%;
+  width: 70%;
+  object-fit: cover;
+  left: 15%;
+  top: 15%;
+}
+
+.navigation .mainSubTitel {
+  width: fit-content;
+  font-size: x-large;
+}
+.navigation .menuToggle {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation .menuToggleBefore {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 2px;
+  background: #555;
+  transform: translateY(-10px);
+  box-shadow: 0 10px #555;
+  transition: 0.5s;
+}
+
+.navigation .menuToggleAfter {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 2px;
+  background: #555;
+  transform: translateY(10px);
+  transition: 0.5s;
+}
+
+.navigation.active .menuToggleBefore {
+  transform: translateY(0px) rotate(45deg);
+  box-shadow: 0 0px #555;
+}
+.navigation.active .menuToggleAfter {
+  transform: translateY(0px) rotate(-45deg);
+}
