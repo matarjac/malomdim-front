@@ -1,0 +1,17 @@
+.progressBar {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 500px;
+  height: 40px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  /* margin-top: 10vh; */
+}
+
+.heroContainer {
+  display: flex;
+  justify-content: center;
+  height: 300px;
+}

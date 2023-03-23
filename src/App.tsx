@@ -13,11 +13,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Frame />}>
             <Route index element={<HomePage />} />
-            {/* ex to more routes
-            <Route path="resturants" element={<Resturants />} /> */}
               <Route path="/SingUpPage" element={<SingUpPage/>}/>
               <Route path="/SingInPage" element={<SingInPage/>}/>
-          </Route>  
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
