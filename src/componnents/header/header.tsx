@@ -10,8 +10,8 @@ const Header: React.FC = () => {
         <button className="sing-up-btu" onClick={() => navigat("/")}>
           Home
         </button>
-        <button className="sing-up-btu" onClick={() => navigat("/SingUpPage")}>
-          Sing Up
+        <button className="sing-up-btu" onClick={() => navigat("/SingInPage")}>
+          Sing In
         </button>
       </div>
     </div>

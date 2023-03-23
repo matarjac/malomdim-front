@@ -13,7 +13,7 @@ const SingUpPage = () => {
 
   return (
     <div className="main">
-      <div className="singINCard">
+      <div className="singInCard">
         <div className="info">
           <span>SING UP</span>
         </div>
