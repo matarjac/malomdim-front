@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../mainSubjectBox/MainSubjectBox.css";
+import "../subTopicBox/SubTopicBox.css";
 
-const MainSubjectBox: React.FC = () => {
+const SubTopicBox: React.FC = () => {
   const [active, setActive] = useState(false);
 
   const handleMenuToggleClick = () => {
@@ -28,4 +28,4 @@ const MainSubjectBox: React.FC = () => {
   );
 };
 
-export default MainSubjectBox;
+export default SubTopicBox;
