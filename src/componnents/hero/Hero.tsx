@@ -11,7 +11,6 @@ interface ITopicTitle {
 }
 
 export const ProgressBarProgress = styled.div<IProgressBar>`
-    
     height: 100%;
     background-color: green;
     border-bottom-left-radius: 4px;
@@ -19,6 +18,17 @@ export const ProgressBarProgress = styled.div<IProgressBar>`
     width: ${(props) => props.widthPer}%;
     transition: width 1s;
 
+    @media only screen and (max-width: 900px) {
+        .daysCountDown {
+            font-size: 18px;
+    }
+}
+`
+
+export const SubjectTitleSpan = styled.span`
+    color: white;
+    font-size: 3vw;
+    padding: 10px;
 `
 
 export const Hero: React.FC = () => {
@@ -38,11 +48,14 @@ export const Hero: React.FC = () => {
     return (
         <>
             <div className={heroStyles.heroContainer}>
-                <span className='current-topic'>HTML</span>
+                <div className={heroStyles.upperHero}>
+                    <SubjectTitleSpan>Node.js</SubjectTitleSpan>
+                    <span className={heroStyles.daysCountDown}>3 days to go</span>
+                    <SubjectTitleSpan>MySQL</SubjectTitleSpan>
+                </div>
                 <div className={heroStyles.progressBar}>
                     <ProgressBarProgress widthPer={progress} />
                 </div>
-                <span className='next-topic'>css</span>
             </div>
 
         </>
