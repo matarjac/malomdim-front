@@ -9,10 +9,10 @@ const SubTopicBox: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="subTopicBox">
       <div className={`navigation ${active ? "active" : ""}`}>
-        <div className="headerMainSubBox">
-          <div className="mainSubBox">
+        <div className="headerSubTopic">
+          <div className="SubTopic">
             <div className="mainSubImg">
               <img src={"/icons/icon-css-official.svg"} alt="icon-css" />
             </div>

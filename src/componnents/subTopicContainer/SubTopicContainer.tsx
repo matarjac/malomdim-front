@@ -6,7 +6,8 @@ import "./SubTopicContainer.css";
 
 const SubTopicContainer: React.FC = () => {
   return (
-    <div>
+    <div className="SubTopicContainer">
+      <SubTopicBox />
       <SubTopicBox />
     </div>
   );

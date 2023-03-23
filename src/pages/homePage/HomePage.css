@@ -1,4 +1,4 @@
-.mainSub{
-    display: flex;
-    gap:20px
+.SubTopic {
+  display: flex;
+  gap: 20px;
 }
