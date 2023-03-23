@@ -8,7 +8,7 @@ import "./HomePage.css";
 const HomePage: React.FC = () => {
   return (
     <div>
-      <SubTopicContainer />
+      {/* <SubTopicContainer /> */}
       <Hero />
     </div>
   );
