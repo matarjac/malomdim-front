@@ -2,12 +2,16 @@ import styled from "styled-components";
 import React from "react";
 
 interface IProgressBar {
-  widthPer: number;
+    widthPer: number;
 }
 
 interface IGeneralSpan {
-  fontSize: number;
-  fontWeight: number;
+    fontSize: number;
+    fontWeight: number;
+}
+
+interface IbuttonSelected{
+    isSelected: boolean;
 }
 
 export const ProgressBarProgress = styled.div<IProgressBar>`
@@ -42,15 +46,11 @@ export const LibraryContainer = styled.div`
   position: relative;
   width: 851.86px;
   height: 645.46px;
-  /* position: absolute;
-  right: 100px;
-  top: 93px; */
   background-color: #2d2b52;
   border-radius: 21.3559px;
   box-shadow: 0px 4.74576px 30.8475px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  /* gap: 8px; */
 `;
 export const DateSpan = styled.span`
   color: white;
@@ -136,4 +136,51 @@ export const LibraryContentContainer = styled.div`
   width: 75%;
   height: 100%;
   border-bottom-right-radius: 18px;
+  padding: 14px 48px 18px;
 `;
+
+export const FiltersContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 4px 10px;
+`
+
+export const FiltersList = styled.ul`
+    all:unset;
+    display: flex;
+    /* width: 70%; */
+    flex-direction: row;
+    border-radius: 8.99192px;
+    background-color: #1A193A;
+    padding: 4px;
+`
+
+export const FilterButton = styled.button<IbuttonSelected>`
+    all: unset;
+    color: #8785A4;
+    padding: 7.19354px 7.19354px 7.19354px 10.7903px;
+    font-weight: 400;
+    font-size: 12px;
+    min-width: 65px;
+    text-align: center;
+    line-height: 10px;
+    color: white;
+    background-color: ${(props)=>props.isSelected ? '#8471DF':''};
+    border-radius: 7.19354px;
+`
+
+export const AddCodeSheetButton = styled.button`
+    all: unset;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 7px;
+    color: #8471DF;
+    border: 1px solid #8471DF;
+    border-radius: 6px;
+`
