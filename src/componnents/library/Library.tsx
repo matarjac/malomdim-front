@@ -8,6 +8,7 @@ import {
 import LibraryHeader from "./libraryHeader/LibraryHeader";
 import LibrarySideMenu from "./librarySideMenu/LibrarySideMenu";
 import LibraryContent from "./libraryContent/LibraryContent";
+import UserAddCode from "../codeBlock/userAddCode/UserAddCode";
 
 export const Library: React.FC = () => {
   return (
@@ -18,6 +19,9 @@ export const Library: React.FC = () => {
           <LibrarySideMenu />
           <LibraryContent />
         </div>
+        {/* <div>
+        <UserAddCode/>
+        </div> */}
       </LibraryContainer>
     </LibrarySection>
   );
