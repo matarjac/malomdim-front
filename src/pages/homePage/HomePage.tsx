@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
   return (
     <div>
       <Hero />
-      <SubTopicContainer />
+      {/* <SubTopicContainer /> */}
     </div>
   );
 };

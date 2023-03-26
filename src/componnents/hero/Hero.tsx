@@ -49,9 +49,6 @@ export const Hero: React.FC = () => {
         <>
             <div className={heroStyles.heroContainer}>
                 <div className={heroStyles.upperHero}>
-                    <SubjectTitleSpan>Node.js</SubjectTitleSpan>
-                    <span className={heroStyles.daysCountDown}>3 days to go</span>
-                    <SubjectTitleSpan>MySQL</SubjectTitleSpan>
                 </div>
                 <div className={heroStyles.progressBar}>
                     <ProgressBarProgress widthPer={progress} />
