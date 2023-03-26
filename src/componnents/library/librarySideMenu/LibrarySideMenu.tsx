@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GeneralSpan, LibrarySideMenuContainer, SubTopicButton, SubTopicsListContainer } from '../../../StyledComponents/StyledLibrary';
 
 export const LibrarySideMenu: React.FC = () => {
+
+    const [selectedSubTopic, setSelectedSubTopic] = useState('');
 
     return (
         <LibrarySideMenuContainer>
@@ -13,9 +15,9 @@ export const LibrarySideMenu: React.FC = () => {
             </div>
 
             <SubTopicsListContainer>
-                <li style={{ all: 'unset' }}><SubTopicButton>Hooks</SubTopicButton></li>
-                <li style={{ all: 'unset' }}><SubTopicButton>Styled Components</SubTopicButton></li>
-                <li style={{ all: 'unset' }}><SubTopicButton>General Components</SubTopicButton></li>
+                <li style={{ all: 'unset' }}><SubTopicButton onClick={() => { setSelectedSubTopic('hooks') }} isSelected={selectedSubTopic == 'hooks'}>Hooks</SubTopicButton></li>
+                <li style={{ all: 'unset' }}><SubTopicButton onClick={() => { setSelectedSubTopic('styled components') }} isSelected={selectedSubTopic == 'styled components'}>Styled Components</SubTopicButton></li>
+                <li style={{ all: 'unset' }}><SubTopicButton onClick={() => { setSelectedSubTopic('general components') }} isSelected={selectedSubTopic == 'general components'}>General Components</SubTopicButton></li>
             </SubTopicsListContainer>
         </LibrarySideMenuContainer >
     )

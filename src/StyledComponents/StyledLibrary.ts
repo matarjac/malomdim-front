@@ -111,7 +111,7 @@ export const SubTopicsListContainer = styled.ul`
   gap: 8px;
 `;
 
-export const SubTopicButton = styled.button`
+export const SubTopicButton = styled.button<IbuttonSelected>`
   all: unset;
   color: #fafafd;
   padding: 9.49153px 11.8644px 9.49153px 9.49153px;
@@ -121,14 +121,11 @@ export const SubTopicButton = styled.button`
   font-size: 16px;
   line-height: 26px;
   font-family: "Poppins";
-
-  :focus {
-    background-color: #8471df;
-  }
+  background-color: ${(props) => props.isSelected ? '#8471df' : ''};
 
   :hover {
     cursor: pointer;
-    background-color: #44426c;
+    background-color: ${(props) => props.isSelected ? '#8471df' : '#44426c'};
   }
 `;
 
