@@ -1,8 +1,8 @@
 .progressBar {
-  width: 80%;
-  height: 40px;
-  background-color: white;
-  border-radius: 4px;
+  width: 75%;
+  height: 15px;
+  background-color: #1b1a3a;
+  border-radius: 9px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   align-self: center;
 }
