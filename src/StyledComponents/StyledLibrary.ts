@@ -10,7 +10,7 @@ interface IGeneralSpan {
     fontWeight: number;
 }
 
-interface IbuttonSelected{
+interface IbuttonSelected {
     isSelected: boolean;
 }
 
@@ -166,7 +166,7 @@ export const FilterButton = styled.button<IbuttonSelected>`
     text-align: center;
     line-height: 10px;
     color: white;
-    background-color: ${(props)=>props.isSelected ? '#8471DF':''};
+    background-color: ${(props) => props.isSelected ? '#8471DF' : ''};
     border-radius: 7.19354px;
 `
 
@@ -183,4 +183,5 @@ export const AddCodeSheetButton = styled.button`
     color: #8471DF;
     border: 1px solid #8471DF;
     border-radius: 6px;
+    cursor: pointer;
 `
