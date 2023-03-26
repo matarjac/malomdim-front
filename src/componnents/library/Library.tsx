@@ -5,10 +5,9 @@ import {
   LibrarySection,
   LibrarySideMenuContainer,
 } from "../../StyledComponents/StyledLibrary";
+import LibraryContent from "./libraryContent/LibraryContent";
 import LibraryHeader from "./libraryHeader/LibraryHeader";
 import LibrarySideMenu from "./librarySideMenu/LibrarySideMenu";
-import LibraryContent from "./libraryContent/LibraryContent";
-
 export const Library: React.FC = () => {
   return (
     <LibrarySection>
