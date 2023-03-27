@@ -12,9 +12,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-height: 576px;
+  max-height: 630px;
 
   border-radius: 18px;
+}
+.code-sheets-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 .modal-overlay {
   background: rgba(19, 18, 52, 0.57);
@@ -29,7 +35,7 @@
   z-index: 1;
   position: absolute;
   width: 565px;
-  height: 635px;
+  height: 680px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -81,6 +87,11 @@
 }
 
 /* content-input */
+.content-input-box{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 .content-input-text {
   all: unset;
   background-color: transparent;
