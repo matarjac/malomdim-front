@@ -4,6 +4,7 @@ import javascript from "highlight.js/lib/languages/javascript";
 import python from "highlight.js/lib/languages/python";
 import typescript from "highlight.js/lib/languages/typescript";
 import css from "highlight.js/lib/languages/css";
+import json from "highlight.js/lib/languages/json";
 import "highlight.js/styles/vs2015.css";
 import "./CodeBlock.css";
 
@@ -11,6 +12,7 @@ hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("python", python);
 hljs.registerLanguage("typescript", typescript);
 hljs.registerLanguage("css", css);
+hljs.registerLanguage("json", json);
 
 interface CodeBlockProps {
   code: string;
@@ -93,7 +95,7 @@ function CodeBlock(props: CodeBlockProps) {
           <option value="python">Python</option>
           <option value="typescript">TypeScript</option>
           <option value="css">Css</option>
-          <option value="link">Link</option>
+          <option value="json">Json</option>
         </select>
         {props.link ? (
           <button onClick={handleLinkClick}>Open Link</button>
