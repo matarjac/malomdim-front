@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import React from "react";
 
 interface IProgressBar {
     widthPer: number;
