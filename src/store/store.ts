@@ -8,7 +8,6 @@ export interface RootState {
   subTopic: ISubTopicState;
   material: IMaterialState;
 }
-
 export default configureStore({
   reducer: {
     mainSub: mainSubReduce,
