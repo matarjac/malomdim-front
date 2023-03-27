@@ -28,8 +28,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
 
   return (
     <div className="modal-overlay">
-      {/* <div className="close-modal-box"> */}
-        <div className="add-code-sheets-form">
+      <div className="close-modal-box">
         <button
           className="close-modal"
           onClick={() => setShowCodeSheetModal(false)}
@@ -40,6 +39,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
             alt="close codal icon"
           />
         </button>
+        <div className="add-code-sheets-form">
           <div className="title-modal">Add Code Sheets.</div>
           <div className="nav-bar-modal">
             <FiltersList>
@@ -124,7 +124,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
             </button>
           </form>
         </div>
-      {/* </div> */}
+      </div>
     </div>
   );
 };
