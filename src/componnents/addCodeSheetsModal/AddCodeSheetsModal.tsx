@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import InputFiled from "../inputFiled/inputFiled";
 import "./AddCodeSheetsModal.css";
 import "../../../src/pages/SingInPage/SingInPage.css";
+import MaterialsFilter from "../library/libraryContent/materialsFilter/MaterialsFilter";
 
 interface IAddCodeSheetProps {
   setShowCodeSheetModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,14 +17,6 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   const [description, setDescription] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
-  // const handSaveSheet = async (e: any) => {
-  //   e.preventDefault();
-
-  //   const credentials: any = {
-  //     Titel: "",
-  //     Description: "",
-  //     Content: "",
-  //   };
   return (
     <div className="modal-overlay">
       <div className="close-modal-box">
@@ -37,9 +30,9 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
             alt="close codal icon"
           />
         </button>
-        {/* <form className="add-rest-form" onSubmit={handSaveSheet}> */}
-        <form className="add-rest-form">
-          <div className="title-modal">Add Code Sheets From</div>
+        <form className="add-code-sheets-form">
+          <div className="title-modal">Add Code Sheets.</div>
+
           <div className="inputField">
             <InputFiled
               label={"Title"}
@@ -50,38 +43,24 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
               onChange={(value: any) => setDescription(value)}
             />
             <div className="content-input-box">
-              {/* <InputFiled
-              label={"Content"}
-              onChange={(value: any) => setContent(value)}
-            /> */}
               <textarea
                 name="Content"
-                className="content-input-test"
+                className="content-input-text"
                 placeholder="Content"
                 onChange={(value: any) => setContent(value)}
               />
             </div>
           </div>
+          <button className="btu-save" type="submit">
+            Save
+          </button>
 
-          <div>
-            <div className="title-modal">Rating </div>
-            <input type="radio" id="star1" name="rating" value="1" />
-            <label htmlFor="star1"> 1 star </label>
-            <input type="radio" id="star2" name="rating" value="2" />
-            <label htmlFor="star2"> 2 stars </label>
-            <label htmlFor="star5"> 5 stars </label>
-          </div>
-          <div className="buttons-form">
-            <button
-              className="btu-singel"
-              onClick={() => setShowCodeSheetModal(false)}
-            >
-              Cancel
-            </button>
-            <button className="btu-singel" type="submit">
-              Save
-            </button>
-          </div>
+          <button
+            className="btu-cancel"
+            onClick={() => setShowCodeSheetModal(false)}
+          >
+            Cancel
+          </button>
         </form>
       </div>
     </div>
