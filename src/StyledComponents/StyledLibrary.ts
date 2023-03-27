@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 interface IProgressBar {
-    widthPer: number;
+  widthPer: number;
 }
 
 interface IGeneralSpan {
-    fontSize: number;
-    fontWeight: number;
+  fontSize: number;
+  fontWeight: number;
 }
 
 interface IbuttonSelected {
-    isSelected: boolean;
+  isSelected: boolean;
 }
 
 export const ProgressBarProgress = styled.div<IProgressBar>`
@@ -42,7 +42,7 @@ export const LibrarySection = styled.div`
 `;
 
 export const LibraryContainer = styled.div`
-  position: relative;
+  /* position: relative; */
   width: 851.86px;
   height: 645.46px;
   background-color: #2d2b52;

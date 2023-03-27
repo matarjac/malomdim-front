@@ -8,6 +8,7 @@ interface IModalContentSize {
 export const ModalOverLay = styled.div`
 position: absolute;
 top: 0px;
+left: 0px;
     width: 100vw;
     height: 100vh;
     background: rgba(19, 18, 52, 0.57);
