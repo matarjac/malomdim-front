@@ -145,7 +145,6 @@ export const FiltersContainer = styled.div`
 export const FiltersList = styled.ul`
     all:unset;
     display: flex;
-    /* width: 70%; */
     flex-direction: row;
     border-radius: 8.99192px;
     background-color: #1A193A;

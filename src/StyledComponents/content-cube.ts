@@ -29,7 +29,6 @@ export const CubeDescription = styled.div`
   width: 100%;
   background: #8471df;
   border-radius: 0px 0px 5.60244px 5.60244px;
-  //font
   font-family: "Poppins";
   font-style: normal;
   text-align: start;

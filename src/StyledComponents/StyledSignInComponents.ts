@@ -9,7 +9,6 @@ export const SignInWindow = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* gap: 30px; */
   box-sizing: border-box;
   padding: 80px 0px;
   position: absolute;
@@ -61,5 +60,4 @@ export const StyledSubmitInput = styled.input`
     border-radius: 10px; 
     text-align: center;
     cursor: pointer;   
-
 `
