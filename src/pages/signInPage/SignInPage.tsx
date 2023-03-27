@@ -7,6 +7,7 @@ const SignInPage: React.FC = () => {
   const navigate = useNavigate();
   const handleLogIn = (e: any) => {
     e.preventDefault();
+    sessionStorage.setItem('user', 'hello');
     navigate("/");
   }
   return (
