@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSubTopic } from "../../store/Slicers/subTopic";
+import { RootState } from "../../store/store";
 import {
   AddButton,
   AllLessonDiv,
@@ -12,11 +15,19 @@ import {
   UserNameTypeDiv,
   UserType,
 } from "../../StyledComponents/sideBarStyled";
+import { IMainSub } from "../../Types/interface/dataInterfaces";
 const SideBar: React.FC = () => {
-  const [selected, setSelected] = useState<string>("");
+  const dispatch = useDispatch();
+  const mainSubject: IMainSub[] = useSelector(
+    (state: RootState) => state.mainSub.mainSubList
+  );
+  const todayMainSubject = useSelector(
+    (state: RootState) => state.mainSub.currentMainSub
+  );
+  const [selected, setSelected] = useState<string>(todayMainSubject);
   useEffect(() => {
-    setSelected("HTML");
-  }, []);
+    dispatch(setSubTopic(selected));
+  }, [selected]);
   return (
     <StyledSideBar>
       <SideBarContainer>
@@ -39,34 +50,17 @@ const SideBar: React.FC = () => {
           {/* <img src="/icons/addButton.svg" alt="add" /> */}
           <AddButton onClick={() => console.log("add")} />
         </LessonsDivHeader>
-        <LessonsDivOption
-          isOn={selected === "HTML"}
-          onClick={(e) => setSelected("HTML")}
-        >
-          <UserName>HTML</UserName>
-          <img src="/icons/next.svg" alt="open" />
-        </LessonsDivOption>
-        <LessonsDivOption
-          isOn={selected === "CSS"}
-          onClick={(e) => setSelected("CSS")}
-        >
-          <UserName>CSS</UserName>
-          <img src="/icons/next.svg" alt="open" />
-        </LessonsDivOption>
-        <LessonsDivOption
-          isOn={selected === "REACT"}
-          onClick={(e) => setSelected("REACT")}
-        >
-          <UserName>REACT</UserName>
-          <img src="/icons/next.svg" alt="open" />
-        </LessonsDivOption>
-        <LessonsDivOption
-          isOn={selected === "JAVASCRIPT"}
-          onClick={(e) => setSelected("JAVASCRIPT")}
-        >
-          <UserName>JAVASCRIPT</UserName>
-          <img src="/icons/next.svg" alt="open" />
-        </LessonsDivOption>
+        {mainSubject &&
+          mainSubject.map((mainSub) => (
+            <LessonsDivOption
+              isOn={selected === mainSub._id}
+              onClick={(e) => setSelected(mainSub._id)}
+              key={mainSub._id}
+            >
+              <UserName>{mainSub.title}</UserName>
+              <img src="/icons/next.svg" alt="open" />
+            </LessonsDivOption>
+          ))}
       </SideBarContainer>
     </StyledSideBar>
   );

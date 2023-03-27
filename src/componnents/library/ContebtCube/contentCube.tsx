@@ -7,14 +7,14 @@ import {
 import { ContentTypes } from "../../../Types/enum/contentCube";
 interface IContentCube {
   link: string;
-  type: ContentTypes;
+  type: string;
   title: string;
 }
 export const ContentCube: React.FC<IContentCube> = (props) => {
   const [isCodeOpen, setIsCodeOpen] = useState<boolean>(false);
   const iconSrc: string =
     props.type === ContentTypes.Links
-      ? "/icons/contantTypes/Link.png"
+      ? "/icons/contantTypes/Link"
       : "/icons/contantTypes/" + props.type + ".svg";
 
   const handleClick = () => {

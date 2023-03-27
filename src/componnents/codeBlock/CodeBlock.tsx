@@ -17,7 +17,6 @@ interface CodeBlockProps {
   language?: string;
   link?: string;
 }
-
 function CodeBlock(props: CodeBlockProps) {
   const codeRef = useRef<HTMLElement>(null);
   const [selectedLanguage, setSelectedLanguage] = useState(
@@ -97,19 +96,13 @@ function CodeBlock(props: CodeBlockProps) {
           <option value="link">Link</option>
         </select>
         {props.link ? (
-          <button onClick={handleLinkClick}>
-            Open Link
-          </button>
+          <button onClick={handleLinkClick}>Open Link</button>
         ) : (
-          <button onClick={handleDownloadClick} >
-            Download Code
-          </button>
+          <button onClick={handleDownloadClick}>Download Code</button>
         )}
-        <button onClick={handleCopyClick}>
-          Copy Code
-        </button>
+        <button onClick={handleCopyClick}>Copy Code</button>
       </div>
-        <div className="code-block-box">{renderCodeBlock()}</div>
+      <div className="code-block-box">{renderCodeBlock()}</div>
     </div>
   );
 }
