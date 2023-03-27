@@ -5,7 +5,9 @@
   width: 359px;
   height: 52px;
   outline: none;
-  box-shadow: 5px 5px 10px #0000008c;
+  border:1px solid aliceblue ;
+  color: aliceblue;
+  border-radius: 10px;
 }
 
 .input-container:focus-within label {
@@ -32,14 +34,15 @@
 }
 
 .input-container input {
+  background: #2d2b52;
   height: 64px;
-  border-radius: 4px;
   border: none;
+  border-radius: 10px;
   padding: 24px 5px 4px 16px;
   font-size: 16px;
   line-height: 1;
   outline: none;
   letter-spacing: 1.97px;
-  box-shadow: none;
   transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  color: aliceblue;
 }

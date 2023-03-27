@@ -1,0 +1,117 @@
+.add-rest-form {
+  background: #2d2b52;
+  z-index: 2;
+  position: absolute;
+  width: 576px;
+  height: 1115px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 40px 0px 40px;
+  gap: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 576px;
+  overflow-y: auto;
+  border-radius:18px ;
+}
+.modal-overlay {
+  background: rgba(19, 18, 52, 0.57);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.close-modal-box {
+  z-index: 1;
+  position: absolute;
+  width: 576px;
+  height: 650px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.close-modal {
+  all: unset;
+}
+.close-modal-img {
+  background-color: rgba(19, 18, 52, 0.57);
+  cursor: pointer;
+}
+.buttons-form {
+  display: flex;
+  gap: 25px;
+}
+.btu-singel {
+  all: unset;
+  color: aliceblue;
+}
+.btu-singel:hover {
+  all: unset;
+  cursor: pointer;
+  font-weight: bold;
+  border-bottom: rgb(159, 30, 210) solid 1px;
+  color: aliceblue;
+}
+
+.add-rest-form .title-modal {
+  margin-top: 30px;
+}
+
+.add-rest-form .title-modal {
+  margin-top: 0px;
+}
+
+.add-rest-form::-webkit-scrollbar {
+  width: 15px;
+
+}
+
+.add-rest-form::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius:10px ;
+}
+
+.add-rest-form::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 8px;
+  width: 10px;
+}
+
+/* content-input */
+.content-input-test{
+  all: unset;
+  background-color: transparent;
+  color: aliceblue;
+  font-size: 16px;
+  line-height: 1;
+  border:1px solid aliceblue ;
+  border-radius:10px ;
+  padding: 24px 5px 4px 16px;
+  width: 338px;
+  height: 154px;
+  overflow-y: auto;
+  
+}
+.content-input-test::placeholder{
+  color: aliceblue;
+}
+
+.content-input-test::-webkit-scrollbar {
+  width: 15px;
+
+}
+
+.content-input-test::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius:10px ;
+}
+
+.content-input-test::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 8px;
+  width: 10px;
+}
