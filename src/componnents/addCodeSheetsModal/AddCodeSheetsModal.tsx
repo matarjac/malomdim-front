@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputFiled from "../inputFiled/inputFiled";
 import "./AddCodeSheetsModal.css";
-import "../../../src/pages/SingInPage/SingInPage.css";
+import "../../pages/signInPage/SignInPage.css";
 import {
   FilterButton,
   FiltersList,
