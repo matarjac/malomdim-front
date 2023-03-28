@@ -1,22 +1,51 @@
 .code-block-container {
+  background: #2d2b52;
+  z-index: 2;
+  position: absolute;
+  width: 550px;
+  height: 550px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
-  display: flex;
+  padding: 40px 0px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 15px;
+  border-radius: 18px;
 }
+
+.modal-overlay {
+  background: rgba(19, 18, 52, 0.57);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+.close-modal-box {
+  z-index: 2;
+  position: absolute;
+  width: 565px;
+  height: 615px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.close-modal-img-code-box {
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: -520px;
+}
+
 .code-block-header {
-  width: 490px;
+  width: 500px;
   display: flex;
   justify-content: space-around;
   background-color: gray;
-  height: 25px;
+  height: 30px;
   padding: 5px;
+  align-items: center;
 }
 .code-block {
   background-color: #f5f5f5;
@@ -26,10 +55,10 @@
   width: 500px;
   height: 500px;
   padding: 10px;
+  z-index: 1;
 }
 
 .code-block-box {
-  
   width: 480px;
   height: 500px;
   background-color: #1e1e1e;
@@ -41,6 +70,7 @@
 .code-block-header > button {
   all: unset;
   padding: 2px;
+  cursor: pointer;
 }
 
 .code-block-header > button:hover {
@@ -48,3 +78,22 @@
   color: aliceblue;
   border-radius: 5px;
 }
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+    width: 500px;
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+}
+
+code::-webkit-scrollbar {
+  display: none;
+}
+
+.code-block-titel{
+  font-size: larger;
+ font-weight: bold;
+}
+

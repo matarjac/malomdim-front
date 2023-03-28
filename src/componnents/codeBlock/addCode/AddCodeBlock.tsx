@@ -25,7 +25,7 @@ function AddCodeBlock(props: AddCodeBlockProps) {
       <button onClick={handleAddClick}>Add</button>
       {showCode && (
         <div>
-          <CodeBlock code={code} />
+          {/* <CodeBlock code={code} /> */}
         </div>
       )}
     </div>

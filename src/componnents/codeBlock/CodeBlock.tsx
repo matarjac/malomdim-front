@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
 import python from "highlight.js/lib/languages/python";
@@ -8,15 +8,21 @@ import json from "highlight.js/lib/languages/json";
 import "highlight.js/styles/vs2015.css";
 import "./CodeBlock.css";
 
+
+
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("python", python);
 hljs.registerLanguage("typescript", typescript);
 hljs.registerLanguage("css", css);
 hljs.registerLanguage("json", json);
 
+
 interface CodeBlockProps {
   code: string;
   codeType?: string;
+  description?: string;
+  isCodeOpen: boolean;
+  setIsCodeOpen: (isOpen: boolean) => void;
 }
 
 function CodeBlock(props: CodeBlockProps) {
@@ -43,17 +49,32 @@ function CodeBlock(props: CodeBlockProps) {
     a.click();
     URL.revokeObjectURL(url);
   };
+console.log(props.description);
 
   return (
-    <div className="code-block-container">
-      <div className="code-block-header">
-        <div>{props.codeType}</div>
-        <button onClick={handleDownloadClick}>Download Code</button>
-        <button onClick={handleCopyClick}>Copy Code</button>
+    <div className="modal-overlay">
+      <div className="close-modal-box">
+        <button className="close-modal" onClick={() => props.setIsCodeOpen(false)}>
+          <img
+            className="close-modal-img-code-box"
+            src="./icons/CloseModal.svg"
+            alt="close codal icon"
+          />
+        </button>
+        <div className="code-block-container">
+          <div>
+          {props.description}
+          </div>
+          <div className="code-block-header">
+            <div className="code-block-titel">{props.codeType}</div>
+            <button onClick={handleDownloadClick}>Download Code</button>
+            <button onClick={handleCopyClick}>Copy Code</button>
+          </div>
+          <code className={props.codeType} ref={codeRef}>
+            {props.code}
+          </code>
+        </div>
       </div>
-      <code className={props.codeType} ref={codeRef}>
-        {props.code}
-      </code>
     </div>
   );
 }

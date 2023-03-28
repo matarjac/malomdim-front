@@ -51,7 +51,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
       codeType,
     };
     console.log(formData);
-    console.log(formData.codeType);
+    console.log(formData.description);
     try {
       const AddUserMaterialToDataBase = await axios.post<IMaterials>(
         "http://localhost:8000/materials/",
@@ -173,3 +173,4 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
 };
 
 export default AddCodeSheetsModal;
+
