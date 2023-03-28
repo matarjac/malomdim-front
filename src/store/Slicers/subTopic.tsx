@@ -4,6 +4,7 @@ import { ISubTopics } from "../../Types/interface/dataInterfaces";
 import { serverAddress } from "../store";
 // const yearInMilliseconds = 31536000000;
 export interface ISubTopicState {
+  [x: string]: any;
   allSubTopics: ISubTopics[];
   value: ISubTopics[];
   currentSubTopic: string;
