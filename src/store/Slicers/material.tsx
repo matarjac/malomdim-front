@@ -18,10 +18,18 @@ export const MaterialSlice = createSlice({
   } as IMaterialState,
   reducers: {
     setMaterial: (state, action) => {
-      const subTopicId = action.payload;
-      state.value = state.allMaterial.filter(
-        (material) => material.idSubTopic === subTopicId
-      );
+      const subTopic = action.payload;
+      if (subTopic.materialType === "all") {
+        state.value = state.allMaterial.filter(
+          (material) => material.idSubTopic === subTopic.id
+        );
+      } else {
+        state.value = state.allMaterial.filter(
+          (material) =>
+            material.idSubTopic === subTopic.id &&
+            material.category === subTopic.materialType
+        );
+      }
     },
     updatedMaterial: (state, action) => {
       state.allMaterial = action.payload;
