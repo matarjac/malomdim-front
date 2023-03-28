@@ -153,6 +153,7 @@ export const FiltersList = styled.ul`
 
 export const FilterButton = styled.button<IbuttonSelected>`
     all: unset;
+    cursor: pointer;
     color: #8785A4;
     padding: 7.19354px 7.19354px 7.19354px 10.7903px;
     font-weight: 400;
