@@ -59,7 +59,8 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
 
     const handleAddSubTopic = (subTopicData: ISubTopicData) => {
         let isTitleFilled = false;
-        let isAllFilled = false;
+        let isInputEmpty = false;
+
         if (!subTopicData.title) {
             alert('Please type sub topic name.');
         } else {
@@ -67,18 +68,41 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
         }
 
         subTopicData.materials.forEach(material => {
-            if (!(material.link && material.title && material.type)) {
-                alert('All study materials fields are required.')
-            } else {
-                isAllFilled = true;
+            const values = Object.values(material);
+            if (values.some(val => val == '')) {
+                isInputEmpty = true;
             }
-        });
+        })
 
-        if (isAllFilled && isTitleFilled) {
-            console.log(subTopicData);
+        isInputEmpty && alert('please fill all input filleds.');
+
+        if (isTitleFilled && !isInputEmpty) {
+            handleData(subTopicData);
             handleClose();
         }
+
+
+        // for (let i=0;i<subTopicData.materials.length;i++){
+        //     if (!(material.link && material.title && material.type)) {
+        //         isInputEmpty = true;
+        // }
+
+        // subTopicData.materials.forEach(material => {
+        //     if (!(material.link && material.title && material.type)) {
+        //         isInputEmpty = true;
+        //     } else {
+        //         isAllFilled = true;
+        //     }
+        // });
+
+
     }
+
+    const handleData = (subTopicData: ISubTopicData) => {
+        console.log(subTopicData);
+        return subTopicData;
+    }
+
     const handleClose = () => {
         setStudyMaterialsState(
             [{ title: '', link: '', type: ContentTypes.Videos }]
