@@ -6,6 +6,12 @@ import { serverAddress } from "../store";
 export interface IMainSubState {
   mainSubList: IMainSub[];
   currentMainSub: string;
+  DateList: {
+    id: string;
+    title: string;
+    beginsDay: number;
+    endDate: number;
+  }[];
 }
 const getMainSubData = async () => {
   return await fetch("http://localhost:8000/mainSub")
@@ -27,24 +33,25 @@ const getTodaySub = async () => {
       console.error("Error getting today main sub id:", error);
     });
 };
-const mainSubList: IMainSub[] = await getMainSubData();
+const mainSubList = await getMainSubData();
 const todayMainId: string = await getTodaySub();
 export const MainSubSlice = createSlice({
   name: "MainSub",
   initialState: {
-    mainSubList: mainSubList,
+    mainSubList: mainSubList.mainSubs,
     currentMainSub: todayMainId,
+    DateList: mainSubList.DateList,
   } as IMainSubState,
   reducers: {
     updatedMainSub: (state, action) => {
       state.mainSubList = action.payload.mainSubList;
     },
-    // updatedCurrentMainSub: (state, action) => {
-    //   state.currentMainSub = action.payload;
-    // },
+    updatedCurrentMainSub: (state, action) => {
+      state.currentMainSub = action.payload;
+    },
   },
 });
 
-export const { updatedMainSub } = MainSubSlice.actions;
+export const { updatedMainSub, updatedCurrentMainSub } = MainSubSlice.actions;
 
 export default MainSubSlice.reducer;

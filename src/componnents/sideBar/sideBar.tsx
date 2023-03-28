@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { updatedCurrentMainSub } from "../../store/Slicers/mainSub";
 import { setSubTopic } from "../../store/Slicers/subTopic";
 import { RootState } from "../../store/store";
 import {
@@ -27,6 +28,7 @@ const SideBar: React.FC = () => {
   const [selected, setSelected] = useState<string>(todayMainSubject);
   useEffect(() => {
     dispatch(setSubTopic(selected));
+    dispatch(updatedCurrentMainSub(selected));
   }, [selected]);
   return (
     <StyledSideBar>
