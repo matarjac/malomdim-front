@@ -7,6 +7,10 @@ import {
   FilterButton,
   FiltersList,
 } from "../../StyledComponents/StyledLibrary";
+import { updatedMaterial } from "../../store/Slicers/material";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { ISubTopics } from "../../Types/interface/dataInterfaces";
 
 interface IAddCodeSheetProps {
   setShowCodeSheetModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,6 +19,7 @@ interface IAddCodeSheetProps {
 const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   setShowCodeSheetModal,
 }) => {
+  const dispatch = useDispatch;
   const navigation: any = useNavigate();
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -24,6 +29,40 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   const handleMaterialTypeChange = (newMaterialType: string) => {
     setMaterialType(newMaterialType);
     setContent("");
+  };
+
+  // const subTopics: ISubTopics[] = useSelector(
+  //   (state: RootState) => state.subTopic.corent
+  // );
+
+  // console.log(subTopics);
+  
+  
+  const AddUserMaterialToDataBase = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    const formData = {
+      title,
+      description,
+      content,
+      materialType,
+    };
+    console.log(formData);
+  //   try {
+  //     const updatedRestaurantsList = await axios.post(
+  //       "https://server-epicure.onrender.com/restaurants/add",
+  //       {
+  //         data: formData,
+  //       }
+  //     );
+  //     dispatch(updatedMaterial(data));
+  //     props.onSubmit();
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     alert(error.response.data.message);
+  //     return [];
+  //   }
   };
 
   return (
@@ -66,7 +105,10 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
               </FilterButton>
             </FiltersList>
           </div>
-          <form className="code-sheets-form">
+          <form
+            className="code-sheets-form"
+            onSubmit={AddUserMaterialToDataBase}
+          >
             <div className="inputField">
               <InputFiled
                 label={"Title"}
