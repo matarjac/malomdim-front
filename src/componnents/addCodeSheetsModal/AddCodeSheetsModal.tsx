@@ -40,7 +40,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
           />
         </button>
         <div className="add-code-sheets-form">
-        <div className="title-modal">Add Code Sheets.</div>
+          <div className="title-modal">Add Code Sheets.</div>
           <div className="nav-bar-modal">
             <FiltersList>
               <FilterButton
@@ -86,13 +86,24 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
                 />
               )}
               {materialType === "code" && (
-                <textarea
-                  name="Content"
-                  className="content-input-text"
-                  placeholder="Code"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                />
+                <div className="code-content-container">
+                  <div className="title-modal">Select Language.</div>
+                  <select className="language-select">
+                    <option value="">Select Language</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="python">Python</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="css">Css</option>
+                    <option value="json">Json</option>
+                  </select>
+                  <textarea
+                    name="Content"
+                    className="content-input-text"
+                    placeholder="Code"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                  />
+                </div>
               )}
               {materialType === "link" && (
                 <InputFiled

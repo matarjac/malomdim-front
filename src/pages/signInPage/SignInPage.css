@@ -21,6 +21,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 }
 .info > span {
   letter-spacing: 2.67px;
