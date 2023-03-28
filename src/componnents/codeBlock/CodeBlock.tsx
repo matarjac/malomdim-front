@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
 import python from "highlight.js/lib/languages/python";
@@ -16,20 +16,17 @@ hljs.registerLanguage("json", json);
 
 interface CodeBlockProps {
   code: string;
-  language?: string;
+  codeType?: string;
 }
 
 function CodeBlock(props: CodeBlockProps) {
   const codeRef = useRef<HTMLElement>(null);
-  const [selectedLanguage, setSelectedLanguage] = useState(
-    props.language || ""
-  );
 
   useEffect(() => {
-    if (codeRef.current && selectedLanguage) {
+    if (codeRef.current && props.codeType) {
       hljs.highlightBlock(codeRef.current);
     }
-  }, [selectedLanguage]);
+  }, [props.codeType]);
 
   const handleCopyClick = () => {
     if (codeRef.current) {
@@ -47,39 +44,16 @@ function CodeBlock(props: CodeBlockProps) {
     URL.revokeObjectURL(url);
   };
 
-
-  const handleLanguageSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = event.target;
-    setSelectedLanguage(value);
-  };
-
-  const renderCodeBlock = () => {
-    return (
-      <code className={selectedLanguage} ref={codeRef}>
-        {props.code}
-      </code>
-    );
-  };
-
   return (
     <div className="code-block-container">
       <div className="code-block-header">
-        <select
-          value={selectedLanguage}
-          onChange={handleLanguageSelect}
-          className="language-select"
-        >
-          <option value="">Select Language</option>
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="typescript">TypeScript</option>
-          <option value="css">Css</option>
-          <option value="json">Json</option>
-        </select>
-          <button onClick={handleDownloadClick}>Download Code</button>
+        <div>{props.codeType}</div>
+        <button onClick={handleDownloadClick}>Download Code</button>
         <button onClick={handleCopyClick}>Copy Code</button>
       </div>
-      <div className="code-block-box">{renderCodeBlock()}</div>
+      <code className={props.codeType} ref={codeRef}>
+        {props.code}
+      </code>
     </div>
   );
 }

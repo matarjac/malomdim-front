@@ -43,9 +43,10 @@ export const LibraryContent: React.FC = () => {
           materials.map((material) => (
             <ContentCube
               key={material._id}
-              link={material.body}
+              body={material.body}
               type={material.category}
               title={material.title}
+              codeType={material.codeType}
             />
           ))}
       </div>
