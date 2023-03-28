@@ -9,7 +9,10 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { cleanMaterial, setMaterial } from "../../../store/Slicers/material";
-import { setSubTopic } from "../../../store/Slicers/subTopic";
+import {
+  setSubTopic,
+  updatedCurrentSubTopic,
+} from "../../../store/Slicers/subTopic";
 import { RootState } from "../../../store/store";
 import { ISubTopics } from "../../../Types/interface/dataInterfaces";
 export const LibrarySideMenu: React.FC = () => {
@@ -19,6 +22,7 @@ export const LibrarySideMenu: React.FC = () => {
     (state: RootState) => state.subTopic.value
   );
   dispatch(setMaterial(selectedSubTopic));
+  dispatch(updatedCurrentSubTopic(selectedSubTopic));
   useEffect(() => {
     if (subTopics.length > 0) {
       setSelectedSubTopic(subTopics[0]._id);

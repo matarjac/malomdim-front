@@ -9,13 +9,12 @@ interface IContentCube {
   link: string;
   type: string;
   title: string;
+  description?: string;
+  codeLanType?: string;
 }
 export const ContentCube: React.FC<IContentCube> = (props) => {
   const [isCodeOpen, setIsCodeOpen] = useState<boolean>(false);
-  const iconSrc: string =
-    props.type === ContentTypes.Links
-      ? "/icons/contantTypes/Link"
-      : "/icons/contantTypes/" + props.type + ".svg";
+  const iconSrc: string = "/icons/contantTypes/" + props.type + ".svg";
 
   const handleClick = () => {
     if (props.type === ContentTypes.CodeSheets) {
