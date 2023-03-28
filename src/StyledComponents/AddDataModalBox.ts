@@ -66,4 +66,5 @@ export const StyledAddButton = styled.button`
     padding: 7px;
     font-size: 13px;
     font-weight: 400;
+    
 `
