@@ -6,6 +6,7 @@ import { serverAddress } from "../store";
 export interface ISubTopicState {
   allSubTopics: ISubTopics[];
   value: ISubTopics[];
+  currentSubTopic: string;
 }
 const getSubSubData = async () => {
   return await fetch("http://localhost:8000/subTopics")
@@ -25,6 +26,7 @@ export const SubTopicSlice = createSlice({
   initialState: {
     allSubTopics: subTopics,
     value: subTopics,
+    currentSubTopic: "",
   } as ISubTopicState,
   reducers: {
     setSubTopic: (state, action) => {
@@ -37,9 +39,13 @@ export const SubTopicSlice = createSlice({
       state.allSubTopics = action.payload;
       state.allSubTopics = action.payload;
     },
+    updatedCurrentSubTopic: (state, action) => {
+      state.currentSubTopic = action.payload;
+    },
   },
 });
 
-export const { setSubTopic, updatedSubTopic } = SubTopicSlice.actions;
+export const { setSubTopic, updatedSubTopic, updatedCurrentSubTopic } =
+  SubTopicSlice.actions;
 
 export default SubTopicSlice.reducer;
