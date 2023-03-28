@@ -6,6 +6,7 @@ import {
   MainCubePart,
 } from "../../../StyledComponents/content-cube";
 import {
+  CardGrid,
   GeneralSpan,
   LibraryContentContainer,
 } from "../../../StyledComponents/StyledLibrary";
@@ -28,17 +29,7 @@ export const LibraryContent: React.FC = () => {
   return (
     <LibraryContentContainer>
       <MaterialsFilter />
-      <div
-        style={{
-          width: "100%",
-          padding: "10px",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
-          gridTemplateRows: "1fr 1fr",
-          textAlign: "center",
-          gridGap: "18px",
-        }}
-      >
+      <CardGrid>
         {materials &&
           materials.map((material) => (
             <ContentCube
@@ -49,7 +40,7 @@ export const LibraryContent: React.FC = () => {
               codeType={material.codeType}
             />
           ))}
-      </div>
+      </CardGrid>
     </LibraryContentContainer>
   );
 };

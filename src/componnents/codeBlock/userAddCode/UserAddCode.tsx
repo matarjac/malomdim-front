@@ -9,7 +9,7 @@ const UserAddCode = () => {
   const handleAddCode = (code: string) => {
     setCodeBlocks([...codeBlocks, code]);
   };
-  console.log(codeBlocks);
+  codeBlocks;
 
   return (
     <div>

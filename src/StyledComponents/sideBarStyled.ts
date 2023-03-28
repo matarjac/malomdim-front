@@ -80,7 +80,6 @@ export const AllLessonDiv = styled.div`
   align-items: center;
   gap: 10px;
 `;
-
 export const AddButton = styled.div`
   background-image: url("/icons/addButton.svg");
   background-size: cover;
@@ -92,5 +91,18 @@ export const AddButton = styled.div`
   transition: 0.1s;
   &:hover {
     scale: 1.02;
+  }
+`;
+export const MainSubList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: start;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  gap: 10px;
+  ::-webkit-scrollbar {
+    display: none;
   }
 `;

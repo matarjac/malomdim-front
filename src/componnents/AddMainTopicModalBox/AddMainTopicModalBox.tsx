@@ -1,16 +1,20 @@
 import axios from "axios";
 import React, { ChangeEvent, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { text } from "stream/consumers";
-import { serverAddress } from "../../store/store";
+import { updatedMainSub } from "../../store/Slicers/mainSub";
+import { RootState, serverAddress } from "../../store/store";
 import {
   ModalBoxContent,
   ModalOverLay,
   StyledDurationButtons,
   StyledAddButton,
 } from "../../StyledComponents/AddDataModalBox";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { GeneralSpan } from "../../StyledComponents/StyledLibrary";
 import { StyledInput } from "../../StyledComponents/StyledSignInComponents";
+import { IMainSub } from "../../Types/interface/dataInterfaces";
 
 interface IModalBox {
   isShown: boolean;
@@ -24,24 +28,28 @@ interface IMainTopicData {
 
 const AddMainTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
   const dispatch = useDispatch();
+  const isFirstSub: boolean = true;
+  const [date, setDate] = useState(new Date());
   const [durationCount, setDurationCount] = useState<number>(1);
   const [newTopicTitle, setNewTopicTitle] = useState<string>("");
-  const increaseDay = () => {
-    setDurationCount(durationCount + 1);
-  };
+  const increaseDay = () => setDurationCount(durationCount + 1);
   const decreaseDay = () => {
-    if (durationCount != 1) {
+    if (durationCount !== 1) {
       setDurationCount(durationCount - 1);
     }
   };
-  const inputTextChanged = (e: ChangeEvent<HTMLInputElement>) => {
+  const inputTextChanged = (e: ChangeEvent<HTMLInputElement>) =>
     setNewTopicTitle(e.target.value);
+  const handleClose = () => {
+    setDurationCount(1);
+    props.onClose();
   };
+
   const handleAddTopic = (newMainTopic: IMainTopicData) => {
     if (!newTopicTitle) {
       alert("Please type main topic title.");
     } else {
-      console.log(newMainTopic);
+      addingMainSub();
       setNewTopicTitle("");
       setDurationCount(1);
       handleClose();
@@ -50,17 +58,17 @@ const AddMainTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
   const addingMainSub = async () => {
     try {
       const updatedMainSubList = await axios.post(serverAddress + "/mainSub", {
-        data: {},
+        title: newTopicTitle,
+        numOfDays: durationCount,
+        startDate: date.getTime(),
       });
+      console.log("updated:", updatedMainSubList.data.data);
+      dispatch(updatedMainSub(updatedMainSubList.data.data));
     } catch (error: any) {
       console.log(error);
       alert(error.response.data.message);
       return [];
     }
-  };
-  const handleClose = () => {
-    setDurationCount(1);
-    props.onClose();
   };
 
   return (
@@ -80,6 +88,20 @@ const AddMainTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
               placeholder={"Topic title"}
               onChange={(e) => inputTextChanged(e)}
             />
+            {isFirstSub && (
+              <>
+                <GeneralSpan fontSize={18} fontWeight={600}>
+                  Start Date
+                </GeneralSpan>
+                <DatePicker
+                  selected={date}
+                  className="datePicker"
+                  onChange={(date) => {
+                    date && setDate(date);
+                  }}
+                />
+              </>
+            )}
             <div
               style={{
                 display: "flex",

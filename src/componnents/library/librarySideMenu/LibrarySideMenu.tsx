@@ -27,9 +27,8 @@ export const LibrarySideMenu: React.FC = () => {
 
   const onClose = () => {
     setAddSubTopicModal(false);
-  }
-  
-  dispatch(setMaterial(selectedSubTopic));
+  };
+
   dispatch(updatedCurrentSubTopic(selectedSubTopic));
   useEffect(() => {
     if (subTopics.length > 0) {

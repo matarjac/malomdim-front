@@ -3,6 +3,7 @@ export interface IMainSub {
   title: string;
   description?: string;
   startDate: number;
+  endDate: number;
   numOfDays: number;
   nextMainSub: String | null;
   head?: boolean;
