@@ -14,6 +14,7 @@ export interface IMaterials {
   description: string;
   body: string;
   category: string;
+  codeType: string;
 }
 export interface ISubTopics {
   _id: string;

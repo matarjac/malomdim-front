@@ -17,8 +17,8 @@ hljs.registerLanguage("json", json);
 interface CodeBlockProps {
   code: string;
   language?: string;
-  link?: string;
 }
+
 function CodeBlock(props: CodeBlockProps) {
   const codeRef = useRef<HTMLElement>(null);
   const [selectedLanguage, setSelectedLanguage] = useState(
@@ -47,39 +47,18 @@ function CodeBlock(props: CodeBlockProps) {
     URL.revokeObjectURL(url);
   };
 
-  const handleLinkClick = () => {
-    if (props.link) {
-      window.open(props.link);
-    }
-  };
 
-  const handleLanguageSelect = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleLanguageSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
-    if (value === "link") {
-      window.open(props.code, "_blank");
-    } else {
-      setSelectedLanguage(value);
-    }
+    setSelectedLanguage(value);
   };
 
   const renderCodeBlock = () => {
-    if (props.link) {
-      return (
-        <a onClick={handleLinkClick}>
-          <code className={selectedLanguage} ref={codeRef}>
-            {props.code}
-          </code>
-        </a>
-      );
-    } else {
-      return (
-        <code className={selectedLanguage} ref={codeRef}>
-          {props.code}
-        </code>
-      );
-    }
+    return (
+      <code className={selectedLanguage} ref={codeRef}>
+        {props.code}
+      </code>
+    );
   };
 
   return (
@@ -97,11 +76,7 @@ function CodeBlock(props: CodeBlockProps) {
           <option value="css">Css</option>
           <option value="json">Json</option>
         </select>
-        {props.link ? (
-          <button onClick={handleLinkClick}>Open Link</button>
-        ) : (
           <button onClick={handleDownloadClick}>Download Code</button>
-        )}
         <button onClick={handleCopyClick}>Copy Code</button>
       </div>
       <div className="code-block-box">{renderCodeBlock()}</div>
