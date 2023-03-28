@@ -8,6 +8,7 @@ import {
   AllLessonDiv,
   LessonsDivHeader,
   LessonsDivOption,
+  MainSubList,
   SideBarContainer,
   StyledAvatar,
   StyledSideBar,
@@ -30,11 +31,11 @@ const SideBar: React.FC = () => {
   const [addLessonModal, setAddLessonModal] = useState<boolean>(false);
   const onClose = () => {
     setAddLessonModal(false);
-  }
+  };
   useEffect(() => {
     dispatch(setSubTopic(selected));
     dispatch(updatedCurrentMainSub(selected));
-  }, [selected]);
+  }, [selected, mainSubject]);
   return (
     <>
       <StyledSideBar>
@@ -49,15 +50,15 @@ const SideBar: React.FC = () => {
             </UserNameTypeDiv>
           </StyleUser>
         </SideBarContainer>
-        <SideBarContainer>
-          <LessonsDivHeader>
-            <AllLessonDiv>
-              <img src="/icons/file.svg" alt="file" />
-              <UserName>All Lessons</UserName>
-            </AllLessonDiv>
-            {/* <img src="/icons/addButton.svg" alt="add" /> */}
-            <AddButton onClick={() => setAddLessonModal(true)} />
-          </LessonsDivHeader>
+        <LessonsDivHeader>
+          <AllLessonDiv>
+            <img src="/icons/file.svg" alt="file" />
+            <UserName>All Lessons</UserName>
+          </AllLessonDiv>
+          {/* <img src="/icons/addButton.svg" alt="add" /> */}
+          <AddButton onClick={() => setAddLessonModal(true)} />
+        </LessonsDivHeader>
+        <MainSubList>
           {mainSubject &&
             mainSubject.map((mainSub) => (
               <LessonsDivOption
@@ -69,7 +70,7 @@ const SideBar: React.FC = () => {
                 <img src="/icons/next.svg" alt="open" />
               </LessonsDivOption>
             ))}
-        </SideBarContainer>
+        </MainSubList>
       </StyledSideBar>
       <AddMainTopicModalBox isShown={addLessonModal} onClose={onClose} />
     </>

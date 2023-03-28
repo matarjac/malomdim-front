@@ -26,7 +26,6 @@ export const ProgressBarProgress = styled.div<IProgressBar>`
     }
   }
 `;
-
 export const SubjectTitleSpan = styled.span`
   color: white;
   font-size: 3vw;
@@ -120,11 +119,11 @@ export const SubTopicButton = styled.button<IbuttonSelected>`
   font-size: 16px;
   line-height: 26px;
   font-family: "Poppins";
-  background-color: ${(props) => props.isSelected ? '#8471df' : ''};
+  background-color: ${(props) => (props.isSelected ? "#8471df" : "")};
 
   :hover {
     cursor: pointer;
-    background-color: ${(props) => props.isSelected ? '#8471df' : '#44426c'};
+    background-color: ${(props) => (props.isSelected ? "#8471df" : "#44426c")};
   }
 `;
 
@@ -136,48 +135,61 @@ export const LibraryContentContainer = styled.div`
 `;
 
 export const FiltersContainer = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    padding: 4px 10px;
-`
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 4px 10px;
+`;
 
 export const FiltersList = styled.ul`
-    all:unset;
-    display: flex;
-    flex-direction: row;
-    border-radius: 8.99192px;
-    background-color: #1A193A;
-    padding: 4px;
-`
+  all: unset;
+  display: flex;
+  flex-direction: row;
+  border-radius: 8.99192px;
+  background-color: #1a193a;
+  padding: 4px;
+`;
 
 export const FilterButton = styled.button<IbuttonSelected>`
-    all: unset;
-    cursor: pointer;
-    color: #8785A4;
-    padding: 7.19354px 7.19354px 7.19354px 10.7903px;
-    font-weight: 400;
-    font-size: 12px;
-    min-width: 65px;
-    text-align: center;
-    line-height: 10px;
-    color: white;
-    background-color: ${(props) => props.isSelected ? '#8471DF' : ''};
-    border-radius: 7.19354px;
-`
+  all: unset;
+  cursor: pointer;
+  color: #8785a4;
+  padding: 7.19354px 7.19354px 7.19354px 10.7903px;
+  font-weight: 400;
+  font-size: 12px;
+  min-width: 65px;
+  text-align: center;
+  line-height: 10px;
+  color: white;
+  background-color: ${(props) => (props.isSelected ? "#8471DF" : "")};
+  border-radius: 7.19354px;
+`;
 
 export const AddCodeSheetButton = styled.button`
-    all: unset;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 13px;
-    text-align: center;
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    padding: 7px;
-    color: #8471DF;
-    border: 1px solid #8471DF;
-    border-radius: 6px;
-    cursor: pointer;
-`
+  all: unset;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 13px;
+  text-align: center;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 7px;
+  color: #8471df;
+  border: 1px solid #8471df;
+  border-radius: 6px;
+  cursor: pointer;
+`;
+export const CardGrid = styled.div`
+  display: grid;
+  width: 100%;
+  height: 90%;
+  padding: 10px;
+  grid-template-columns: repeat(5, 1fr);
+  text-align: center;
+  grid-gap: 18px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;

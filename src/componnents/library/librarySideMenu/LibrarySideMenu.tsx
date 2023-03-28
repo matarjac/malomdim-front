@@ -50,10 +50,7 @@ export const LibrarySideMenu: React.FC = () => {
         <GeneralSpan fontSize={18} fontWeight={500}>
           Sub Topics
         </GeneralSpan>
-        <AddButton
-          style={{ alignSelf: "flex-end" }}
-          onClick={() => console.log("add")}
-        />
+        <AddButton style={{ alignSelf: "flex-end" }} onClick={() => "add"} />
       </div>
       <SubTopicsListContainer>
         {subTopics.map((topic) => (
