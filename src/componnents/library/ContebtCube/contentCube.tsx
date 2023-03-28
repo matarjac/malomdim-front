@@ -1,38 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Cube,
   CubeDescription,
   MainCubePart,
 } from "../../../StyledComponents/content-cube";
 import { ContentTypes } from "../../../Types/enum/contentCube";
+import CodeBlock from "../../codeBlock/CodeBlock";
+
 interface IContentCube {
-  link: string;
+  body: string;
   type: string;
   title: string;
   description?: string;
-  codeLanType?: string;
+  codeType?: string;
 }
+
 export const ContentCube: React.FC<IContentCube> = (props) => {
   const [isCodeOpen, setIsCodeOpen] = useState<boolean>(false);
   const iconSrc: string = "/icons/contantTypes/" + props.type + ".svg";
 
-  const handleClick = () => {
+  const handleClick = (e: any) => {
     if (props.type === ContentTypes.CodeSheets) {
       setIsCodeOpen(true);
-    } else if (props.link) {
-      window.open(props.link, "_blank");
+    } else if (props.body) {
+      window.open(props.body, "_blank");
     }
   };
-
   return (
-    <Cube onClick={handleClick}>
+    <Cube onClick={(e: any) => handleClick(e)}>
       <MainCubePart>
         <img src={iconSrc} alt={props.type} />
       </MainCubePart>
       <CubeDescription>{props.title}</CubeDescription>
-      {isCodeOpen && <span>yes</span>}
+      {isCodeOpen && <CodeBlock code={props.body} codeType={props.codeType} />}
     </Cube>
   );
 };
 
 export default ContentCube;
+

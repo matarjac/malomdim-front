@@ -51,14 +51,13 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
       codeType,
     };
     console.log(formData);
-
+    console.log(formData.codeType);
     try {
       const AddUserMaterialToDataBase = await axios.post<IMaterials>(
         "http://localhost:8000/materials/",
         formData
       );
       dispatch(updatedMaterial(AddUserMaterialToDataBase.data));
-      // dispatch(setMaterial(subTopics));
       console.log(AddUserMaterialToDataBase.data);
       setShowCodeSheetModal(false);
     } catch (error: any) {
