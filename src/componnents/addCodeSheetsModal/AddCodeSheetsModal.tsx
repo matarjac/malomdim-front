@@ -7,10 +7,12 @@ import {
   FilterButton,
   FiltersList,
 } from "../../StyledComponents/StyledLibrary";
-import { updatedMaterial } from "../../store/Slicers/material";
+
+import { setMaterial, updatedMaterial } from "../../store/Slicers/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { ISubTopics } from "../../Types/interface/dataInterfaces";
+import { IMaterials, ISubTopics } from "../../Types/interface/dataInterfaces";
+import axios from "axios";
 
 interface IAddCodeSheetProps {
   setShowCodeSheetModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,52 +21,52 @@ interface IAddCodeSheetProps {
 const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   setShowCodeSheetModal,
 }) => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const navigation: any = useNavigate();
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [content, setContent] = useState<string>("");
-  const [materialType, setMaterialType] = useState("text");
+  const [body, setBody] = useState<string>("");
+  const [category, setCategory] = useState("text");
+  const [codeType, setCodeType] = useState("");
 
-  const handleMaterialTypeChange = (newMaterialType: string) => {
-    setMaterialType(newMaterialType);
-    setContent("");
+  const handleCategoryType = (newCategoryType: string) => {
+    setCategory(newCategoryType);
+    setBody("");
   };
 
-  // const subTopics: ISubTopics[] = useSelector(
-  //   (state: RootState) => state.subTopic.corent
-  // );
+  const subTopics: string = useSelector(
+    (state: RootState) => state.subTopic.currentSubTopic
+  );
 
-  // console.log(subTopics);
-  
-  
-  const AddUserMaterialToDataBase = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  console.log(subTopics);
+
+  const getUserMaterialData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = {
+      idSubTopic: subTopics,
       title,
       description,
-      content,
-      materialType,
+      body,
+      category,
+      codeType,
     };
     console.log(formData);
-  //   try {
-  //     const updatedRestaurantsList = await axios.post(
-  //       "https://server-epicure.onrender.com/restaurants/add",
-  //       {
-  //         data: formData,
-  //       }
-  //     );
-  //     dispatch(updatedMaterial(data));
-  //     props.onSubmit();
-  //   } catch (error: any) {
-  //     console.log(error);
-  //     alert(error.response.data.message);
-  //     return [];
-  //   }
-  };
 
+    try {
+      const AddUserMaterialToDataBase = await axios.post<IMaterials>(
+        "http://localhost:8000/materials/",
+        formData
+      );
+      dispatch(updatedMaterial(AddUserMaterialToDataBase.data));
+      // dispatch(setMaterial(subTopics));
+      console.log(AddUserMaterialToDataBase.data);
+      setShowCodeSheetModal(false);
+    } catch (error: any) {
+      console.log(error);
+      alert(error.response.data.message);
+      return [];
+    }
+  };
   return (
     <div className="modal-overlay">
       <div className="close-modal-box">
@@ -83,32 +85,29 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
           <div className="nav-bar-modal">
             <FiltersList>
               <FilterButton
-                isSelected={materialType === "text"}
-                onClick={() => handleMaterialTypeChange("text")}
+                isSelected={category === "text"}
+                onClick={() => handleCategoryType("text")}
                 style={{ width: "100px" }}
               >
                 Text
               </FilterButton>
               <FilterButton
-                isSelected={materialType === "link"}
-                onClick={() => handleMaterialTypeChange("link")}
+                isSelected={category === "Link"}
+                onClick={() => handleCategoryType("Link")}
                 style={{ width: "100px" }}
               >
                 Link
               </FilterButton>
               <FilterButton
-                isSelected={materialType === "code"}
-                onClick={() => handleMaterialTypeChange("code")}
+                isSelected={category === "Code"}
+                onClick={() => handleCategoryType("Code")}
                 style={{ width: "100px" }}
               >
                 Code
               </FilterButton>
             </FiltersList>
           </div>
-          <form
-            className="code-sheets-form"
-            onSubmit={AddUserMaterialToDataBase}
-          >
+          <form className="code-sheets-form" onSubmit={getUserMaterialData}>
             <div className="inputField">
               <InputFiled
                 label={"Title"}
@@ -118,19 +117,22 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
                 label={"Description"}
                 onChange={(value: any) => setDescription(value)}
               />
-              {materialType === "text" && (
+              {category === "text" && (
                 <textarea
                   name="Content"
                   className="content-input-text"
                   placeholder="Text"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
+                  value={body}
+                  onChange={(e) => setBody(e.target.value)}
                 />
               )}
-              {materialType === "code" && (
+              {category === "Code" && (
                 <div className="code-content-container">
                   <div className="title-modal">Select Language.</div>
-                  <select className="language-select">
+                  <select
+                    className="language-select"
+                    onChange={(e) => setCodeType(e.target.value)}
+                  >
                     <option value="">Select Language</option>
                     <option value="javascript">JavaScript</option>
                     <option value="python">Python</option>
@@ -142,19 +144,19 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
                     name="Content"
                     className="content-input-text"
                     placeholder="Code"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    value={body}
+                    onChange={(e) => setBody(e.target.value)}
                   />
                 </div>
               )}
-              {materialType === "link" && (
+              {category === "Link" && (
                 <InputFiled
                   label={"Link"}
-                  onChange={(value: any) => setDescription(value)}
+                  onChange={(value: any) => setBody(value)}
                 />
               )}
             </div>
-            <button className="btu-save" type="submit">
+            <button className="btu-save" type="submit"  >
               Save
             </button>
 

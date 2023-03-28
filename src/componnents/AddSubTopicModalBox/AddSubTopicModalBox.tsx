@@ -28,6 +28,7 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
     // useEffect(() => {
     //     setStudyMaterialsState(studyMaterials);
     // }, [studyMaterials])
+
     const handleAddTopic = (newSubTopic: ISubTopicData) => {
         if (!newSubTopic) {
             alert("Please type main topic title.")

@@ -25,7 +25,6 @@ export const MaterialSlice = createSlice({
     },
     updatedMaterial: (state, action) => {
       state.allMaterial = action.payload;
-      state.allMaterial = action.payload;
     },
     cleanMaterial: (state) => {
       state.value = [];

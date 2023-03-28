@@ -31,7 +31,7 @@ export const LibraryHeader: React.FC = () => {
   const MainSubjectListDate = useSelector(
     (state: RootState) => state.mainSub.DateList
   );
-  console.log(MainSubjectListDate);
+  // console.log(MainSubjectListDate);
 
   const CurrentSub = MainSubjectListDate.find(
     (sub) => sub.id === todayMainSubject
@@ -54,7 +54,7 @@ export const LibraryHeader: React.FC = () => {
     setTimeout(() => {
       setProgress(0);
       if (percentage > 0) {
-        console.log(percentage);
+        // console.log(percentage);
         setProgress(percentage * 100);
       }
     }, 500);
