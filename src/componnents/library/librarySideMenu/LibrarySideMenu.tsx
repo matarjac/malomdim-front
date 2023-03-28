@@ -20,9 +20,15 @@ import AddSubTopicModalBox from "../../AddSubTopicModalBox/AddSubTopicModalBox";
 export const LibrarySideMenu: React.FC = () => {
   const dispatch = useDispatch();
   const [selectedSubTopic, setSelectedSubTopic] = useState<string>("");
+  const [addSubTopicModal, setAddSubTopicModal] = useState<boolean>(false);
   const subTopics: ISubTopics[] = useSelector(
     (state: RootState) => state.subTopic.value
   );
+
+  const onClose = () => {
+    setAddSubTopicModal(false);
+  }
+  
   dispatch(setMaterial(selectedSubTopic));
   dispatch(updatedCurrentSubTopic(selectedSubTopic));
   useEffect(() => {
@@ -33,43 +39,46 @@ export const LibrarySideMenu: React.FC = () => {
     }
   }, [subTopics]);
   return (
-    <LibrarySideMenuContainer>
-      <div
-        style={{
-          display: "flex",
-          padding: "10px, 8px",
-          gap: "8px",
-          alignItems: "center",
-        }}
-      >
-        <img
-          src="./icons/sub-topics-icon.svg"
-          alt=""
-          style={{ padding: "4.75px" }}
-        />
-        <GeneralSpan fontSize={18} fontWeight={500}>
-          Sub Topics
-        </GeneralSpan>
-        <AddButton
-          style={{ alignSelf: "flex-end" }}
-          onClick={() => console.log("add")}
-        />
-      </div>
-      <SubTopicsListContainer>
-        {subTopics.map((topic) => (
-          <li key={topic._id} style={{ all: "unset" }}>
-            <SubTopicButton
-              onClick={() => {
-                setSelectedSubTopic(topic._id);
-              }}
-              isSelected={selectedSubTopic === topic._id}
-            >
-              {topic.title}
-            </SubTopicButton>
-          </li>
-        ))}
-      </SubTopicsListContainer>
-    </LibrarySideMenuContainer>
+    <>
+      <LibrarySideMenuContainer>
+        <div
+          style={{
+            display: "flex",
+            padding: "10px, 8px",
+            gap: "8px",
+            alignItems: "center",
+          }}
+        >
+          <img
+            src="./icons/sub-topics-icon.svg"
+            alt=""
+            style={{ padding: "4.75px" }}
+          />
+          <GeneralSpan fontSize={18} fontWeight={500}>
+            Sub Topics
+          </GeneralSpan>
+          <AddButton
+            style={{ alignSelf: "flex-end" }}
+            onClick={() => setAddSubTopicModal(true)}
+          />
+        </div>
+        <SubTopicsListContainer>
+          {subTopics.map((topic) => (
+            <li key={topic._id} style={{ all: "unset" }}>
+              <SubTopicButton
+                onClick={() => {
+                  setSelectedSubTopic(topic._id);
+                }}
+                isSelected={selectedSubTopic === topic._id}
+              >
+                {topic.title}
+              </SubTopicButton>
+            </li>
+          ))}
+        </SubTopicsListContainer>
+      </LibrarySideMenuContainer>
+      <AddSubTopicModalBox isShown={addSubTopicModal} onClose={onClose} />
+    </>
   );
 };
 export default LibrarySideMenu;
