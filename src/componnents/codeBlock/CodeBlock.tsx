@@ -8,19 +8,17 @@ import json from "highlight.js/lib/languages/json";
 import "highlight.js/styles/vs2015.css";
 import "./CodeBlock.css";
 
-
-
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("python", python);
 hljs.registerLanguage("typescript", typescript);
 hljs.registerLanguage("css", css);
 hljs.registerLanguage("json", json);
 
-
 interface CodeBlockProps {
   code: string;
   codeType?: string;
   description?: string;
+  title: string;
   isCodeOpen: boolean;
   setIsCodeOpen: (isOpen: boolean) => void;
 }
@@ -49,12 +47,16 @@ function CodeBlock(props: CodeBlockProps) {
     a.click();
     URL.revokeObjectURL(url);
   };
-console.log(props.description);
+  console.log(props.description);
+  console.log(props.title);
 
   return (
     <div className="modal-overlay">
       <div className="close-modal-box">
-        <button className="close-modal" onClick={() => props.setIsCodeOpen(false)}>
+        <button
+          className="close-modal"
+          onClick={() => props.setIsCodeOpen(false)}
+        >
           <img
             className="close-modal-img-code-box"
             src="./icons/CloseModal.svg"
@@ -62,11 +64,18 @@ console.log(props.description);
           />
         </button>
         <div className="code-block-container">
-          <div>
-          {props.description}
+          <div className="code-block-titel">{props.title}</div>
+
+          <div className="description-container">
+            <span>Description</span>
+            <div className="description-box">
+             {props.description}
+            </div>
+              
+       
           </div>
           <div className="code-block-header">
-            <div className="code-block-titel">{props.codeType}</div>
+            <div className="code-block-codeType-titel">{props.codeType}</div>
             <button onClick={handleDownloadClick}>Download Code</button>
             <button onClick={handleCopyClick}>Copy Code</button>
           </div>

@@ -43,7 +43,7 @@
   display: flex;
   justify-content: space-around;
   background-color: gray;
-  height: 30px;
+  height: 40px;
   padding: 5px;
   align-items: center;
 }
@@ -71,6 +71,7 @@
   all: unset;
   padding: 2px;
   cursor: pointer;
+  border: 0.5px solid;
 }
 
 .code-block-header > button:hover {
@@ -80,20 +81,56 @@
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-    width: 500px;
-    height: 500px;
-    overflow-y: scroll;
-    overflow-x: scroll;
+  width: 500px;
+  height: 500px;
+  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 code::-webkit-scrollbar {
   display: none;
 }
-
 .code-block-titel{
-  font-size: larger;
- font-weight: bold;
+  color: aliceblue;
+  font-size: 30px;
+  margin-top: 20px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px;
+  padding-bottom: 15px;
+  word-wrap: break-word;
+  width: 450px;
+  height: -moz-fit-content;
+  height: fit-content;
+  white-space: normal;
 }
-
+.code-block-codeType-titel {
+  font-size: larger;
+  font-weight: bold;
+}
+.description-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: aliceblue;
+  font-size: larger;
+}
+.description-box {
+  all: unset;
+  background-color: transparent;
+  color: aliceblue;
+  font-size: 16px;
+  line-height: 1;
+  border: 1px solid aliceblue;
+  border-radius: 10px;
+  padding: 20px 20px 20px;
+  width: 450px;
+  height: fit-content;
+  margin: 5px 0px 20px;
+  word-wrap: break-word;
+  overflow: hidden;
+  white-space: normal;
+}

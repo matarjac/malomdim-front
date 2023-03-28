@@ -30,7 +30,10 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
     }
   };
   console.log(props.description);
-  console.log();
+  console.log(props.title);
+  console.log(props);
+
+
 
   return (
     <>
@@ -41,6 +44,7 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
       <CubeDescription>{props.title}</CubeDescription>
     </Cube>
     {isCodeOpen && <CodeBlock 
+    title={props.title} 
     code={props.body} 
     codeType={props.codeType}
     description={props.description}
