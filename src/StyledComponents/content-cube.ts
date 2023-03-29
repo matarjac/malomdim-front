@@ -19,9 +19,10 @@ export const Cube = styled.div<ICubeColor>`
   display: flex;
   flex-direction: column;
   background-color: #6553b8;
-  /* background-color: ${(props:any) =>
-    props.type === 'text' ? '#6553b8' : props.type === 'code' ? 'rgba(102, 219, 156, 1)' : 'rgb(248 103 141)'}; */
-  border-radius: 5.60244px;
+  border: 2px solid;
+  border-color: ${(props:any) =>
+    props.type === 'text' ? '#8471df' : props.type === 'code' ? 'rgba(102, 219, 156, 1)' : 'rgb(248 103 141)'}; 
+  border-radius: 8px;
   width: 88.24px;
   height: 98.03px;
   filter: drop-shadow(0px 0px 14.0061px rgba(0, 0, 0, 0.07));
