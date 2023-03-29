@@ -1,20 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IMainSub } from "../../Types/interface/dataInterfaces";
-import { serverAddress } from "../store";
-// const yearInMilliseconds = 31536000000;
+import { serverAddress } from "../../utility/serverAdress";
 export interface IMainSubState {
   mainSubList: IMainSub[];
   currentMainSub: string;
-  // DateList: {
-  //   id: string;
-  //   title: string;
-  //   beginsDay: number;
-  //   endDate: number;
-  // }[];
 }
 const getMainSubData = async () => {
-  return await fetch("http://localhost:8000/mainSub")
+  return await fetch(serverAddress + "/mainSub")
     .then((response) => response.json())
     .then((data) => {
       return data.data;
@@ -24,7 +17,7 @@ const getMainSubData = async () => {
     });
 };
 const getTodaySub = async () => {
-  return await fetch("http://localhost:8000/mainSub/today")
+  return await fetch(serverAddress + "/mainSub/today")
     .then((response) => response.json())
     .then((data) => {
       return data.data;

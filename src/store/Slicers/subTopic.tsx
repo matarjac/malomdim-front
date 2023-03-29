@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ISubTopics } from "../../Types/interface/dataInterfaces";
-import { serverAddress } from "../store";
-// const yearInMilliseconds = 31536000000;
+import { serverAddress } from "../../utility/serverAdress";
 export interface ISubTopicState {
   [x: string]: any;
   allSubTopics: ISubTopics[];
@@ -10,7 +9,7 @@ export interface ISubTopicState {
   currentSubTopic: string;
 }
 const getSubSubData = async () => {
-  return await fetch("http://localhost:8000/subTopics")
+  return await fetch(serverAddress + "/subTopics")
     .then((response) => response.json())
     .then((data) => {
       return data.data;

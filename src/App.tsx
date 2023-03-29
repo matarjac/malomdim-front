@@ -5,7 +5,6 @@ import Frame from "./componnents/frame/Frame";
 import HomePage from "./pages/homePage/HomePage";
 import SignUpPage from "./pages/signUpPage/SignUpPage";
 import SignInPage from "./pages/signInPage/SignInPage";
-
 function App() {
   return (
     <>
@@ -21,7 +20,5 @@ function App() {
     </>
   );
 }
-document.body.className = 'gradient-bg';
+document.body.className = "gradient-bg";
 export default App;
-
-

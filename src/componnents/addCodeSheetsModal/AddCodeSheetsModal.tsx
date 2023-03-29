@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { IMaterials, ISubTopics } from "../../Types/interface/dataInterfaces";
 import axios from "axios";
+import { serverAddress } from "../../utility/serverAdress";
 
 interface IAddCodeSheetProps {
   setShowCodeSheetModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,7 +55,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
     console.log(formData.codeType);
     try {
       const AddUserMaterialToDataBase = await axios.post<IMaterials>(
-        "http://localhost:8000/materials/",
+        serverAddress + "/materials/",
         formData
       );
       dispatch(updatedMaterial(AddUserMaterialToDataBase.data));
@@ -155,7 +156,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
                 />
               )}
             </div>
-            <button className="btu-save" type="submit"  >
+            <button className="btu-save" type="submit">
               Save
             </button>
 

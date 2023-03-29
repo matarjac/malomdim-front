@@ -3,7 +3,7 @@ import React, { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { text } from "stream/consumers";
 import { updatedMainSub } from "../../store/Slicers/mainSub";
-import { RootState, serverAddress } from "../../store/store";
+import { RootState } from "../../store/store";
 import {
   ModalBoxContent,
   ModalOverLay,
@@ -15,6 +15,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { GeneralSpan } from "../../StyledComponents/StyledLibrary";
 import { StyledInput } from "../../StyledComponents/StyledSignInComponents";
 import { IMainSub } from "../../Types/interface/dataInterfaces";
+import { serverAddress } from "../../utility/serverAdress";
 
 interface IModalBox {
   isShown: boolean;

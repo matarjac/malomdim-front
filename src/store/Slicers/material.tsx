@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IMaterials } from "../../Types/interface/dataInterfaces";
-import { serverAddress } from "../store";
-// const yearInMilliseconds = 31536000000;
+import { serverAddress } from "../../utility/serverAdress";
 export interface IMaterialState {
   allMaterial: IMaterials[];
   value: IMaterials[];
 }
-const material = await axios.get("http://localhost:8000/materials");
+const material = await axios.get(serverAddress + "/materials");
 export const MaterialSlice = createSlice({
   name: "Material",
   initialState: {
