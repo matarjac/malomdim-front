@@ -29,7 +29,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   const [body, setBody] = useState<string>("");
   const [category, setCategory] = useState("text");
   const [codeType, setCodeType] = useState("");
-  const [materialDataArray, setmaterialDataArray] = useState<any>([]);
+
   const handleCategoryType = (newCategoryType: string) => {
     setCategory(newCategoryType);
     setBody("");
@@ -37,13 +37,9 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   const subTopics: string = useSelector(
     (state: RootState) => state.subTopic.currentSubTopic
   );
-  // console.log(materialDataArray);
 
-  useEffect(() => {
-    // console.log(materialDataArray);
-    // dispatch(updatedMaterial(materialDataArray));
-  }, [materialDataArray]);
 
+ 
   const getUserMaterialData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = {
@@ -54,22 +50,15 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
       category,
       codeType,
     };
-    // console.log(formData);
-    // console.log(formData.description);
+ 
     try {
 
-      // const AddUserMaterialToDataBase = await axios.post<IMaterials>(
-      //   serverAddress + "/materials/",
-
       const AddUserMaterialToDataBase = await axios.post(
-        "http://localhost:8000/materials/",
-
+        serverAddress + "/materials/",
         formData
       );
       console.log(AddUserMaterialToDataBase.data.data);
-      // setmaterialDataArray(AddUserMaterialToDataBase.data);
       dispatch(updatedMaterial(AddUserMaterialToDataBase.data.data));
-      // console.log(AddUserMaterialToDataBase.data);
       dispatch(setMaterial(subTopics));
       setShowCodeSheetModal(false);
     } catch (error: any) {
