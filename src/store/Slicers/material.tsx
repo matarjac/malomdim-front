@@ -32,6 +32,7 @@ export const MaterialSlice = createSlice({
     },
     updatedMaterial: (state, action) => {
       state.allMaterial = action.payload;
+      state.value = action.payload;
     },
     cleanMaterial: (state) => {
       state.value = [];

@@ -35,10 +35,11 @@ export const LibraryContent: React.FC = () => {
             <ContentCube
               key={material._id}
               body={material.body}
+              description={material.description}
               type={material.category}
               title={material.title}
-              codeType={material.codeType}
-            />
+              codeType={material.codeType} 
+              />
           ))}
       </CardGrid>
     </LibraryContentContainer>
