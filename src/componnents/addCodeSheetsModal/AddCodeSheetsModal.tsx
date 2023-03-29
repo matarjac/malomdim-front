@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputFiled from "../inputFiled/inputFiled";
 import "./AddCodeSheetsModal.css";
@@ -28,17 +28,20 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   const [body, setBody] = useState<string>("");
   const [category, setCategory] = useState("text");
   const [codeType, setCodeType] = useState("");
-
+  const [materialDataArray, setmaterialDataArray] = useState<any>([]);
   const handleCategoryType = (newCategoryType: string) => {
     setCategory(newCategoryType);
     setBody("");
   };
-
   const subTopics: string = useSelector(
     (state: RootState) => state.subTopic.currentSubTopic
   );
+  // console.log(materialDataArray);
 
-  console.log(subTopics);
+  useEffect(() => {
+    // console.log(materialDataArray);
+    // dispatch(updatedMaterial(materialDataArray));
+  }, [materialDataArray]);
 
   const getUserMaterialData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,15 +53,18 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
       category,
       codeType,
     };
-    console.log(formData);
-    console.log(formData.description);
+    // console.log(formData);
+    // console.log(formData.description);
     try {
-      const AddUserMaterialToDataBase = await axios.post<IMaterials>(
+      const AddUserMaterialToDataBase = await axios.post(
         "http://localhost:8000/materials/",
         formData
       );
-      dispatch(updatedMaterial(AddUserMaterialToDataBase.data));
-      console.log(AddUserMaterialToDataBase.data);
+      console.log(AddUserMaterialToDataBase.data.data);
+      // setmaterialDataArray(AddUserMaterialToDataBase.data);
+      dispatch(updatedMaterial(AddUserMaterialToDataBase.data.data));
+      // console.log(AddUserMaterialToDataBase.data);
+      dispatch(setMaterial(subTopics));
       setShowCodeSheetModal(false);
     } catch (error: any) {
       console.log(error);
@@ -155,7 +161,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
                 />
               )}
             </div>
-            <button className="btu-save" type="submit"  >
+            <button className="btu-save" type="submit">
               Save
             </button>
 
@@ -173,4 +179,3 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
 };
 
 export default AddCodeSheetsModal;
-

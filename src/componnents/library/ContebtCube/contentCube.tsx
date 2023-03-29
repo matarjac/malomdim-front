@@ -53,21 +53,6 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
         isModalOpen={isModalOpen} 
         setIsModalOpen={setIsModalOpen}        
         />} 
-    
-      {/* {isTextOpen && (
-        <CodeBlock
-          type={props.type}
-          body={props.body}
-          title={props.title}
-          code={props.body}
-          codeType={props.codeType}
-          description={props.description}
-          isCodeOpen={isCodeOpen}
-          setIsCodeOpen={setIsCodeOpen}
-          isTextOpen={isTextOpen}
-          setIsTextOpen={setIsCodeOpen}
-        />
-      )} */}
     </>
   );
 };
