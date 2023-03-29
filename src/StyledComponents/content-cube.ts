@@ -15,6 +15,7 @@ export const Cube = styled.div`
 `;
 export const MainCubePart = styled.div`
   display: flex;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
   width: 100%;

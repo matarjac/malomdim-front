@@ -64,11 +64,15 @@ export const SideBarContainer = styled.div`
 export const LessonsDivHeader = styled(StyleUser)`
   width: 100%;
   justify-content: space-between;
+  text-transform: capitalize;
   padding: 13px 10px;
   border-radius: 5.9322px;
 `;
-export const LessonsDivOption = styled(LessonsDivHeader)<IMainSubCheck>`
+export const LessonsDivOption = styled(LessonsDivHeader) <IMainSubCheck>`
   cursor: pointer;
+  position: relative;
+  text-transform: capitalize;
+  width:95%;
   background: ${(props) => (props.isOn ? "#8471DF" : "")};
   &:hover {
     background-color: ${(props) => (props.isOn ? "#8471DF" : "#44426c")};
@@ -102,7 +106,10 @@ export const MainSubList = styled.div`
   height: 100%;
   overflow-y: scroll;
   gap: 10px;
+  overflow-x: visible;
   ::-webkit-scrollbar {
     display: none;
+  
   }
+  padding-top:5px
 `;

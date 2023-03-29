@@ -17,6 +17,7 @@ import {
   UserNameTypeDiv,
   UserType,
 } from "../../StyledComponents/sideBarStyled";
+import { RemoveButton } from "../../StyledComponents/StyledGeneralComponents";
 import { IMainSub } from "../../Types/interface/dataInterfaces";
 import AddMainTopicModalBox from "../AddMainTopicModalBox/AddMainTopicModalBox";
 const SideBar: React.FC = () => {
@@ -32,10 +33,17 @@ const SideBar: React.FC = () => {
   const onClose = () => {
     setAddLessonModal(false);
   };
+
+  const handleDeleteButton = (e: any) => {
+    e.stopPropagation();
+    alert('deleted');
+  }
+
   useEffect(() => {
     dispatch(setSubTopic(selected));
     dispatch(updatedCurrentMainSub(selected));
   }, [selected, mainSubject]);
+
   return (
     <>
       <StyledSideBar>
@@ -68,6 +76,7 @@ const SideBar: React.FC = () => {
               >
                 <UserName>{mainSub.title}</UserName>
                 <img src="/icons/next.svg" alt="open" />
+                <RemoveButton onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
               </LessonsDivOption>
             ))}
         </MainSubList>

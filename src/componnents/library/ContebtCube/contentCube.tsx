@@ -4,6 +4,7 @@ import {
   CubeDescription,
   MainCubePart,
 } from "../../../StyledComponents/content-cube";
+import { RemoveButton } from "../../../StyledComponents/StyledGeneralComponents";
 import { ContentTypes } from "../../../Types/enum/contentCube";
 import CodeBlock from "../../codeBlock/CodeBlock";
 
@@ -26,6 +27,13 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
       window.open(props.body, "_blank");
     }
   };
+
+  const handleDeleteButton = (e: any) => {
+    e.stopPropagation();
+    alert('deleted');
+  }
+
+
   return (
     <Cube onClick={(e: any) => handleClick(e)}>
       <MainCubePart>
@@ -33,6 +41,7 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
       </MainCubePart>
       <CubeDescription>{props.title}</CubeDescription>
       {isCodeOpen && <CodeBlock code={props.body} codeType={props.codeType} />}
+      <RemoveButton onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
     </Cube>
   );
 };
