@@ -1,4 +1,12 @@
+import axios from "axios";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import material, {
+  setMaterial,
+  updatedMaterial,
+} from "../../store/Slicers/material";
+import { updatedSubTopic } from "../../store/Slicers/subTopic";
+import { RootState } from "../../store/store";
 import {
   ModalBoxContent,
   ModalOverLay,
@@ -13,6 +21,7 @@ import {
 import { StyledInput } from "../../StyledComponents/StyledSignInComponents";
 import { AddSubTopicButton } from "../../StyledComponents/StyledSubTopicModal";
 import { ContentTypes } from "../../Types/enum/contentCube";
+import { serverAddress } from "../../utility/serverAdress";
 
 interface IModalBox {
   isShown: boolean;
@@ -31,18 +40,20 @@ interface IStudyMaterial {
 }
 
 const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
+  const currentMainSub = useSelector(
+    (state: RootState) => state.mainSub.currentMainSub
+  );
+  const dispatch = useDispatch();
   const [newSubTopicTitle, setNewSubTopicTitle] = useState<string>("");
   const [studyMaterialsState, setStudyMaterialsState] = useState([
     { title: "", link: "", type: ContentTypes.Videos },
   ]);
-
   const addAnotherMaterial = async () => {
     setStudyMaterialsState([
       ...studyMaterialsState,
       { title: "", link: "", type: ContentTypes.Videos },
     ]);
   };
-
   const updateMaterialType = (index: number, newValue: ContentTypes) => {
     setStudyMaterialsState((prevArray) => {
       const newArray = [...prevArray];
@@ -50,7 +61,6 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
       return newArray;
     });
   };
-
   const updateMaterialTitle = (index: number, newValue: string) => {
     setStudyMaterialsState((prevArray) => {
       const newArray = [...prevArray];
@@ -58,7 +68,6 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
       return newArray;
     });
   };
-
   const updateMaterialLink = (index: number, newValue: string) => {
     setStudyMaterialsState((prevArray) => {
       const newArray = [...prevArray];
@@ -66,8 +75,7 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
       return newArray;
     });
   };
-
-  const handleAddSubTopic = (subTopicData: ISubTopicData) => {
+  const handleAddSubTopic = async (subTopicData: ISubTopicData) => {
     let isTitleFilled = false;
     let isInputEmpty = false;
 
@@ -87,7 +95,7 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
     isInputEmpty && alert("please fill all input filleds.");
 
     if (isTitleFilled && !isInputEmpty) {
-      handleData(subTopicData);
+      await handleData(subTopicData);
       handleClose();
     }
 
@@ -104,10 +112,37 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
     //     }
     // });
   };
+  //calling to back and update redux
+  const handleData = async (subTopicData: ISubTopicData) => {
+    try {
+      const { title, materials } = subTopicData;
+      const updatedSubTopicList = await axios.post(
+        serverAddress + "/subTopics",
+        {
+          title: title,
+          idMainSub: currentMainSub,
+        }
+      );
+      const materialList = studyMaterialsState.map((material) => {
+        return {
+          category: material.type,
+          body: material.link,
+          title: material.title,
+          idSubTopic: updatedSubTopicList.data.data.addedSubTopic,
+        };
+      });
+      const updatedMaterialList = await axios.post(
+        serverAddress + "/materials/many",
+        materialList
+      );
+      dispatch(updatedSubTopic(updatedSubTopicList.data.data));
+      dispatch(updatedMaterial(updatedMaterialList.data.data));
+      dispatch(setMaterial(updatedSubTopicList.data.data.addedSubTopic));
+    } catch (error: any) {
+      console.log(error.response.data.message);
+    }
 
-  const handleData = (subTopicData: ISubTopicData) => {
     console.log(subTopicData);
-    return subTopicData;
   };
 
   const handleClose = () => {
@@ -196,8 +231,8 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
               ))}
             </div>
             <StyledAddButton
-              onClick={() => {
-                handleAddSubTopic({
+              onClick={async () => {
+                await handleAddSubTopic({
                   title: newSubTopicTitle,
                   materials: studyMaterialsState,
                 });
