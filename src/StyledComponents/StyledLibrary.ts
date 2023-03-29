@@ -19,6 +19,7 @@ export const ProgressBarProgress = styled.div<IProgressBar>`
   border-radius: 9px;
   width: ${(props) => props.widthPer}%;
   transition: width 1s;
+  max-width: 100%;
 
   @media only screen and (max-width: 900px) {
     .daysCountDown {
@@ -188,6 +189,7 @@ export const CardGrid = styled.div`
   height: 90%;
   padding: 10px;
   grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   text-align: center;
   grid-gap: 18px;
   overflow-y: scroll;

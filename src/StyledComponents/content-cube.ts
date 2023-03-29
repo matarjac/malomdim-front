@@ -34,9 +34,9 @@ export const CubeDescription = styled.div`
   font-style: normal;
   text-align: start;
   font-weight: 400;
-  font-size: 8px;
+  font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-align: center;
-  color: #ffffff;
+  color: white;
 `;

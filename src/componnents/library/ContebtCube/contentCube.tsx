@@ -33,7 +33,7 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
     }
   };
 
-  
+
   const handleDeleteButton = (e: any) => {
     e.stopPropagation();
     alert('deleted');
@@ -48,16 +48,16 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
         <RemoveButton onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
       </Cube>
 
-     {isModalOpen.length > 0 &&  <CodeBlock
+      {isModalOpen.length > 0 && <CodeBlock
         type={props.type}
         body={props.body}
         title={props.title}
         code={props.body}
         codeType={props.codeType}
         description={props.description}
-        isModalOpen={isModalOpen} 
-        setIsModalOpen={setIsModalOpen}        
-        />} 
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />}
     </>
   );
 };
