@@ -38,7 +38,7 @@ export const MainSubSlice = createSlice({
   } as IMainSubState,
   reducers: {
     updatedMainSub: (state, action) => {
-      state.mainSubList = action.payload.mainSubs;
+      state.mainSubList = action.payload;
       // state.DateList = action.payload.DateList;
     },
     updatedCurrentMainSub: (state, action) => {

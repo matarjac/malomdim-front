@@ -33,13 +33,13 @@ export const MaterialsFilter: React.FC = () => {
   }, [materialType, subTopicId]);
   return (
     <FiltersContainer>
-      {materialType == "code sheets" && (
+      {materialType === ContentTypes.CodeSheets && (
         <AddCodeSheetButton onClick={handleAddButtonClick}>
           <img
             style={{ scale: "80%" }}
             src="./icons/addCodeSheet-icon.svg"
             alt=""
-          />{" "}
+          />
           Code sheet
         </AddCodeSheetButton>
       )}
