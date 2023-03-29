@@ -11,6 +11,7 @@ import {
 } from "../../../../StyledComponents/StyledLibrary";
 import { ContentTypes } from "../../../../Types/enum/contentCube";
 import AddCodeSheetsModal from "../../../addCodeSheetsModal/AddCodeSheetsModal";
+import AddStudyMaterialModalBox from "../../../AddStudyMaterialModalBox/AddStudyMaterialModalBox";
 
 export const MaterialsFilter: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,8 @@ export const MaterialsFilter: React.FC = () => {
     (state: RootState) => state.subTopic.currentSubTopic
   );
   const [materialType, setMaterialType] = useState("all");
+  const [addStudyMaterialsModal, setAddStudyMaterialsModal] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState(true);
   const handleAddButtonClick = () => {
     setShowCodeSheetModal(true);
   };
@@ -41,6 +44,16 @@ export const MaterialsFilter: React.FC = () => {
             alt=""
           />
           Code sheet
+        </AddCodeSheetButton>
+      )}
+      {materialType === "all" && isAdmin && (
+        <AddCodeSheetButton onClick={() => setAddStudyMaterialsModal(true)}>
+          <img
+            style={{ scale: "80%" }}
+            src="./icons/addCodeSheet-icon.svg"
+            alt=""
+          />
+          Material Study
         </AddCodeSheetButton>
       )}
 
@@ -81,6 +94,8 @@ export const MaterialsFilter: React.FC = () => {
       {showCodeSheetModal && (
         <AddCodeSheetsModal setShowCodeSheetModal={setShowCodeSheetModal} />
       )}
+      <AddStudyMaterialModalBox subTopicId={subTopicId} isShown={addStudyMaterialsModal} onClose={() => setAddStudyMaterialsModal(false)} />
+
     </FiltersContainer>
   );
 };
