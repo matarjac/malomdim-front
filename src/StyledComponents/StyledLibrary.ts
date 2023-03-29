@@ -112,8 +112,10 @@ export const SubTopicsListContainer = styled.ul`
 export const SubTopicButton = styled.button<IbuttonSelected>`
   all: unset;
   color: #fafafd;
+  position: relative;
   padding: 9.49153px 11.8644px 9.49153px 9.49153px;
   width: 90%;
+  text-transform: capitalize;
   border-radius: 5.9322px;
   font-weight: 400;
   font-size: 16px;

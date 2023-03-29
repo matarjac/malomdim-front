@@ -4,6 +4,7 @@ import {
   CubeDescription,
   MainCubePart,
 } from "../../../StyledComponents/content-cube";
+import { RemoveButton } from "../../../StyledComponents/StyledGeneralComponents";
 import { ContentTypes } from "../../../Types/enum/contentCube";
 import CodeBlock from "../../codeBlock/CodeBlock";
 
@@ -32,8 +33,11 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
     }
   };
 
-  console.log(isModalOpen);
   
+  const handleDeleteButton = (e: any) => {
+    e.stopPropagation();
+    alert('deleted');
+  }
   return (
     <>
       <Cube onClick={(e: any) => handleClick(e)}>
@@ -41,6 +45,7 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
           <img src={iconSrc} alt={props.type} />
         </MainCubePart>
         <CubeDescription>{props.title}</CubeDescription>
+        <RemoveButton onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
       </Cube>
 
      {isModalOpen.length > 0 &&  <CodeBlock
