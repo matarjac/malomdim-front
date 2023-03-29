@@ -18,9 +18,9 @@ export const MainCubePart = styled.div`
 export const Cube = styled.div<ICubeColor>`
   display: flex;
   flex-direction: column;
-  /* background-color: #6553b8; */
-  background-color: ${(props:any) =>
-    props.type === 'text' ? '#6553b8' : props.type === 'code' ? 'rgba(102, 219, 156, 1)' : 'rgb(248 103 141)'};
+  background-color: #6553b8;
+  /* background-color: ${(props:any) =>
+    props.type === 'text' ? '#6553b8' : props.type === 'code' ? 'rgba(102, 219, 156, 1)' : 'rgb(248 103 141)'}; */
   border-radius: 5.60244px;
   width: 88.24px;
   height: 98.03px;
@@ -39,8 +39,8 @@ export const CubeDescription = styled.div<ICubeColor>`
   width: 100%;
   height: 30%;
   /* background: #8471df; */
-  background-color: ${(props:any) =>
-    props.type === 'text' ? '#8471df' : props.type === 'code' ? 'rgb(0 221 102)' : 'rgb(251 47 67)'};
+ background-color: ${(props:any) =>
+    props.type === 'text' ? '#8471df' : props.type === 'code' ? 'rgba(102, 219, 156, 1)' : 'rgb(248 103 141)'};
   border-radius: 0px 0px 5.60244px 5.60244px;
   font-family: "Poppins";
   font-style: normal;
