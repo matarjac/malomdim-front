@@ -134,7 +134,7 @@ export const LibraryContentContainer = styled.div`
   width: 75%;
   height: 100%;
   border-bottom-right-radius: 18px;
-  padding: 14px 48px 18px;
+  padding: 14px 35px 18px;
 `;
 
 export const FiltersContainer = styled.div`
