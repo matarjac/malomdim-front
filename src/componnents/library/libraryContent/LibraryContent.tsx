@@ -47,8 +47,8 @@ export const LibraryContent: React.FC = () => {
               description={material.description}
               type={material.category}
               title={material.title}
-              codeType={material.codeType}
-            />
+              codeType={material.codeType} 
+              />
           ))}
       </div>
     </LibraryContentContainer>
