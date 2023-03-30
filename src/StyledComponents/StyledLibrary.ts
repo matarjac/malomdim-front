@@ -33,8 +33,16 @@ export const SubjectTitleSpan = styled.span`
   padding: 10px;
 `;
 
+export const LogoHomePage = styled.img`
+  scale: 110%;
+  position: absolute;
+  top: 30px;
+  right: 50px;
+`
+
 export const LibrarySection = styled.div`
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -42,8 +50,7 @@ export const LibrarySection = styled.div`
 `;
 
 export const LibraryContainer = styled.div`
-  /* position: relative; */
-  width: 851.86px;
+  width: 951.86px;
   height: 645.46px;
   background-color: #2d2b52;
   border-radius: 21.3559px;
