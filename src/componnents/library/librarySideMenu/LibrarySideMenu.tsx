@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import {
   AddButton,
+  AllLessonDiv,
+  LessonsDivHeader,
   LessonsDivOption,
   MainSubList,
 } from "../../../StyledComponents/sideBarStyled";
 import {
   GeneralSpan,
   LibrarySideMenuContainer,
-  SubTopicButton,
-  SubTopicsListContainer,
 } from "../../../StyledComponents/StyledLibrary";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { cleanMaterial, setMaterial } from "../../../store/Slicers/material";
 import {
   setSubTopic,
   updatedCurrentSubTopic,
+  updatedSubTopic,
 } from "../../../store/Slicers/subTopic";
 import { RootState } from "../../../store/store";
 import { ISubTopics } from "../../../Types/interface/dataInterfaces";
 import AddSubTopicModalBox from "../../AddSubTopicModalBox/AddSubTopicModalBox";
 import { RemoveButton } from "../../../StyledComponents/StyledGeneralComponents";
+import { serverAddress } from "../../../utility/serverAdress";
+import axios from "axios";
 
 export const LibrarySideMenu: React.FC = () => {
   const dispatch = useDispatch();
@@ -30,10 +32,53 @@ export const LibrarySideMenu: React.FC = () => {
   const subTopics: ISubTopics[] = useSelector(
     (state: RootState) => state.subTopic.value
   );
+  const currentMainSub: string = useSelector(
+    (state: RootState) => state.mainSub.currentMainSub
+  );
   const onClose = () => {
     setAddSubTopicModal(false);
   };
 
+  const handleClick = (
+    e: React.MouseEvent<HTMLElement>,
+    subTopicId: string
+  ) => {
+    if ((e.target as HTMLElement).tagName.toLowerCase() === "button") {
+      handleDeleteButton(subTopicId);
+    } else {
+      setSelectedSubTopic(subTopicId);
+    }
+  };
+  const handleDeleteButton = (deletedSubTopic: string) => {
+    const mainSubConfirm = prompt(
+      "Please enter 'delate' to confirm delate:",
+      ""
+    );
+    if (mainSubConfirm === "delate") {
+      delateSubTopic(deletedSubTopic);
+    } else {
+      alert("not deleted");
+    }
+  };
+  const delateSubTopic = async (deletedSubTopic: string) => {
+    try {
+      const updatedSubTopicList = await axios.delete(
+        serverAddress + "/subTopics",
+        {
+          data: {
+            id: deletedSubTopic,
+          },
+        }
+      );
+      const subTopicData = updatedSubTopicList.data.data;
+      dispatch(updatedSubTopic(subTopicData));
+      dispatch(setSubTopic(currentMainSub));
+    } catch (error: any) {
+      console.log(error);
+      alert(error.response.data.message);
+      return [];
+    }
+  };
   dispatch(updatedCurrentSubTopic(selectedSubTopic));
   useEffect(() => {
     if (subTopics.length > 0) {
@@ -45,34 +90,27 @@ export const LibrarySideMenu: React.FC = () => {
   return (
     <>
       <LibrarySideMenuContainer>
-        <div
-          style={{
-            display: "flex",
-            padding: "10px, 8px",
-            gap: "8px",
-            alignItems: "center",
-          }}
-        >
-          <img
-            src="./icons/sub-topics-icon.svg"
-            alt=""
-            style={{ padding: "4.75px" }}
-          />
-          <GeneralSpan fontSize={18} fontWeight={500}>
-            Sub Topics
-          </GeneralSpan>
+        <LessonsDivHeader>
+          <AllLessonDiv>
+            <img
+              src="./icons/sub-topics-icon.svg"
+              alt=""
+              style={{ padding: "4.75px" }}
+            />
+            <GeneralSpan fontSize={18} fontWeight={500}>
+              Sub Topics
+            </GeneralSpan>
+          </AllLessonDiv>
           <AddButton
             style={{ alignSelf: "flex-end" }}
             onClick={() => setAddSubTopicModal(true)}
           />
-        </div>
+        </LessonsDivHeader>
         <MainSubList>
           {subTopics.map((topic) => (
             <LessonsDivOption
               key={topic._id}
-              onClick={() => {
-                setSelectedSubTopic(topic._id);
-              }}
+              onClick={(e) => handleClick(e, topic._id)}
               isOn={selectedSubTopic === topic._id}
             >
               {topic.title}

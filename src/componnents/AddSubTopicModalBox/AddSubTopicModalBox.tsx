@@ -21,7 +21,10 @@ import {
   GeneralSpan,
 } from "../../StyledComponents/StyledLibrary";
 import { StyledInput } from "../../StyledComponents/StyledSignInComponents";
-import { AddSubTopicButton } from "../../StyledComponents/StyledSubTopicModal";
+import {
+  AddSubTopicButton,
+  MaterialAddingList,
+} from "../../StyledComponents/StyledSubTopicModal";
 import { ContentTypes } from "../../Types/enum/contentCube";
 import { serverAddress } from "../../utility/serverAdress";
 
@@ -182,16 +185,7 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
             <AddSubTopicButton onClick={addAnotherMaterial}>
               <img src="./icons/green-plus-icon.svg" alt="" />
             </AddSubTopicButton>
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                overflow: "scroll",
-                gap: "10px",
-                height: "250px",
-              }}
-            >
+            <MaterialAddingList>
               {studyMaterialsState.map((studyMaterial, index) => (
                 <div
                   key={index}
@@ -237,7 +231,7 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
                   </FilterButton>
                 </div>
               ))}
-            </div>
+            </MaterialAddingList>
             <StyledAddButton
               onClick={async () => {
                 await handleAddSubTopic({

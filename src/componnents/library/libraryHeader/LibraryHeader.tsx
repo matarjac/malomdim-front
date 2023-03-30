@@ -37,8 +37,6 @@ export const LibraryHeader: React.FC = () => {
   const currentSub: IMainSub | undefined = mainSubList.find(
     (sub) => sub._id === todayMainSubject
   );
-  console.log(todayMainSubject);
-
   let headTitle = "curse isn't today";
   let dateStart = new Date();
   let dateEnd = new Date();

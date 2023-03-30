@@ -29,7 +29,6 @@ export const MaterialsFilter: React.FC = () => {
   };
   const [showCodeSheetModal, setShowCodeSheetModal] = useState(false);
   useEffect(() => {
-    console.log(materialType);
     dispatch(
       setMaterial({
         id: subTopicId,

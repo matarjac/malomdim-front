@@ -83,7 +83,7 @@ export const AllLessonDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
 `;
 export const AddButton = styled.div`
   background-image: url("/icons/addButton.svg");
