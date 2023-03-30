@@ -76,8 +76,8 @@ const SideBar: React.FC = () => {
                 key={mainSub._id}
               >
                 <UserName>{mainSub.title}</UserName>
-                <img src="/icons/next.svg" alt="open" />
-                <RemoveButton isVisible={isAdmin} onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
+                {!isAdmin && <img src="/icons/next.svg" alt="open" />}
+                <RemoveButton isVisible={isAdmin} onClick={(e) => { handleDeleteButton(e) }}><img src="./icons/delete-icon-x.svg" alt="" /></RemoveButton>
               </LessonsDivOption>
             ))}
         </MainSubList>

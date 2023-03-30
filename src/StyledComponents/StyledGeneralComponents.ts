@@ -7,19 +7,14 @@ interface IRemoveButton {
 export const RemoveButton = styled.button<IRemoveButton>`
     all:unset;
     cursor: pointer;
-    border-radius: 50%;
-    background-color: red;
-    color: white;
     width: 20px;
     height: 20px;
     text-align: center;
-    font-size:13px;
-    font-weight: 500;
+    margin-top: auto;
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 15px;
+    scale: 120%;
     transform: translate(30%, -15%);
-    z-index: 0;
+    z-index: 1;
     display: ${props => props.isVisible ? "inline-block" : "none"};
-
 `
