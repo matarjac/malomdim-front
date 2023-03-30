@@ -78,7 +78,6 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
     }
   };
 
-  console.log(props.type);
   
   return (
     <>

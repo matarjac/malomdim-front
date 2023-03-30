@@ -35,9 +35,9 @@ function CodeBlock(props: CodeBlockProps) {
     }
   }, [props.codeType]);
 
+  const [downloadButtonText, setDownloadButtonText] =
+    useState("Download Code 📄");
 
-  const [downloadButtonText, setDownloadButtonText] = useState("Download Code 📄");
-  
   const handleDownloadClick = () => {
     const blob = new Blob([props.code], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -50,12 +50,9 @@ function CodeBlock(props: CodeBlockProps) {
     setTimeout(() => {
       setDownloadButtonText("Download Code 📄");
     }, 2000);
- 
   };
 
-
   const [copyButtonText, setCopyButtonText] = useState("Copy Code 📷");
-  
   const handleCopyClick = () => {
     if (codeRef.current) {
       navigator.clipboard.writeText(codeRef.current.innerText);
@@ -65,10 +62,8 @@ function CodeBlock(props: CodeBlockProps) {
       }, 2000);
     }
   };
-  
 
-
-  
+  console.log(sessionStorage.getItem("userAddCode"));
 
   return (
     <div className="modal-overlay">
@@ -98,14 +93,16 @@ function CodeBlock(props: CodeBlockProps) {
                 <div className="code-block-codeType-titel">
                   {props.codeType}
                 </div>
-                <button onClick={handleDownloadClick}>{downloadButtonText}</button>
+                <button onClick={handleDownloadClick}>
+                  {downloadButtonText}
+                </button>
                 <button onClick={handleCopyClick}>{copyButtonText}</button>
               </div>
               <code className={props.codeType} ref={codeRef}>
                 {props.code}
               </code>
             </>
-          ) :  (
+          ) : (
             <>
               <div className="description-container">
                 <span>Text</span>
