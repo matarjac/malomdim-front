@@ -42,7 +42,6 @@ export const LogoHomePage = styled.img`
 
 export const LibrarySection = styled.div`
   display: flex;
-  position: relative;
   justify-content: center;
   align-items: center;
   width: 100%;

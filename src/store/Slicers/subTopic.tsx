@@ -36,8 +36,7 @@ export const SubTopicSlice = createSlice({
       );
     },
     updatedSubTopic: (state, action) => {
-      state.allSubTopics = action.payload.subTopicsList;
-      // state.currentSubTopic = action.payload.addedSubTopic;
+      state.allSubTopics = action.payload;
     },
     updatedCurrentSubTopic: (state, action) => {
       state.currentSubTopic = action.payload;

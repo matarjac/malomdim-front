@@ -35,23 +35,32 @@ const SideBar: React.FC = () => {
   );
   const [selected, setSelected] = useState<string>(todayMainSubject);
   const [addLessonModal, setAddLessonModal] = useState<boolean>(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
   const onClose = () => {
     setAddLessonModal(false);
   };
 
-  const handleDeleteButton = (deletedMainId: string, title: string) => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>, mainSubId: string) => {
+    if (
+      (e.target as HTMLElement).parentElement?.tagName.toLowerCase() ===
+      "button"
+    ) {
+      handleDeleteButton(mainSubId);
+    } else {
+      setSelected(mainSubId);
+    }
+  };
+  const handleDeleteButton = (deletedMainId: string) => {
     const mainSubConfirm = prompt(
-      "Please enter '" + title + "' to confirm delate:",
+      "Please enter 'delate' to confirm delate:",
       ""
     );
-    if (mainSubConfirm === title) {
+    if (mainSubConfirm === "delate") {
       delateMainSub(deletedMainId);
     } else {
       alert("not deleted");
     }
   };
-
   const delateMainSub = async (deletedMainId: string) => {
     try {
       const updatedMainSubList = await axios.delete(
@@ -103,7 +112,7 @@ const SideBar: React.FC = () => {
             mainSubject.map((mainSub) => (
               <LessonsDivOption
                 isOn={selected === mainSub._id}
-                onClick={(e) => setSelected(mainSub._id)}
+                onClick={(e) => handleClick(e, mainSub._id)}
                 key={mainSub._id}
               >
                 <UserName>{mainSub.title}</UserName>

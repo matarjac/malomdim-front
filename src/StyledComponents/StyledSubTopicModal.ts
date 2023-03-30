@@ -1,13 +1,22 @@
 import styled from "styled-components";
 
 export const AddSubTopicButton = styled.button`
-    all:unset;
-    cursor: pointer;
-    border: 1px solid #66DB9C;
-    border-radius: 6px;
-    width: 40%;
-    color: #66DB9C;
-    text-align: center;
-    height: 25px;
-
-`
+  all: unset;
+  cursor: pointer;
+  border: 1px solid #66db9c;
+  border-radius: 6px;
+  width: 40%;
+  color: #66db9c;
+  text-align: center;
+  height: 25px;
+`;
+export const MaterialAddingList = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 250px;
+  gap: 10px;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
