@@ -25,29 +25,39 @@ const month_names_short = [
 ];
 export const LibraryHeader: React.FC = () => {
   const [progress, setProgress] = useState<number>(0);
-  const todayMainSubject = useSelector(
+
+  const todayMainSubject: IMainSub["_id"] = useSelector(
     (state: RootState) => state.mainSub.currentMainSub
   );
-  const MainSubjectListDate: IMainSub[] = useSelector(
+
+  const mainSubList: IMainSub[] = useSelector(
     (state: RootState) => state.mainSub.mainSubList
   );
-  const CurrentSub =
-    MainSubjectListDate &&
-    MainSubjectListDate.find((sub) => sub._id === todayMainSubject);
 
-  if (!CurrentSub) {
-    throw Error("mainSubNotFound");
-  }
-  const headTitle = CurrentSub.title;
-  const dateStart = new Date(CurrentSub.startDate);
-  const dateEnd = new Date(CurrentSub.endDate);
-  const startDatString =
+  const currentSub: IMainSub | undefined = mainSubList.find(
+    (sub) => sub._id === todayMainSubject
+  );
+  console.log(todayMainSubject);
+
+  let headTitle = "curse isn't today";
+  let dateStart = new Date();
+  let dateEnd = new Date();
+  let startDatString =
     month_names_short[dateStart.getMonth()] + " " + dateStart.getDate();
-  const endDatString =
+  let endDatString =
     month_names_short[dateEnd.getMonth()] + " " + dateEnd.getDate();
-  const percentage: number =
-    (Date.now() - CurrentSub.startDate) /
-    (CurrentSub.endDate - CurrentSub.startDate);
+  let percentage: number = 1;
+  if (currentSub) {
+    const { title, startDate, endDate } = currentSub;
+    headTitle = title;
+    dateStart = new Date(startDate);
+    dateEnd = new Date(endDate);
+    startDatString =
+      month_names_short[dateStart.getMonth()] + " " + dateStart.getDate();
+    endDatString =
+      month_names_short[dateEnd.getMonth()] + " " + dateEnd.getDate();
+    percentage = (Date.now() - startDate) / (endDate - startDate);
+  }
 
   const fillProgress = () => {
     setTimeout(() => {
@@ -60,8 +70,7 @@ export const LibraryHeader: React.FC = () => {
 
   useEffect(() => {
     fillProgress();
-  }, [todayMainSubject]);
-
+  }, [todayMainSubject, mainSubList]);
   return (
     <HeaderContainer>
       <div style={{ display: "flex", gap: "10px" }}>

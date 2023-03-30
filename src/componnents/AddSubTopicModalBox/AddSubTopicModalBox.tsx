@@ -1,17 +1,19 @@
 import axios from "axios";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import material, {
   setMaterial,
   updatedMaterial,
 } from "../../store/Slicers/material";
-import { updatedSubTopic } from "../../store/Slicers/subTopic";
+import { setSubTopic, updatedSubTopic } from "../../store/Slicers/subTopic";
 import { RootState } from "../../store/store";
 import {
   ModalBoxContent,
   ModalOverLay,
   StyledDurationButtons,
   StyledAddButton,
+  LoadingDiv,
 } from "../../StyledComponents/AddDataModalBox";
 import {
   FilterButton,
@@ -45,6 +47,7 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
   );
   const dispatch = useDispatch();
   const [newSubTopicTitle, setNewSubTopicTitle] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [studyMaterialsState, setStudyMaterialsState] = useState([
     { title: "", link: "", type: ContentTypes.Videos },
   ]);
@@ -115,6 +118,7 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
   //calling to back and update redux
   const handleData = async (subTopicData: ISubTopicData) => {
     try {
+      setLoading(true);
       const { title, materials } = subTopicData;
       const updatedSubTopicList = await axios.post(
         serverAddress + "/subTopics",
@@ -123,32 +127,36 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
           idMainSub: currentMainSub,
         }
       );
-      const materialList = studyMaterialsState.map((material) => {
+      const idSubTopic = updatedSubTopicList.data.data.addedSubTopic;
+      const materialList = materials.map((material) => {
         return {
           category: material.type,
           body: material.link,
           title: material.title,
-          idSubTopic: updatedSubTopicList.data.data.addedSubTopic,
+          idSubTopic: idSubTopic,
         };
       });
       const updatedMaterialList = await axios.post(
         serverAddress + "/materials/many",
         materialList
       );
+      console.log(idSubTopic);
+      console.log(updatedMaterialList.data.data);
+      //update
       dispatch(updatedSubTopic(updatedSubTopicList.data.data));
       dispatch(updatedMaterial(updatedMaterialList.data.data));
-      dispatch(setMaterial(updatedSubTopicList.data.data.addedSubTopic));
+      //filter
+      dispatch(setSubTopic(currentMainSub));
+      dispatch(setMaterial(idSubTopic));
     } catch (error: any) {
-      console.log(error.response.data.message);
+      console.log(error.message);
     }
-
-    console.log(subTopicData);
   };
-
   const handleClose = () => {
     setStudyMaterialsState([
       { title: "", link: "", type: ContentTypes.Videos },
     ]);
+    setLoading(false);
     props.onClose();
   };
 
@@ -209,7 +217,7 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
                   />
                   <FilterButton
                     isSelected={
-                      studyMaterialsState[index].type == ContentTypes.Videos
+                      studyMaterialsState[index].type === ContentTypes.Videos
                     }
                     onClick={() => {
                       updateMaterialType(index, ContentTypes.Videos);
@@ -219,7 +227,7 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
                   </FilterButton>
                   <FilterButton
                     isSelected={
-                      studyMaterialsState[index].type == ContentTypes.Links
+                      studyMaterialsState[index].type === ContentTypes.Links
                     }
                     onClick={() => {
                       updateMaterialType(index, ContentTypes.Links);
@@ -241,6 +249,19 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
             >
               Add SubTopic
             </StyledAddButton>
+            {loading && (
+              <LoadingDiv>
+                <ThreeDots
+                  height="80"
+                  width="80"
+                  radius="9"
+                  color="#f0f0f0"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  visible={true}
+                />
+              </LoadingDiv>
+            )}
           </ModalBoxContent>
         </ModalOverLay>
       )}

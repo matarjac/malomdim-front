@@ -67,3 +67,17 @@ export const StyledAddButton = styled.button`
   font-size: 13px;
   font-weight: 400;
 `;
+
+export const LoadingDiv = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2d2b52;
+  border-radius: 18px;
+`;

@@ -7,7 +7,6 @@ import {
   FilterButton,
   FiltersContainer,
   FiltersList,
-  GeneralSpan,
 } from "../../../../StyledComponents/StyledLibrary";
 import { ContentTypes } from "../../../../Types/enum/contentCube";
 import AddCodeSheetsModal from "../../../addCodeSheetsModal/AddCodeSheetsModal";
@@ -18,8 +17,12 @@ export const MaterialsFilter: React.FC = () => {
   const subTopicId: string = useSelector(
     (state: RootState) => state.subTopic.currentSubTopic
   );
+  const materialList = useSelector(
+    (state: RootState) => state.material.allMaterial
+  );
   const [materialType, setMaterialType] = useState("all");
-  const [addStudyMaterialsModal, setAddStudyMaterialsModal] = useState<boolean>(false);
+  const [addStudyMaterialsModal, setAddStudyMaterialsModal] =
+    useState<boolean>(false);
   const [isAdmin, setIsAdmin] = useState(true);
   const handleAddButtonClick = () => {
     setShowCodeSheetModal(true);
@@ -33,7 +36,7 @@ export const MaterialsFilter: React.FC = () => {
         materialType,
       })
     );
-  }, [materialType, subTopicId]);
+  }, [materialType, subTopicId, materialList]);
   return (
     <FiltersContainer>
       {materialType === ContentTypes.CodeSheets && (
@@ -56,10 +59,9 @@ export const MaterialsFilter: React.FC = () => {
           Material Study
         </AddCodeSheetButton>
       )}
-
       <FiltersList>
         <FilterButton
-          isSelected={materialType == "all"}
+          isSelected={materialType === "all"}
           onClick={() => {
             setMaterialType("all");
           }}
@@ -67,7 +69,7 @@ export const MaterialsFilter: React.FC = () => {
           All
         </FilterButton>
         <FilterButton
-          isSelected={materialType == ContentTypes.Videos}
+          isSelected={materialType === ContentTypes.Videos}
           onClick={() => {
             setMaterialType(ContentTypes.Videos);
           }}
@@ -75,7 +77,7 @@ export const MaterialsFilter: React.FC = () => {
           Videos
         </FilterButton>
         <FilterButton
-          isSelected={materialType == ContentTypes.Links}
+          isSelected={materialType === ContentTypes.Links}
           onClick={() => {
             setMaterialType(ContentTypes.Links);
           }}
@@ -83,7 +85,7 @@ export const MaterialsFilter: React.FC = () => {
           Links
         </FilterButton>
         <FilterButton
-          isSelected={materialType == ContentTypes.CodeSheets}
+          isSelected={materialType === ContentTypes.CodeSheets}
           onClick={() => {
             setMaterialType(ContentTypes.CodeSheets);
           }}
@@ -94,8 +96,11 @@ export const MaterialsFilter: React.FC = () => {
       {showCodeSheetModal && (
         <AddCodeSheetsModal setShowCodeSheetModal={setShowCodeSheetModal} />
       )}
-      <AddStudyMaterialModalBox subTopicId={subTopicId} isShown={addStudyMaterialsModal} onClose={() => setAddStudyMaterialsModal(false)} />
-
+      <AddStudyMaterialModalBox
+        subTopicId={subTopicId}
+        isShown={addStudyMaterialsModal}
+        onClose={() => setAddStudyMaterialsModal(false)}
+      />
     </FiltersContainer>
   );
 };

@@ -31,11 +31,6 @@ export const LibrarySideMenu: React.FC = () => {
     setAddSubTopicModal(false);
   };
 
-  const handleDeleteButton = (e: any) => {
-    e.stopPropagation();
-    alert('deleted');
-  }
-
   dispatch(updatedCurrentSubTopic(selectedSubTopic));
   useEffect(() => {
     if (subTopics.length > 0) {
@@ -78,7 +73,9 @@ export const LibrarySideMenu: React.FC = () => {
                 isSelected={selectedSubTopic === topic._id}
               >
                 {topic.title}
-                <RemoveButton isVisible={isAdmin} onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
+                <RemoveButton isVisible={isAdmin} onClick={(e) => {}}>
+                  -
+                </RemoveButton>
               </SubTopicButton>
             </li>
           ))}
