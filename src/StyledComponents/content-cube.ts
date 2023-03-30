@@ -1,28 +1,33 @@
 import styled from "styled-components";
 
 interface ICubeColor {
-  type: string
+  type: string;
 }
 
 export const MainCubePart = styled.div`
-    display: flex;
-    cursor: pointer;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: flex-end;
-    width: 100%;
-    height: 56px;
+  display: flex;
+  cursor: pointer;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: flex-end;
+  width: 100%;
+  height: 56px;
 `;
 
 export const Cube = styled.div<ICubeColor>`
   display: flex;
+  position: relative;
   flex-direction: column;
   cursor: pointer;
   background-color: #6553b8;
   border: 2px solid;
   border-color: ${(props: any) =>
-    props.type === 'text' ? '#8471df' : props.type === 'code' ? 'rgba(102, 219, 156, 1)' : 'rgb(248 103 141)'}; 
+    props.type === "text"
+      ? "#8471df"
+      : props.type === "code"
+      ? "rgba(102, 219, 156, 1)"
+      : "rgb(248 103 141)"};
   border-radius: 8px;
   width: 88.24px;
   height: 98.03px;
@@ -41,8 +46,12 @@ export const CubeDescription = styled.div<ICubeColor>`
   width: 100%;
   height: 30%;
   /* background: #8471df; */
- background-color: ${(props: any) =>
-    props.type === 'text' ? '#8471df' : props.type === 'code' ? 'rgba(102, 219, 156, 1)' : 'rgb(248 103 141)'};
+  background-color: ${(props: any) =>
+    props.type === "text"
+      ? "#8471df"
+      : props.type === "code"
+      ? "rgba(102, 219, 156, 1)"
+      : "rgb(248 103 141)"};
   border-radius: 0px 0px 5.60244px 5.60244px;
   font-family: "Poppins";
   font-style: normal;
@@ -55,4 +64,3 @@ export const CubeDescription = styled.div<ICubeColor>`
   color: white;
   margin-top: 20px;
 `;
-
