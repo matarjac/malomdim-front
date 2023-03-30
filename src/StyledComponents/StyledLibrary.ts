@@ -38,7 +38,7 @@ export const LogoHomePage = styled.img`
   position: absolute;
   top: 30px;
   right: 50px;
-`
+`;
 
 export const LibrarySection = styled.div`
   display: flex;
@@ -110,11 +110,16 @@ export const GeneralSpan = styled.span<IGeneralSpan>`
   line-height: 22px;
 `;
 
-export const SubTopicsListContainer = styled.ul`
+export const SubTopicsListContainer = styled.div`
+  justify-content: start;
   all: unset;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
   gap: 8px;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const SubTopicButton = styled.button<IbuttonSelected>`

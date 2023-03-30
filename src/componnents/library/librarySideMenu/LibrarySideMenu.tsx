@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { AddButton } from "../../../StyledComponents/sideBarStyled";
+import {
+  AddButton,
+  LessonsDivOption,
+  MainSubList,
+} from "../../../StyledComponents/sideBarStyled";
 import {
   GeneralSpan,
   LibrarySideMenuContainer,
@@ -26,7 +30,6 @@ export const LibrarySideMenu: React.FC = () => {
   const subTopics: ISubTopics[] = useSelector(
     (state: RootState) => state.subTopic.value
   );
-
   const onClose = () => {
     setAddSubTopicModal(false);
   };
@@ -63,21 +66,22 @@ export const LibrarySideMenu: React.FC = () => {
             onClick={() => setAddSubTopicModal(true)}
           />
         </div>
-        <SubTopicsListContainer>
+        <MainSubList>
           {subTopics.map((topic) => (
-            <li key={topic._id} style={{ all: "unset" }}>
-              <SubTopicButton
-                onClick={() => {
-                  setSelectedSubTopic(topic._id);
-                }}
-                isSelected={selectedSubTopic === topic._id}
-              >
-                {topic.title}
-                <RemoveButton isVisible={isAdmin} onClick={() => { console.log('fe') }}> <img src="./icons/delete-icon-x.svg" alt="" /> </RemoveButton>
-              </SubTopicButton>
-            </li>
+            <LessonsDivOption
+              key={topic._id}
+              onClick={() => {
+                setSelectedSubTopic(topic._id);
+              }}
+              isOn={selectedSubTopic === topic._id}
+            >
+              {topic.title}
+              <RemoveButton isVisible={isAdmin} onClick={(e) => {}}>
+                -
+              </RemoveButton>
+            </LessonsDivOption>
           ))}
-        </SubTopicsListContainer>
+        </MainSubList>
       </LibrarySideMenuContainer>
       <AddSubTopicModalBox isShown={addSubTopicModal} onClose={onClose} />
     </>

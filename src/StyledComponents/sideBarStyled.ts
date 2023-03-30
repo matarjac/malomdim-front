@@ -68,11 +68,12 @@ export const LessonsDivHeader = styled(StyleUser)`
   padding: 13px 10px;
   border-radius: 5.9322px;
 `;
-export const LessonsDivOption = styled(LessonsDivHeader) <IMainSubCheck>`
+export const LessonsDivOption = styled(LessonsDivHeader)<IMainSubCheck>`
   cursor: pointer;
   position: relative;
   text-transform: capitalize;
-  width:95%;
+  color: white;
+  width: 95%;
   background: ${(props) => (props.isOn ? "#8471DF" : "")};
   &:hover {
     background-color: ${(props) => (props.isOn ? "#8471DF" : "#44426c")};
@@ -109,7 +110,6 @@ export const MainSubList = styled.div`
   overflow-x: visible;
   ::-webkit-scrollbar {
     display: none;
-  
   }
-  padding-top:5px
+  padding-top: 5px;
 `;
