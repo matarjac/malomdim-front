@@ -73,7 +73,7 @@ export const LibrarySideMenu: React.FC = () => {
                 isSelected={selectedSubTopic === topic._id}
               >
                 {topic.title}
-                <RemoveButton isVisible={isAdmin} onClick={(e) => { handleDeleteButton(e) }}> <img src="./icons/delete-icon-x.svg" alt="" /> </RemoveButton>
+                <RemoveButton isVisible={isAdmin} onClick={() => { console.log('fe') }}> <img src="./icons/delete-icon-x.svg" alt="" /> </RemoveButton>
               </SubTopicButton>
             </li>
           ))}

@@ -88,7 +88,7 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
             ? props.title.substr(0, 10).concat("...")
             : props.title}
         </CubeDescription>
-        <RemoveButton isVisible={isAdmin} onClick={(e) => { handleDeleteButton(e) }} style={{ right: '10px' }}><img src="./icons/delete-icon-x.svg" alt="" /></RemoveButton>
+        <RemoveButton isVisible={isAdmin} onClick={() => { handleDeleteButton }} style={{ right: '10px' }}><img src="./icons/delete-icon-x.svg" alt="" /></RemoveButton>
       </Cube>
       {isModalOpen.length > 0 && (
         <CodeBlock
