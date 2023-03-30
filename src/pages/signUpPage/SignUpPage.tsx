@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SignInWindow, LogInDetailsContainer, LogInForm, StyledInput, StyledSubmitInput, StyledHref } from "../../StyledComponents/StyledSignInComponents";
 import { GeneralSpan } from "../../StyledComponents/StyledLibrary";
@@ -14,7 +14,12 @@ interface IUserDetails {
 
 const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    setIsPasswordValid(password.length >= 8);
+  }, [password]);
 
   const handleSignUp = (e: any) => {
     e.preventDefault();
@@ -27,6 +32,8 @@ const SignUpPage: React.FC = () => {
 
     if (!(body.first_name && body.last_name && body.email && body.password)) {
       alert('Please fill all inputs.');
+    } else if (!isPasswordValid) {
+      alert('password needs to be at least 8 characters.')
     } else {
       signUpUser(body);
       navigate("/sign-in");
@@ -56,7 +63,7 @@ const SignUpPage: React.FC = () => {
             <StyledInput type={'text'} placeholder={'Last Name'} />
           </div>
           <StyledInput type={'email'} placeholder={'Email Address'} />
-          <StyledInput type={'password'} placeholder={'Password'} />
+          <StyledInput type={'password'} onChange={(e) => setPassword(e.target.value)} placeholder={'Password'} />
           <StyledSubmitInput type={'submit'} value="Create My Account" />
         </LogInForm>
       </LogInDetailsContainer>
