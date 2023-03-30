@@ -1,79 +1,9 @@
-// import React, { useState } from "react";
-// import {
-//   Cube,
-//   CubeDescription,
-//   MainCubePart,
-// } from "../../../StyledComponents/content-cube";
-// import { RemoveButton } from "../../../StyledComponents/StyledGeneralComponents";
-// import { ContentTypes } from "../../../Types/enum/contentCube";
-// import CodeBlock from "../../codeBlock/CodeBlock";
-
-// interface IContentCube {
-//   body: string;
-//   type: string;
-//   title: string;
-//   description?: string;
-//   codeType?: string;
-//   setIsModalOpen?: () => void;
-// }
-
-// export const ContentCube: React.FC<IContentCube> = (props) => {
-//   const [isModalOpen, setIsModalOpen] = useState<string>("");
-//   const iconSrc: string = "/icons/contantTypes/" + props.type + ".svg";
-
-//   const handleClick = (e: any) => {
-//     if (props.type === ContentTypes.CodeSheets) {
-//       setIsModalOpen("code");
-//     } else if (props.type === ContentTypes.Text) {
-//       setIsModalOpen("text");
-//     } else if (props.body) {
-//       window.open(props.body, "_blank");
-//     }
-//   };
-
-//   const handleDeleteButton = (e: any) => {
-//     e.stopPropagation();
-//     alert("deleted");
-//   };
-//   return (
-//     <>
-//       <Cube onClick={(e: any) => handleClick(e)}>
-//         <MainCubePart>
-//           <img src={iconSrc} alt={props.type} />
-//         </MainCubePart>
-//         <CubeDescription>
-//           {props.title.length > 10
-//             ? props.title.substr(0, 10).concat("...")
-//             : props.title}
-//         </CubeDescription>
-//         <RemoveButton
-//           onClick={(e) => {
-//             handleDeleteButton(e);
-//           }}
-//         >
-//           -
-//         </RemoveButton>
-//       </Cube>
-
-//       {isModalOpen.length > 0 && (
-//         <CodeBlock
-//           type={props.type}
-//           body={props.body}
-//           title={props.title}
-//           code={props.body}
-//           codeType={props.codeType}
-//           description={props.description}
-//           isModalOpen={isModalOpen}
-//           setIsModalOpen={setIsModalOpen}
-//         />
-//       )}
-//     </>
-//   );
-// };
-
-// export default ContentCube;
-
+import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setMaterial, updatedMaterial } from "../../../store/Slicers/material";
+import { updatedCurrentSubTopic } from "../../../store/Slicers/subTopic";
+import { RootState } from "../../../store/store";
 import {
   Cube,
   CubeDescription,
@@ -81,9 +11,11 @@ import {
 } from "../../../StyledComponents/content-cube";
 import { RemoveButton } from "../../../StyledComponents/StyledGeneralComponents";
 import { ContentTypes } from "../../../Types/enum/contentCube";
+import { serverAddress } from "../../../utility/serverAdress";
 import CodeBlock from "../../codeBlock/CodeBlock";
 
 interface IContentCube {
+  id: string;
   body: string;
   type: string;
   title: string;
@@ -93,28 +25,61 @@ interface IContentCube {
 }
 
 export const ContentCube: React.FC<IContentCube> = (props) => {
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState<string>("");
   const [isAdmin, setIsAdmin] = useState(true);
   const iconSrc: string = "/icons/contantTypes/" + props.type + ".svg";
 
-  const handleClick = (e: any) => {
-    if (props.type === ContentTypes.CodeSheets) {
-      setIsModalOpen("code");
-    } else if (props.type === ContentTypes.Text) {
-      setIsModalOpen("text");
-    } else if (props.body) {
-      window.open(props.body, "_blank");
+  const subTopicId: string = useSelector(
+    (state: RootState) => state.subTopic.currentSubTopic
+  );
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    if ((e.target as HTMLElement).tagName.toLowerCase() === "button") {
+      handleDeleteButton();
+    } else {
+      if (props.type === ContentTypes.CodeSheets) {
+        setIsModalOpen("code");
+      } else if (props.type === ContentTypes.Text) {
+        setIsModalOpen("text");
+      } else if (props.body) {
+        window.open(props.body, "_blank");
+      }
+    }
+  };
+  const handleDeleteButton = () => {
+    const mainSubConfirm = prompt(
+      "Please enter '" + props.title + "' to confirm delate:",
+      ""
+    );
+    if (mainSubConfirm === props.title) {
+      delateMainSub(props.id);
+    } else {
+      alert("not deleted");
     }
   };
   console.log(props.type);
 
-  const handleDeleteButton = (e: any) => {
-    e.stopPropagation();
-    alert("deleted");
+  const delateMainSub = async (deletedMaterial: string) => {
+    try {
+      const updatedMaterialList = await axios.delete(
+        serverAddress + "/materials/teacher",
+        {
+          data: {
+            id: deletedMaterial,
+          },
+        }
+      );
+      const materialData = updatedMaterialList.data.data;
+      dispatch(updatedMaterial(materialData));
+    } catch (error: any) {
+      console.log(error);
+      alert(error.response.data.message);
+      return [];
+    }
   };
   return (
     <>
-      <Cube type={props.type} onClick={(e: any) => handleClick(e)}>
+      <Cube type={props.type} onClick={handleClick}>
         <MainCubePart>
           <img src={iconSrc} alt={props.type} />
         </MainCubePart>
@@ -125,7 +90,6 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
         </CubeDescription>
         <RemoveButton isVisible={isAdmin} onClick={(e) => { handleDeleteButton(e) }} style={{ right: '10px' }}><img src="./icons/delete-icon-x.svg" alt="" /></RemoveButton>
       </Cube>
-
       {isModalOpen.length > 0 && (
         <CodeBlock
           type={props.type}

@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface IRemoveButton {
-    isVisible: boolean;
+  isVisible: boolean;
 }
 
 export const RemoveButton = styled.button<IRemoveButton>`

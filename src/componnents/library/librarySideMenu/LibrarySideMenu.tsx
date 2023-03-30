@@ -31,11 +31,6 @@ export const LibrarySideMenu: React.FC = () => {
     setAddSubTopicModal(false);
   };
 
-  const handleDeleteButton = (e: any) => {
-    e.stopPropagation();
-    alert('deleted');
-  }
-
   dispatch(updatedCurrentSubTopic(selectedSubTopic));
   useEffect(() => {
     if (subTopics.length > 0) {
