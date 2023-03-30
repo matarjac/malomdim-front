@@ -30,6 +30,9 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   const [category, setCategory] = useState("text");
   const [codeType, setCodeType] = useState("");
 
+
+
+
   const handleCategoryType = (newCategoryType: string) => {
     setCategory(newCategoryType);
     setBody("");
@@ -37,11 +40,9 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   const subTopics: string = useSelector(
     (state: RootState) => state.subTopic.currentSubTopic
   );
-
-
- 
   const getUserMaterialData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  
     const formData = {
       idSubTopic: subTopics,
       title,
@@ -50,9 +51,8 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
       category,
       codeType,
     };
- 
-    try {
 
+    try {
       const AddUserMaterialToDataBase = await axios.post(
         serverAddress + "/materials/",
         formData

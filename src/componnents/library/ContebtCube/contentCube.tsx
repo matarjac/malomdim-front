@@ -29,7 +29,6 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState<string>("");
   const [isAdmin, setIsAdmin] = useState(true);
   const iconSrc: string = "/icons/contantTypes/" + props.type + ".svg";
-
   const subTopicId: string = useSelector(
     (state: RootState) => state.subTopic.currentSubTopic
   );
@@ -78,6 +77,8 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
       return [];
     }
   };
+
+  
   return (
     <>
       <Cube type={props.type} onClick={handleClick}>

@@ -15,7 +15,6 @@ export const Library: React.FC = () => {
   return (
     <LibrarySection>
       <LogoHomePage src="./homePage-logo.svg" />
-
       <LibraryContainer>
         <LibraryHeader />
         <div style={{ display: "flex", width: "100%", height: "75%" }}>
