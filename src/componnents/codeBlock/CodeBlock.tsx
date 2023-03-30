@@ -35,12 +35,9 @@ function CodeBlock(props: CodeBlockProps) {
     }
   }, [props.codeType]);
 
-  const handleCopyClick = () => {
-    if (codeRef.current) {
-      navigator.clipboard.writeText(codeRef.current.innerText);
-    }
-  };
 
+  const [downloadButtonText, setDownloadButtonText] = useState("Download Code 📄");
+  
   const handleDownloadClick = () => {
     const blob = new Blob([props.code], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -49,8 +46,29 @@ function CodeBlock(props: CodeBlockProps) {
     a.download = "code.txt";
     a.click();
     URL.revokeObjectURL(url);
+    setDownloadButtonText("Downloaded! 🡣");
+    setTimeout(() => {
+      setDownloadButtonText("Download Code 📄");
+    }, 2000);
+ 
   };
 
+
+  const [copyButtonText, setCopyButtonText] = useState("Copy Code 📷");
+  
+  const handleCopyClick = () => {
+    if (codeRef.current) {
+      navigator.clipboard.writeText(codeRef.current.innerText);
+      setCopyButtonText("Copied! ✔");
+      setTimeout(() => {
+        setCopyButtonText("Copy Code 📷");
+      }, 2000);
+    }
+  };
+  
+
+
+  
 
   return (
     <div className="modal-overlay">
@@ -80,8 +98,8 @@ function CodeBlock(props: CodeBlockProps) {
                 <div className="code-block-codeType-titel">
                   {props.codeType}
                 </div>
-                <button onClick={handleDownloadClick}>Download Code</button>
-                <button onClick={handleCopyClick}>Copy Code</button>
+                <button onClick={handleDownloadClick}>{downloadButtonText}</button>
+                <button onClick={handleCopyClick}>{copyButtonText}</button>
               </div>
               <code className={props.codeType} ref={codeRef}>
                 {props.code}
