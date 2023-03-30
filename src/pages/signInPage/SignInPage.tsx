@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SignInWindow, LogInDetailsContainer, LogInForm, StyledInput, StyledSubmitInput, StyledHref } from "../../StyledComponents/StyledSignInComponents";
 import { GeneralSpan } from "../../StyledComponents/StyledLibrary";
+import axios from "axios";
+import { serverAddress } from "../../utility/serverAdress";
 
+interface ICredentials {
+  email: string,
+  password: string
+}
 const SignInPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleLogIn = (e: any) => {
+  const handleLogIn = async (e: any) => {
     e.preventDefault();
     const email: string = e.target[0].value;
     const password: string = e.target[1].value;
@@ -15,8 +21,20 @@ const SignInPage: React.FC = () => {
       alert('Please fill all inputs.');
     } else {
       const credentials = { email, password }
-      sessionStorage.setItem('user', JSON.stringify(credentials));
+      const user = await logInUser(credentials);
+      sessionStorage.setItem('user', JSON.stringify(user));
       navigate("/");
+    }
+  }
+
+  const logInUser = async (credentials: ICredentials) => {
+    try {
+      const { data } = await axios.post(serverAddress + '/user/login', credentials)
+      return data;
+    }
+    catch (err: any) {
+      console.log(err)
+      alert(err.response.data);
     }
   }
   return (
