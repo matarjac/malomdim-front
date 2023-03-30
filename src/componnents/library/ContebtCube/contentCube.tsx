@@ -20,6 +20,7 @@ interface IContentCube {
 
 export const ContentCube: React.FC<IContentCube> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState<string>("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const iconSrc: string = "/icons/contantTypes/" + props.type + ".svg";
 
 
@@ -45,7 +46,7 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
           <img src={iconSrc} alt={props.type} />
         </MainCubePart>
         <CubeDescription>{props.title}</CubeDescription>
-        <RemoveButton onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
+        <RemoveButton isVisible={isAdmin} onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
       </Cube>
 
       {isModalOpen.length > 0 && <CodeBlock

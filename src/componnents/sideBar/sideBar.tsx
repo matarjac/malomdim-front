@@ -30,6 +30,7 @@ const SideBar: React.FC = () => {
   );
   const [selected, setSelected] = useState<string>(todayMainSubject);
   const [addLessonModal, setAddLessonModal] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const onClose = () => {
     setAddLessonModal(false);
   };
@@ -76,7 +77,7 @@ const SideBar: React.FC = () => {
               >
                 <UserName>{mainSub.title}</UserName>
                 <img src="/icons/next.svg" alt="open" />
-                <RemoveButton onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
+                <RemoveButton isVisible={isAdmin} onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
               </LessonsDivOption>
             ))}
         </MainSubList>
