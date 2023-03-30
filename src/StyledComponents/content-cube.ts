@@ -23,13 +23,15 @@ export const Cube = styled.div<ICubeColor>`
   background-color: #6553b8;
   border: 2px solid;
   border-color: ${(props: any) =>
-    props.type === "text"
-      ? "#8471df"
-      : props.type === "code"
-      ? "rgba(102, 219, 156, 1)"
-      : "rgb(248 103 141)"};
+    props.type === "Link" ? "#8471df"
+      : 
+      props.type === "text"? "rgba(102, 219, 156, 1)"
+      :
+      props.type === "Code"? "rgba(102, 219, 156, 1)"
+      :"rgba(248, 103, 172, 1)"};
+      
   border-radius: 8px;
-  width: 88.24px;
+  width: 110px;
   height: 98.03px;
   filter: drop-shadow(0px 0px 14.0061px rgba(0, 0, 0, 0.07));
   transition: 0.1s;
@@ -45,13 +47,15 @@ export const CubeDescription = styled.div<ICubeColor>`
   padding: 7px 8px;
   width: 100%;
   height: 30%;
-  /* background: #8471df; */
   background-color: ${(props: any) =>
-    props.type === "text"
+    props.type === "Link"
       ? "#8471df"
-      : props.type === "code"
+      : props.type === "text" 
       ? "rgba(102, 219, 156, 1)"
-      : "rgb(248 103 141)"};
+      : props.type === "Code"
+      ? "rgba(102, 219, 156, 1)"
+      : "rgba(248, 103, 172, 1)"
+      };
   border-radius: 0px 0px 5.60244px 5.60244px;
   font-family: "Poppins";
   font-style: normal;
