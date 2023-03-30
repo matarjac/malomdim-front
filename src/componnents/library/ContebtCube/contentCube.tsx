@@ -94,6 +94,7 @@ interface IContentCube {
 
 export const ContentCube: React.FC<IContentCube> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState<string>("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const iconSrc: string = "/icons/contantTypes/" + props.type + ".svg";
 
   const handleClick = (e: any) => {
@@ -122,13 +123,7 @@ console.log(props.type);
             ? props.title.substr(0, 10).concat("...")
             : props.title}
         </CubeDescription>
-        <RemoveButton
-          onClick={(e) => {
-            handleDeleteButton(e);
-          }}
-        >
-          -
-        </RemoveButton>
+        <RemoveButton isVisible={isAdmin} onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
       </Cube>
 
       {isModalOpen.length > 0 && (

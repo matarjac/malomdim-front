@@ -22,6 +22,7 @@ export const LibrarySideMenu: React.FC = () => {
   const dispatch = useDispatch();
   const [selectedSubTopic, setSelectedSubTopic] = useState<string>("");
   const [addSubTopicModal, setAddSubTopicModal] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const subTopics: ISubTopics[] = useSelector(
     (state: RootState) => state.subTopic.value
   );
@@ -77,7 +78,7 @@ export const LibrarySideMenu: React.FC = () => {
                 isSelected={selectedSubTopic === topic._id}
               >
                 {topic.title}
-                <RemoveButton onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
+                <RemoveButton isVisible={isAdmin} onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
               </SubTopicButton>
             </li>
           ))}

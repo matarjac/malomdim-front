@@ -39,7 +39,7 @@ export const LibraryContent: React.FC = () => {
               type={material.category}
               title={material.title}
               codeType={material.codeType} 
-              />
+              ></ContentCube>
           ))}
       </CardGrid>
     </LibraryContentContainer>
