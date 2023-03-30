@@ -34,7 +34,10 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
     (state: RootState) => state.subTopic.currentSubTopic
   );
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    if ((e.target as HTMLElement).tagName.toLowerCase() === "button") {
+    if (
+      (e.target as HTMLElement).parentElement?.tagName.toLowerCase() ===
+      "button"
+    ) {
       handleDeleteButton();
     } else {
       if (props.type === ContentTypes.CodeSheets) {
@@ -57,8 +60,6 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
       alert("not deleted");
     }
   };
-  console.log(props.type);
-
   const delateMainSub = async (deletedMaterial: string) => {
     try {
       const updatedMaterialList = await axios.delete(
@@ -85,10 +86,16 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
         </MainCubePart>
         <CubeDescription type={props.type}>
           {props.title.length > 10
-            ? props.title.substr(0, 10).concat("...")
+            ? props.title.slice(0, 10).concat("...")
             : props.title}
         </CubeDescription>
-        <RemoveButton isVisible={isAdmin} onClick={() => { handleDeleteButton }} style={{ right: '10px' }}><img src="./icons/delete-icon-x.svg" alt="" /></RemoveButton>
+        <RemoveButton
+          isVisible={isAdmin}
+          onClick={() => {}}
+          style={{ right: "10px" }}
+        >
+          <img src="./icons/delete-icon-x.svg" alt="" />
+        </RemoveButton>
       </Cube>
       {isModalOpen.length > 0 && (
         <CodeBlock
