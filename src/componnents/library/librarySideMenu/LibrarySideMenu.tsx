@@ -16,7 +16,6 @@ import {
 import { RootState } from "../../../store/store";
 import { ISubTopics } from "../../../Types/interface/dataInterfaces";
 import AddSubTopicModalBox from "../../AddSubTopicModalBox/AddSubTopicModalBox";
-import { RemoveButton } from "../../../StyledComponents/StyledGeneralComponents";
 
 export const LibrarySideMenu: React.FC = () => {
   const dispatch = useDispatch();
@@ -29,11 +28,6 @@ export const LibrarySideMenu: React.FC = () => {
   const onClose = () => {
     setAddSubTopicModal(false);
   };
-
-  const handleDeleteButton = (e: any) => {
-    e.stopPropagation();
-    alert('deleted');
-  }
 
   dispatch(updatedCurrentSubTopic(selectedSubTopic));
   useEffect(() => {
@@ -77,7 +71,6 @@ export const LibrarySideMenu: React.FC = () => {
                 isSelected={selectedSubTopic === topic._id}
               >
                 {topic.title}
-                <RemoveButton onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
               </SubTopicButton>
             </li>
           ))}

@@ -18,7 +18,6 @@ import {
   ISubTopics,
 } from "../../../Types/interface/dataInterfaces";
 import ContentCube from "../ContebtCube/contentCube";
-
 export const LibraryContent: React.FC = () => {
   const materials: IMaterials[] | undefined = useSelector(
     (state: RootState) => state.material.value
@@ -34,12 +33,13 @@ export const LibraryContent: React.FC = () => {
           materials.map((material) => (
             <ContentCube
               key={material._id}
+              id={material._id}
               body={material.body}
               description={material.description}
               type={material.category}
               title={material.title}
-              codeType={material.codeType} 
-              />
+              codeType={material.codeType}
+            />
           ))}
       </CardGrid>
     </LibraryContentContainer>

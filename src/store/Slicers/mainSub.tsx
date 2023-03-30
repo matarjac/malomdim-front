@@ -16,30 +16,17 @@ const getMainSubData = async () => {
       console.error("Error getting main sub list data:", error);
     });
 };
-const getTodaySub = async () => {
-  return await fetch(serverAddress + "/mainSub/today")
-    .then((response) => response.json())
-    .then((data) => {
-      return data.data;
-    })
-    .catch((error) => {
-      console.error("Error getting today main sub id:", error);
-    });
-};
-const mainSubList = await getMainSubData();
-const todayMainId: IMainSub = await getTodaySub();
-console.log(todayMainId._id);
+const mainSubData = await getMainSubData();
 export const MainSubSlice = createSlice({
   name: "MainSub",
   initialState: {
-    mainSubList: mainSubList,
-    currentMainSub: todayMainId._id.toString(),
-    // DateList: mainSubList.DateList,
+    mainSubList: mainSubData.mainSubList,
+    currentMainSub: mainSubData.todaySub._id,
   } as IMainSubState,
   reducers: {
     updatedMainSub: (state, action) => {
-      state.mainSubList = action.payload;
-      // state.DateList = action.payload.DateList;
+      state.mainSubList = action.payload.mainSubList;
+      state.currentMainSub = action.payload.todaySub._id;
     },
     updatedCurrentMainSub: (state, action) => {
       state.currentMainSub = action.payload;

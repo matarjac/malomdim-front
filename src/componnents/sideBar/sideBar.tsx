@@ -1,6 +1,10 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updatedCurrentMainSub } from "../../store/Slicers/mainSub";
+import {
+  updatedCurrentMainSub,
+  updatedMainSub,
+} from "../../store/Slicers/mainSub";
 import { setSubTopic } from "../../store/Slicers/subTopic";
 import { RootState } from "../../store/store";
 import {
@@ -19,6 +23,7 @@ import {
 } from "../../StyledComponents/sideBarStyled";
 import { RemoveButton } from "../../StyledComponents/StyledGeneralComponents";
 import { IMainSub } from "../../Types/interface/dataInterfaces";
+import { serverAddress } from "../../utility/serverAdress";
 import AddMainTopicModalBox from "../AddMainTopicModalBox/AddMainTopicModalBox";
 const SideBar: React.FC = () => {
   const dispatch = useDispatch();
@@ -34,11 +39,37 @@ const SideBar: React.FC = () => {
     setAddLessonModal(false);
   };
 
-  const handleDeleteButton = (e: any) => {
-    e.stopPropagation();
-    alert('deleted');
-  }
+  const handleDeleteButton = (deletedMainId: string, title: string) => {
+    const mainSubConfirm = prompt(
+      "Please enter '" + title + "' to confirm delate:",
+      ""
+    );
+    if (mainSubConfirm === title) {
+      delateMainSub(deletedMainId);
+    } else {
+      alert("not deleted");
+    }
+  };
 
+  const delateMainSub = async (deletedMainId: string) => {
+    try {
+      const updatedMainSubList = await axios.delete(
+        serverAddress + "/mainSub",
+        {
+          data: {
+            id: deletedMainId,
+          },
+        }
+      );
+      const mainSubData = updatedMainSubList.data.data;
+      dispatch(updatedMainSub(mainSubData));
+      setSelected(mainSubData.todaySub._id);
+    } catch (error: any) {
+      console.log(error);
+      alert(error.response.data.message);
+      return [];
+    }
+  };
   useEffect(() => {
     dispatch(setSubTopic(selected));
     dispatch(updatedCurrentMainSub(selected));
@@ -76,7 +107,13 @@ const SideBar: React.FC = () => {
               >
                 <UserName>{mainSub.title}</UserName>
                 <img src="/icons/next.svg" alt="open" />
-                <RemoveButton onClick={(e) => { handleDeleteButton(e) }}>-</RemoveButton>
+                <RemoveButton
+                  onClick={(e) => {
+                    handleDeleteButton(mainSub._id, mainSub.title);
+                  }}
+                >
+                  -
+                </RemoveButton>
               </LessonsDivOption>
             ))}
         </MainSubList>
