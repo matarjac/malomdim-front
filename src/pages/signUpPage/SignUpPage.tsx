@@ -2,24 +2,48 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SignInWindow, LogInDetailsContainer, LogInForm, StyledInput, StyledSubmitInput, StyledHref } from "../../StyledComponents/StyledSignInComponents";
 import { GeneralSpan } from "../../StyledComponents/StyledLibrary";
+import axios from 'axios';
+import { serverAddress } from "../../utility/serverAdress";
 
-const SignInPage: React.FC = () => {
+interface IUserDetails {
+  first_name: string,
+  last_name: string,
+  email: string,
+  password: string
+}
+
+const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
+
+
   const handleSignUp = (e: any) => {
     e.preventDefault();
-    const firstName: string = e.target[0].value;
-    const lastName: string = e.target[1].value;
-    const email: string = e.target[2].value;
-    const password: string = e.target[3].value;
+    const body: IUserDetails = {
+      first_name: e.target[0].value,
+      last_name: e.target[1].value,
+      email: e.target[2].value,
+      password: e.target[3].value,
+    }
 
-    if (!(firstName && lastName && email && password)) {
+    if (!(body.first_name && body.last_name && body.email && body.password)) {
       alert('Please fill all inputs.');
     } else {
-      const userDetails = { firstName, lastName, email, password }
-      console.log(userDetails);
+      signUpUser(body);
       navigate("/sign-in");
     }
   }
+
+  const signUpUser = async (body: IUserDetails) => {
+    try {
+      const { data } = await axios.post(serverAddress + '/user/signup', body)
+      console.log("data>>> ", data);
+    }
+    catch (err: any) {
+      console.log(err)
+      alert(err.response.data);
+    }
+  }
+
   return (
     <SignInWindow>
       <img src="./logo.svg" alt="" style={{ scale: "100%", padding: "20px 51px 30px 51px" }} />
@@ -40,4 +64,4 @@ const SignInPage: React.FC = () => {
   )
 }
 
-export default SignInPage;
+export default SignUpPage;
