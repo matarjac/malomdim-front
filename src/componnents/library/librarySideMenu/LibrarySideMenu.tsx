@@ -76,8 +76,8 @@ export const LibrarySideMenu: React.FC = () => {
               isOn={selectedSubTopic === topic._id}
             >
               {topic.title}
-              <RemoveButton isVisible={isAdmin} onClick={(e) => {}}>
-                -
+              <RemoveButton isVisible={isAdmin} onClick={() => { }}>
+                <img src="./icons/delete-icon-x.svg" alt="" />
               </RemoveButton>
             </LessonsDivOption>
           ))}
