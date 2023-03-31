@@ -30,19 +30,16 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   const [category, setCategory] = useState("text");
   const [codeType, setCodeType] = useState("");
 
-
-
-
   const handleCategoryType = (newCategoryType: string) => {
     setCategory(newCategoryType);
-    setBody("");
+    // setBody("");
   };
   const subTopics: string = useSelector(
     (state: RootState) => state.subTopic.currentSubTopic
   );
   const getUserMaterialData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     const formData = {
       idSubTopic: subTopics,
       title,
