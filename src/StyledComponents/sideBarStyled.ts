@@ -9,7 +9,7 @@ export const StyledSideBar = styled.div`
   height: 100vh;
   display: flex;
   padding: 20px 8px;
-  gap: 24px;
+  gap: 5px;
   width: 240px;
   background: #232245;
   box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.18);
@@ -34,6 +34,7 @@ export const UserName = styled.span`
 `;
 export const UserType = styled.span`
   font-weight: 400;
+  text-transform:capitalize ;
   font-size: 12px;
   color: #8785a4;
 `;
@@ -68,7 +69,7 @@ export const LessonsDivHeader = styled(StyleUser)`
   padding: 13px 10px;
   border-radius: 5.9322px;
 `;
-export const LessonsDivOption = styled(LessonsDivHeader)<IMainSubCheck>`
+export const LessonsDivOption = styled(LessonsDivHeader) <IMainSubCheck>`
   cursor: pointer;
   position: relative;
   text-transform: capitalize;

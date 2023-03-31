@@ -58,10 +58,10 @@ const SideBar: React.FC = () => {
   };
   const handleDeleteButton = (deletedMainId: string) => {
     const mainSubConfirm = prompt(
-      "Please enter 'delate' to confirm delate:",
+      "Please enter 'delete' to confirm delate:",
       ""
     );
-    if (mainSubConfirm === "delate") {
+    if (mainSubConfirm === "delete") {
       delateMainSub(deletedMainId);
     } else {
       alert("not deleted");
@@ -101,12 +101,12 @@ const SideBar: React.FC = () => {
               <span>MJ</span>
             </StyledAvatar>
             <UserNameTypeDiv>
-              <UserName>Matar Jacob</UserName>
-              <UserType>Student</UserType>
+              <UserName>{user ? JSON.parse(user).first_name : ''} {user ? JSON.parse(user).last_name : ''}</UserName>
+              <UserType>{user ? JSON.parse(user).role : ''}</UserType>
             </UserNameTypeDiv>
           </StyleUser>
         </SideBarContainer>
-        {
+        {isAdmin &&
           <AddCodeSheetButton
             onClick={() => {
               setAddStudentModal(true);
@@ -126,7 +126,7 @@ const SideBar: React.FC = () => {
             <UserName>All Lessons</UserName>
           </AllLessonDiv>
           {/* <img src="/icons/addButton.svg" alt="add" /> */}
-          <AddButton onClick={() => setAddLessonModal(true)} />
+          {isAdmin && <AddButton onClick={() => setAddLessonModal(true)} />}
         </LessonsDivHeader>
         <MainSubList>
           {mainSubject &&
@@ -138,7 +138,7 @@ const SideBar: React.FC = () => {
               >
                 <UserName>{mainSub.title}</UserName>
                 {!isAdmin && <img src="/icons/next.svg" alt="open" />}
-                <RemoveButton isVisible={isAdmin} onClick={() => {}}>
+                <RemoveButton isVisible={isAdmin} onClick={() => { }}>
                   <img src="./icons/delete-icon-x.svg" alt="" />
                 </RemoveButton>
               </LessonsDivOption>

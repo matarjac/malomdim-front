@@ -20,10 +20,14 @@ export const MaterialsFilter: React.FC = () => {
   const materialList = useSelector(
     (state: RootState) => state.material.allMaterial
   );
+
+  const user = sessionStorage.getItem('user');
+  const userData = user ? JSON.parse(user).role : '';
+  const [isAdmin, setIsAdmin] = useState(userData == 'teacher');
+
   const [materialType, setMaterialType] = useState("all");
   const [addStudyMaterialsModal, setAddStudyMaterialsModal] =
     useState<boolean>(false);
-  const [isAdmin, setIsAdmin] = useState(true);
   const handleAddButtonClick = () => {
     setShowCodeSheetModal(true);
   };

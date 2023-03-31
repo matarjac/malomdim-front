@@ -55,10 +55,10 @@ export const LibrarySideMenu: React.FC = () => {
   };
   const handleDeleteButton = (deletedSubTopic: string) => {
     const mainSubConfirm = prompt(
-      "Please enter 'delate' to confirm delate:",
+      "Please enter 'delete' to confirm delate:",
       ""
     );
-    if (mainSubConfirm === "delate") {
+    if (mainSubConfirm === "delete") {
       delateSubTopic(deletedSubTopic);
     } else {
       alert("not deleted");
@@ -105,10 +105,10 @@ export const LibrarySideMenu: React.FC = () => {
               Sub Topics
             </GeneralSpan>
           </AllLessonDiv>
-          <AddButton
+          {isAdmin && <AddButton
             style={{ alignSelf: "flex-end" }}
             onClick={() => setAddSubTopicModal(true)}
-          />
+          />}
         </LessonsDivHeader>
         <MainSubList>
           {subTopics.map((topic) => (
@@ -118,7 +118,7 @@ export const LibrarySideMenu: React.FC = () => {
               isOn={selectedSubTopic === topic._id}
             >
               {topic.title}
-              <RemoveButton isVisible={isAdmin} onClick={() => {}}>
+              <RemoveButton isVisible={isAdmin} onClick={() => { }}>
                 <img src="./icons/delete-icon-x.svg" alt="" />
               </RemoveButton>
             </LessonsDivOption>
