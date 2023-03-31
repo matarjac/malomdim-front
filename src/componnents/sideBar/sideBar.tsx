@@ -22,9 +22,11 @@ import {
   UserType,
 } from "../../StyledComponents/sideBarStyled";
 import { RemoveButton } from "../../StyledComponents/StyledGeneralComponents";
+import { AddCodeSheetButton } from "../../StyledComponents/StyledLibrary";
 import { IMainSub } from "../../Types/interface/dataInterfaces";
 import { serverAddress } from "../../utility/serverAdress";
 import AddMainTopicModalBox from "../AddMainTopicModalBox/AddMainTopicModalBox";
+import AddStudentModalBox from "../AddStudentModalBox/AddStudentModalBox";
 const SideBar: React.FC = () => {
   const dispatch = useDispatch();
   const mainSubject: IMainSub[] = useSelector(
@@ -34,16 +36,16 @@ const SideBar: React.FC = () => {
     (state: RootState) => state.mainSub.currentMainSub
   );
 
-  const user = sessionStorage.getItem('user');
-  const userData = user ? JSON.parse(user).role : '';
-  const [isAdmin, setIsAdmin] = useState(userData == 'teacher');
-
+  const user = sessionStorage.getItem("user");
+  const userData = user ? JSON.parse(user).role : "";
+  const [isAdmin, setIsAdmin] = useState(userData == "teacher");
   const [selected, setSelected] = useState<string>(todayMainSubject);
   const [addLessonModal, setAddLessonModal] = useState<boolean>(false);
+  const [addStudentModal, setAddStudentModal] = useState<boolean>(false);
   const onClose = () => {
     setAddLessonModal(false);
+    setAddStudentModal(false);
   };
-
   const handleClick = (e: React.MouseEvent<HTMLElement>, mainSubId: string) => {
     if (
       (e.target as HTMLElement).parentElement?.tagName.toLowerCase() ===
@@ -85,7 +87,6 @@ const SideBar: React.FC = () => {
     }
   };
 
-
   useEffect(() => {
     dispatch(setSubTopic(selected));
     dispatch(updatedCurrentMainSub(selected));
@@ -105,6 +106,20 @@ const SideBar: React.FC = () => {
             </UserNameTypeDiv>
           </StyleUser>
         </SideBarContainer>
+        {
+          <AddCodeSheetButton
+            onClick={() => {
+              setAddStudentModal(true);
+            }}
+          >
+            <img
+              style={{ scale: "100%" }}
+              src="./icons/addCodeSheet-icon.svg"
+              alt=""
+            />
+            Student
+          </AddCodeSheetButton>
+        }
         <LessonsDivHeader>
           <AllLessonDiv>
             <img src="/icons/file.svg" alt="file" />
@@ -123,7 +138,7 @@ const SideBar: React.FC = () => {
               >
                 <UserName>{mainSub.title}</UserName>
                 {!isAdmin && <img src="/icons/next.svg" alt="open" />}
-                <RemoveButton isVisible={isAdmin} onClick={() => { }}>
+                <RemoveButton isVisible={isAdmin} onClick={() => {}}>
                   <img src="./icons/delete-icon-x.svg" alt="" />
                 </RemoveButton>
               </LessonsDivOption>
@@ -131,6 +146,7 @@ const SideBar: React.FC = () => {
         </MainSubList>
       </StyledSideBar>
       <AddMainTopicModalBox isShown={addLessonModal} onClose={onClose} />
+      <AddStudentModalBox isShown={addStudentModal} onClose={onClose} />
     </>
   );
 };
