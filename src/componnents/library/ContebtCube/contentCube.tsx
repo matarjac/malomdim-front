@@ -27,7 +27,11 @@ interface IContentCube {
 export const ContentCube: React.FC<IContentCube> = (props) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState<string>("");
-  const [isAdmin, setIsAdmin] = useState(true);
+
+  const user = sessionStorage.getItem('user');
+  const userData = user ? JSON.parse(user).role : '';
+  const [isAdmin, setIsAdmin] = useState(userData == 'teacher');
+
   const iconSrc: string = "/icons/contantTypes/" + props.type + ".svg";
   const subTopicId: string = useSelector(
     (state: RootState) => state.subTopic.currentSubTopic
@@ -78,7 +82,7 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
     }
   };
 
-  
+
   return (
     <>
       <Cube type={props.type} onClick={handleClick}>
@@ -92,7 +96,7 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
         </CubeDescription>
         <RemoveButton
           isVisible={isAdmin}
-          onClick={() => {}}
+          onClick={() => { }}
           style={{ right: "10px" }}
         >
           <img src="./icons/delete-icon-x.svg" alt="" />

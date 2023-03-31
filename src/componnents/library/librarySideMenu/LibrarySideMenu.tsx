@@ -28,7 +28,11 @@ export const LibrarySideMenu: React.FC = () => {
   const dispatch = useDispatch();
   const [selectedSubTopic, setSelectedSubTopic] = useState<string>("");
   const [addSubTopicModal, setAddSubTopicModal] = useState<boolean>(false);
-  const [isAdmin, setIsAdmin] = useState(true);
+
+  const user = sessionStorage.getItem('user');
+  const userData = user ? JSON.parse(user).role : '';
+  const [isAdmin, setIsAdmin] = useState(userData == 'teacher');
+
   const subTopics: ISubTopics[] = useSelector(
     (state: RootState) => state.subTopic.value
   );

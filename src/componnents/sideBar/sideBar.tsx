@@ -33,9 +33,13 @@ const SideBar: React.FC = () => {
   const todayMainSubject = useSelector(
     (state: RootState) => state.mainSub.currentMainSub
   );
+
+  const user = sessionStorage.getItem('user');
+  const userData = user ? JSON.parse(user).role : '';
+  const [isAdmin, setIsAdmin] = useState(userData == 'teacher');
+
   const [selected, setSelected] = useState<string>(todayMainSubject);
   const [addLessonModal, setAddLessonModal] = useState<boolean>(false);
-  const [isAdmin, setIsAdmin] = useState(true);
   const onClose = () => {
     setAddLessonModal(false);
   };
@@ -80,6 +84,8 @@ const SideBar: React.FC = () => {
       return [];
     }
   };
+
+
   useEffect(() => {
     dispatch(setSubTopic(selected));
     dispatch(updatedCurrentMainSub(selected));
@@ -117,7 +123,7 @@ const SideBar: React.FC = () => {
               >
                 <UserName>{mainSub.title}</UserName>
                 {!isAdmin && <img src="/icons/next.svg" alt="open" />}
-                <RemoveButton isVisible={isAdmin} onClick={() => {}}>
+                <RemoveButton isVisible={isAdmin} onClick={() => { }}>
                   <img src="./icons/delete-icon-x.svg" alt="" />
                 </RemoveButton>
               </LessonsDivOption>
