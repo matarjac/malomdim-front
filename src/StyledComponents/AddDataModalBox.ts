@@ -14,7 +14,7 @@ export const ModalOverLay = styled.div`
   background: rgba(19, 18, 52, 0.57);
   width: "100vw";
   height: "100vh";
-  z-index: 1;
+  z-index: 1000;
 `;
 
 export const ModalBoxContent = styled.div<IModalContentSize>`

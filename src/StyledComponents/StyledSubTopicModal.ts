@@ -20,3 +20,8 @@ export const MaterialAddingList = styled.div`
     display: none;
   }
 `;
+
+export const StudentEmailInput = styled.div`
+  display: flex;
+  gap: 20px;
+`;
