@@ -54,9 +54,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
         serverAddress + "/materials/",
         formData
       );
-      console.log(AddUserMaterialToDataBase.data.data);
       dispatch(updatedMaterial(AddUserMaterialToDataBase.data.data));
-      dispatch(setMaterial(subTopics));
       setShowCodeSheetModal(false);
     } catch (error: any) {
       console.log(error);

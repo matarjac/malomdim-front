@@ -14,14 +14,16 @@ const getMainSubData = async () => {
     })
     .catch((error) => {
       console.error("Error getting main sub list data:", error);
+      return;
     });
 };
 const mainSubData = await getMainSubData();
+
 export const MainSubSlice = createSlice({
   name: "MainSub",
   initialState: {
-    mainSubList: mainSubData.mainSubList,
-    currentMainSub: mainSubData.todaySub._id,
+    mainSubList: mainSubData.mainSubList || [],
+    currentMainSub: mainSubData.todaySub._id || "",
   } as IMainSubState,
   reducers: {
     updatedMainSub: (state, action) => {
@@ -33,7 +35,6 @@ export const MainSubSlice = createSlice({
     },
   },
 });
-
 export const { updatedMainSub, updatedCurrentMainSub } = MainSubSlice.actions;
 
 export default MainSubSlice.reducer;

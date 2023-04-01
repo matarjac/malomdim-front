@@ -28,6 +28,12 @@ import {
 } from "../../StyledComponents/StyledSubTopicModal";
 import { ContentTypes } from "../../Types/enum/contentCube";
 import { serverAddress } from "../../utility/serverAdress";
+import {
+  LessonsDivOption,
+  UserName,
+} from "../../StyledComponents/sideBarStyled";
+import { updatedStudent } from "../../store/Slicers/students";
+import { RemoveButton } from "../../StyledComponents/StyledGeneralComponents";
 
 interface IAddMaterialModalBox {
   isShown: boolean;
@@ -42,6 +48,8 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
   props: IAddMaterialModalBox
 ) => {
   const dispatch = useDispatch();
+  const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
+  const students = useSelector((state: RootState) => state.students.allStudent);
   const [loading, setLoading] = useState<boolean>(false);
   const [studentList, setStudentList] = useState([{ email: "" }]);
   const addAnotherStudent = () => {
@@ -64,32 +72,47 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
     });
     isInputEmpty
       ? alert("please fill all input filleds.")
-      : console.log(studentEmails);
-    handleClose();
+      : addStudent(studentEmails);
   };
 
-  const handleData = async (studyMaterials: IStudentEmailList[]) => {
-    // try {
-    //   setLoading(true);
-    //   const materialList = studyMaterials.map((material) => {
-    //     return {
-    //       category: material.type,
-    //       body: material.link,
-    //       title: material.title,
-    //       idSubTopic: props.subTopicId,
-    //     };
-    //   });
-    //   const updatedMaterialList = await axios.post(
-    //     serverAddress + "/materials/many",
-    //     materialList
-    //   );
-    //   //update
-    //   dispatch(updatedMaterial(updatedMaterialList.data.data));
-    // } catch (error: any) {
-    //   console.log(error.message);
-    // }
-    // setLoading(false);
-    // handleClose();
+  const addStudent = async (studentAddingList: IStudentEmailList[]) => {
+    try {
+      setLoading(true);
+      const studentResult = await axios.post(
+        serverAddress + "/user/student",
+        studentAddingList,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      //update
+      dispatch(updatedStudent(studentResult.data.data));
+    } catch (error: any) {
+      console.log(error.message);
+    }
+    setLoading(false);
+  };
+  const removeStudent = async (student: string) => {
+    try {
+      setLoading(true);
+      const studentResult = await axios.delete(
+        serverAddress + "/user/student",
+        {
+          data: { student: student },
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      //update
+      dispatch(updatedStudent(studentResult.data.data));
+      setStudentList([{ email: "" }]);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+    setLoading(false);
   };
   const handleClose = () => {
     setStudentList([{ email: "" }]);
@@ -106,6 +129,24 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
             onClick={(e) => e.stopPropagation()}
           >
             <GeneralSpan fontSize={18} fontWeight={600}>
+              Current Students
+            </GeneralSpan>
+            <MaterialAddingList>
+              {students.map((student, index) => (
+                <LessonsDivOption isOn={false} onClick={(e) => {}} key={index}>
+                  <UserName>{student}</UserName>
+                  <RemoveButton
+                    isVisible={true}
+                    onClick={() => {
+                      removeStudent(student);
+                    }}
+                  >
+                    <img src="./icons/delete-icon-x.svg" alt="" />
+                  </RemoveButton>{" "}
+                </LessonsDivOption>
+              ))}
+            </MaterialAddingList>
+            <GeneralSpan fontSize={18} fontWeight={600}>
               Update Course Student
             </GeneralSpan>
 
@@ -113,11 +154,12 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
               <img src="./icons/green-plus-icon.svg" alt="" />
             </AddSubTopicButton>
             <MaterialAddingList>
-              {studentList.map((studyMaterial, index) => (
+              {studentList.map((student, index) => (
                 <StudentEmailInput key={index}>
                   <StyledInput
                     type="email"
                     placeholder="Email"
+                    value={student.email}
                     style={{ width: "80%" }}
                     onChange={(e) => {
                       updateStudentEmail(index, e.target.value);

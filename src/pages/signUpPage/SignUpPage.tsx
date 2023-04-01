@@ -49,7 +49,6 @@ const SignUpPage: React.FC = () => {
   const signUpUser = async (body: IUserDetails) => {
     try {
       const { data } = await axios.post(serverAddress + "/user/signup", body);
-      console.log("data>>> ", data);
       navigate("/");
     } catch (err: any) {
       console.log(err);

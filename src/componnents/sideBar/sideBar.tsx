@@ -28,6 +28,7 @@ import { IMainSub } from "../../Types/interface/dataInterfaces";
 import { serverAddress } from "../../utility/serverAdress";
 import AddMainTopicModalBox from "../AddMainTopicModalBox/AddMainTopicModalBox";
 import AddStudentModalBox from "../AddStudentModalBox/AddStudentModalBox";
+import { updatedStudent } from "../../store/Slicers/students";
 const SideBar: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,9 +39,11 @@ const SideBar: React.FC = () => {
     (state: RootState) => state.mainSub.currentMainSub
   );
   const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
-  if (!user) {
-    navigate("/sign-in");
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate("/sign-in");
+    }
+  }, []);
   const userData = user ? user.role : "";
   const [isAdmin, setIsAdmin] = useState(userData == "teacher");
   const [selected, setSelected] = useState<string>(todayMainSubject);
@@ -90,12 +93,34 @@ const SideBar: React.FC = () => {
       return [];
     }
   };
-
+  const getStudentData = async () => {
+    const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
+    if (user) {
+      try {
+        const response = await axios.get(`${serverAddress}/user/student`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        return response.data.data;
+      } catch (error: any) {
+        return [];
+      }
+    }
+  };
+  const putDataInStudent = async () => {
+    if (user) {
+      const students = await getStudentData();
+      dispatch(updatedStudent(students));
+    }
+  };
   const logOut = () => {
     sessionStorage.clear();
     navigate("/sign-in");
   };
+
   useEffect(() => {
+    putDataInStudent();
     dispatch(setSubTopic(selected));
     dispatch(updatedCurrentMainSub(selected));
   }, [selected, mainSubject]);
