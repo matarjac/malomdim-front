@@ -28,9 +28,9 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState<string>("");
 
-  const user = sessionStorage.getItem('user');
-  const userData = user ? JSON.parse(user).role : '';
-  const [isAdmin, setIsAdmin] = useState(userData == 'teacher');
+  const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
+  const userData = user ? user.role : "";
+  const [isAdmin, setIsAdmin] = useState(userData == "teacher");
 
   const iconSrc: string = "/icons/contantTypes/" + props.type + ".svg";
   const subTopicId: string = useSelector(
@@ -54,10 +54,10 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
   };
   const handleDeleteButton = () => {
     const mainSubConfirm = prompt(
-      "Please enter '" + props.title + "' to confirm delate:",
+      "Please enter 'delete' to confirm delate:",
       ""
     );
-    if (mainSubConfirm === props.title) {
+    if (mainSubConfirm === "delete") {
       delateMainSub(props.id);
     } else {
       alert("not deleted");
@@ -71,6 +71,9 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
           data: {
             id: deletedMaterial,
           },
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
         }
       );
       const materialData = updatedMaterialList.data.data;
@@ -81,7 +84,6 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
       return [];
     }
   };
-
 
   return (
     <>
@@ -96,7 +98,7 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
         </CubeDescription>
         <RemoveButton
           isVisible={isAdmin}
-          onClick={() => { }}
+          onClick={() => {}}
           style={{ right: "10px" }}
         >
           <img src="./icons/delete-icon-x.svg" alt="" />

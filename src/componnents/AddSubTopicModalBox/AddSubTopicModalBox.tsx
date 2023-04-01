@@ -45,6 +45,7 @@ interface IStudyMaterial {
 }
 
 const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
+  const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
   const currentMainSub = useSelector(
     (state: RootState) => state.mainSub.currentMainSub
   );
@@ -128,8 +129,15 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
         {
           title: title,
           idMainSub: currentMainSub,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
         }
       );
+      console.log(updatedSubTopicList.data.data);
+
       const idSubTopic = updatedSubTopicList.data.data.addedSubTopic;
       const materialList = materials.map((material) => {
         return {
@@ -141,12 +149,17 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
       });
       const updatedMaterialList = await axios.post(
         serverAddress + "/materials/many",
-        materialList
+        materialList,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
       );
       console.log(idSubTopic);
       console.log(updatedMaterialList.data.data);
       //update
-      dispatch(updatedSubTopic(updatedSubTopicList.data.data));
+      dispatch(updatedSubTopic(updatedSubTopicList.data.data.subTopicsList));
       dispatch(updatedMaterial(updatedMaterialList.data.data));
       //filter
       dispatch(setSubTopic(currentMainSub));

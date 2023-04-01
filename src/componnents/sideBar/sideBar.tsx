@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   updatedCurrentMainSub,
   updatedMainSub,
@@ -29,15 +30,18 @@ import AddMainTopicModalBox from "../AddMainTopicModalBox/AddMainTopicModalBox";
 import AddStudentModalBox from "../AddStudentModalBox/AddStudentModalBox";
 const SideBar: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const mainSubject: IMainSub[] = useSelector(
     (state: RootState) => state.mainSub.mainSubList
   );
   const todayMainSubject = useSelector(
     (state: RootState) => state.mainSub.currentMainSub
   );
-
-  const user = sessionStorage.getItem("user");
-  const userData = user ? JSON.parse(user).role : "";
+  const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
+  if (!user) {
+    navigate("/sign-in");
+  }
+  const userData = user ? user.role : "";
   const [isAdmin, setIsAdmin] = useState(userData == "teacher");
   const [selected, setSelected] = useState<string>(todayMainSubject);
   const [addLessonModal, setAddLessonModal] = useState<boolean>(false);
@@ -62,22 +66,22 @@ const SideBar: React.FC = () => {
       ""
     );
     if (mainSubConfirm === "delate") {
-      delateMainSub(deletedMainId);
+      deleteMainSub(deletedMainId);
     } else {
       alert("not deleted");
     }
   };
-  const delateMainSub = async (deletedMainId: string) => {
+  const deleteMainSub = async (deletedMainId: string) => {
     try {
-      const updatedMainSubList = await axios.delete(
-        serverAddress + "/mainSub",
-        {
-          data: {
-            id: deletedMainId,
-          },
-        }
-      );
-      const mainSubData = updatedMainSubList.data.data;
+      const response = await axios.delete(`${serverAddress}/mainSub`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+        data: {
+          id: deletedMainId,
+        },
+      });
+      const mainSubData = response.data.data;
       dispatch(updatedMainSub(mainSubData));
       setSelected(mainSubData.todaySub._id);
     } catch (error: any) {
@@ -87,6 +91,10 @@ const SideBar: React.FC = () => {
     }
   };
 
+  const logOut = () => {
+    sessionStorage.clear();
+    navigate("/sign-in");
+  };
   useEffect(() => {
     dispatch(setSubTopic(selected));
     dispatch(updatedCurrentMainSub(selected));
@@ -98,15 +106,17 @@ const SideBar: React.FC = () => {
         <SideBarContainer>
           <StyleUser>
             <StyledAvatar>
-              <span>MJ</span>
+              <span>{user && user.first_name[0] + user.last_name[0]}</span>
             </StyledAvatar>
             <UserNameTypeDiv>
-              <UserName>Matar Jacob</UserName>
-              <UserType>Student</UserType>
+              <UserName>
+                {user && user.first_name + " " + user.last_name}
+              </UserName>
+              <UserType>{user && user.role}</UserType>
             </UserNameTypeDiv>
           </StyleUser>
         </SideBarContainer>
-        {
+        {isAdmin && (
           <AddCodeSheetButton
             onClick={() => {
               setAddStudentModal(true);
@@ -119,14 +129,15 @@ const SideBar: React.FC = () => {
             />
             Student
           </AddCodeSheetButton>
-        }
+        )}
+        <AddCodeSheetButton onClick={logOut}>Log Out</AddCodeSheetButton>
         <LessonsDivHeader>
           <AllLessonDiv>
             <img src="/icons/file.svg" alt="file" />
             <UserName>All Lessons</UserName>
           </AllLessonDiv>
           {/* <img src="/icons/addButton.svg" alt="add" /> */}
-          <AddButton onClick={() => setAddLessonModal(true)} />
+          {isAdmin && <AddButton onClick={() => setAddLessonModal(true)} />}
         </LessonsDivHeader>
         <MainSubList>
           {mainSubject &&
