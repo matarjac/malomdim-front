@@ -28,6 +28,7 @@ interface IMainTopicData {
 }
 
 const AddMainTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
+  const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
   const dispatch = useDispatch();
   const isFirstSub: boolean = true;
   const [date, setDate] = useState(new Date());
@@ -50,21 +51,28 @@ const AddMainTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
     if (!newTopicTitle) {
       alert("Please type main topic title.");
     } else {
-      addingMainSub();
+      addMainSub();
       setNewTopicTitle("");
       setDurationCount(1);
       handleClose();
     }
   };
-  const addingMainSub = async () => {
+  const addMainSub = async () => {
     try {
-      const updatedMainSubList = await axios.post(serverAddress + "/mainSub", {
-        title: newTopicTitle,
-        numOfDays: durationCount,
-        startDate: date.getTime(),
-      });
-      console.log("updated:", updatedMainSubList.data.data);
-      dispatch(updatedMainSub(updatedMainSubList.data.data));
+      const response = await axios.post(
+        `${serverAddress}/mainSub`,
+        {
+          title: newTopicTitle,
+          numOfDays: durationCount,
+          startDate: date.getTime(),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      dispatch(updatedMainSub(response.data.data));
     } catch (error: any) {
       console.log(error);
       alert(error.response.data.message);

@@ -29,9 +29,9 @@ export const LibrarySideMenu: React.FC = () => {
   const [selectedSubTopic, setSelectedSubTopic] = useState<string>("");
   const [addSubTopicModal, setAddSubTopicModal] = useState<boolean>(false);
 
-  const user = sessionStorage.getItem('user');
-  const userData = user ? JSON.parse(user).role : '';
-  const [isAdmin, setIsAdmin] = useState(userData == 'teacher');
+  const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
+  const userData = user ? user.role : "";
+  const [isAdmin, setIsAdmin] = useState(userData == "teacher");
 
   const subTopics: ISubTopics[] = useSelector(
     (state: RootState) => state.subTopic.value
@@ -47,7 +47,10 @@ export const LibrarySideMenu: React.FC = () => {
     e: React.MouseEvent<HTMLElement>,
     subTopicId: string
   ) => {
-    if ((e.target as HTMLElement).tagName.toLowerCase() === "button") {
+    if (
+      (e.target as HTMLElement).parentElement?.tagName.toLowerCase() ===
+      "button"
+    ) {
       handleDeleteButton(subTopicId);
     } else {
       setSelectedSubTopic(subTopicId);
@@ -65,23 +68,27 @@ export const LibrarySideMenu: React.FC = () => {
     }
   };
   const delateSubTopic = async (deletedSubTopic: string) => {
-    try {
-      const updatedSubTopicList = await axios.delete(
-        serverAddress + "/subTopics",
-        {
-          data: {
-            id: deletedSubTopic,
-          },
-        }
-      );
-      const subTopicData = updatedSubTopicList.data.data;
-      dispatch(updatedSubTopic(subTopicData));
-      dispatch(setSubTopic(currentMainSub));
-    } catch (error: any) {
-      console.log(error);
-      alert(error.response.data.message);
-      return [];
-    }
+    if (user)
+      try {
+        const updatedSubTopicList = await axios.delete(
+          serverAddress + "/subTopics",
+          {
+            data: {
+              id: deletedSubTopic,
+            },
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        const subTopicData = updatedSubTopicList.data.data;
+        dispatch(updatedSubTopic(subTopicData));
+        dispatch(setSubTopic(currentMainSub));
+      } catch (error: any) {
+        console.log(error);
+        alert(error.response.data.message);
+        return [];
+      }
   };
   dispatch(updatedCurrentSubTopic(selectedSubTopic));
   useEffect(() => {
@@ -105,10 +112,12 @@ export const LibrarySideMenu: React.FC = () => {
               Sub Topics
             </GeneralSpan>
           </AllLessonDiv>
-          {isAdmin && <AddButton
-            style={{ alignSelf: "flex-end" }}
-            onClick={() => setAddSubTopicModal(true)}
-          />}
+          {isAdmin && (
+            <AddButton
+              style={{ alignSelf: "flex-end" }}
+              onClick={() => setAddSubTopicModal(true)}
+            />
+          )}
         </LessonsDivHeader>
         <MainSubList>
           {subTopics.map((topic) => (
@@ -118,7 +127,7 @@ export const LibrarySideMenu: React.FC = () => {
               isOn={selectedSubTopic === topic._id}
             >
               {topic.title}
-              <RemoveButton isVisible={isAdmin} onClick={() => { }}>
+              <RemoveButton isVisible={isAdmin} onClick={() => {}}>
                 <img src="./icons/delete-icon-x.svg" alt="" />
               </RemoveButton>
             </LessonsDivOption>

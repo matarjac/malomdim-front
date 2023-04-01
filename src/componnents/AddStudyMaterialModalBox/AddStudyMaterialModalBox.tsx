@@ -44,6 +44,7 @@ const AddStudyMaterialModalBox: React.FC<IAddMaterialModalBox> = (
   props: IAddMaterialModalBox
 ) => {
   const dispatch = useDispatch();
+  const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
   const [loading, setLoading] = useState<boolean>(false);
   const [studyMaterialsState, setStudyMaterialsState] = useState([
     { title: "", link: "", type: ContentTypes.Videos },
@@ -104,7 +105,12 @@ const AddStudyMaterialModalBox: React.FC<IAddMaterialModalBox> = (
       });
       const updatedMaterialList = await axios.post(
         serverAddress + "/materials/many",
-        materialList
+        materialList,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
       );
       //update
       dispatch(updatedMaterial(updatedMaterialList.data.data));
