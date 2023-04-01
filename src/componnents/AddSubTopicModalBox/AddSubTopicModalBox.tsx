@@ -136,7 +136,6 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
           },
         }
       );
-      console.log(updatedSubTopicList.data.data);
 
       const idSubTopic = updatedSubTopicList.data.data.addedSubTopic;
       const materialList = materials.map((material) => {
@@ -156,8 +155,6 @@ const AddSubTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
           },
         }
       );
-      console.log(idSubTopic);
-      console.log(updatedMaterialList.data.data);
       //update
       dispatch(updatedSubTopic(updatedSubTopicList.data.data.subTopicsList));
       dispatch(updatedMaterial(updatedMaterialList.data.data));

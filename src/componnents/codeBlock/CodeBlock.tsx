@@ -63,8 +63,6 @@ function CodeBlock(props: CodeBlockProps) {
     }
   };
 
-  console.log(sessionStorage.getItem("userAddCode"));
-
   return (
     <div className="modal-overlay">
       <div className="close-modal-box">
