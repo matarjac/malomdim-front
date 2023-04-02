@@ -34,6 +34,7 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
     setCategory(newCategoryType);
     // setBody("");
   };
+  const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
   const subTopics: string = useSelector(
     (state: RootState) => state.subTopic.currentSubTopic
   );
@@ -52,7 +53,12 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
     try {
       const AddUserMaterialToDataBase = await axios.post(
         serverAddress + "/materials/",
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
       );
       dispatch(updatedMaterial(AddUserMaterialToDataBase.data.data));
       setShowCodeSheetModal(false);

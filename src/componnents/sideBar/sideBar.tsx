@@ -65,10 +65,10 @@ const SideBar: React.FC = () => {
   };
   const handleDeleteButton = (deletedMainId: string) => {
     const mainSubConfirm = prompt(
-      "Please enter 'delete' to confirm delate:",
+      "Please enter 'delete' to confirm delete:",
       ""
     );
-    if (mainSubConfirm === "delate") {
+    if (mainSubConfirm === "delete") {
       deleteMainSub(deletedMainId);
     } else {
       alert("not deleted");
@@ -85,8 +85,17 @@ const SideBar: React.FC = () => {
         },
       });
       const mainSubData = response.data.data;
-      dispatch(updatedMainSub(mainSubData));
-      setSelected(mainSubData.todaySub._id);
+      console.log(mainSubData);
+      if (!mainSubData.todaySub) {
+        mainSubData.todaySub = "";
+      }
+      dispatch(
+        updatedMainSub({
+          mainSubList: mainSubData.mainSubList,
+          todaySub: mainSubData.todaySub,
+        })
+      );
+      setSelected(mainSubData.todaySub);
     } catch (error: any) {
       console.log(error);
       alert(error.response.data.message);

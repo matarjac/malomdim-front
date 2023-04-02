@@ -91,6 +91,7 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
       dispatch(updatedStudent(studentResult.data.data));
     } catch (error: any) {
       console.log(error.message);
+      setLoading(false);
     }
     setLoading(false);
   };

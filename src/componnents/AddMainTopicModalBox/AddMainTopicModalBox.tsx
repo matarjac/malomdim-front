@@ -72,10 +72,18 @@ const AddMainTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
           },
         }
       );
-      dispatch(updatedMainSub(response.data.data));
+      const mainSubData = response.data.data;
+      if (!mainSubData.todaySub) {
+        mainSubData.todaySub = "";
+      }
+      dispatch(
+        updatedMainSub({
+          mainSubList: mainSubData.mainSubList,
+          todaySub: mainSubData.todaySub,
+        })
+      );
     } catch (error: any) {
       console.log(error);
-      alert(error.response.data.message);
       return [];
     }
   };
