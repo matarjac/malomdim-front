@@ -13,7 +13,6 @@ const getMainSubData = async () => {
       if (!data.data.todaySub) {
         data.data.todaySub = "";
       }
-      console.log(data.data);
       return data.data;
     })
     .catch((error) => {
