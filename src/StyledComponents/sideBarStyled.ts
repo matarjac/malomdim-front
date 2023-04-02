@@ -28,6 +28,7 @@ export const UserNameTypeDiv = styled.div`
 `;
 export const UserName = styled.span`
   font-style: normal;
+  text-transform: lowercase;
   font-weight: 400;
   font-size: 15px;
   color: #ffffff;

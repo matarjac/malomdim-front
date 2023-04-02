@@ -58,20 +58,34 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
   const updateStudentEmail = (index: number, newValue: string) => {
     setStudentList((prevArray) => {
       const newArray = [...prevArray];
-      newArray[index].email = newValue;
+      newArray[index].email = newValue.toLowerCase();
       return newArray;
     });
   };
   const handleAddStudentEmail = (studentEmails: IStudentEmailList[]) => {
     let isInputEmpty = false;
+    let isEmailValid = false;
+    console.log(studentEmails);
     studentEmails.forEach((material) => {
       const values = Object.values(material);
       if (values.some((val) => val == "")) {
         isInputEmpty = true;
       }
+      if (values.filter(address => !(address.includes('@')))) {
+        console.log('no in some @')
+      } else {
+        console.log('ok');
+        isEmailValid = true;
+      }
+
+      // if (!(values.some((val) => val.includes("@")))) {
+      //   console.log(values.some((val) => val.includes("@")));
+      //   isEmailValid = true;
+      // } else {
+      // }
     });
     isInputEmpty
-      ? alert("please fill all input filleds.")
+      ? alert("please fill all input fields with proper email addresses.")
       : addStudent(studentEmails);
   };
 
@@ -93,6 +107,7 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
       console.log(error.message);
     }
     setLoading(false);
+    setStudentList([{ email: "" }]);
   };
   const removeStudent = async (student: string) => {
     try {
@@ -124,56 +139,62 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
       {props.isShown && (
         <ModalOverLay onClick={handleClose}>
           <ModalBoxContent
-            width={50}
-            height={75}
+            width={70}
+            height={80}
             onClick={(e) => e.stopPropagation()}
+            style={{ gap: '10px', flexDirection: 'row' }}
           >
-            <GeneralSpan fontSize={18} fontWeight={600}>
-              Current Students
-            </GeneralSpan>
-            <MaterialAddingList>
-              {students.map((student, index) => (
-                <LessonsDivOption isOn={false} onClick={(e) => {}} key={index}>
-                  <UserName>{student}</UserName>
-                  <RemoveButton
-                    isVisible={true}
-                    onClick={() => {
-                      removeStudent(student);
-                    }}
-                  >
-                    <img src="./icons/delete-icon-x.svg" alt="" />
-                  </RemoveButton>{" "}
-                </LessonsDivOption>
-              ))}
-            </MaterialAddingList>
-            <GeneralSpan fontSize={18} fontWeight={600}>
-              Update Course Student
-            </GeneralSpan>
+            <div style={{ width: '45%' }}>
 
-            <AddSubTopicButton onClick={addAnotherStudent}>
-              <img src="./icons/green-plus-icon.svg" alt="" />
-            </AddSubTopicButton>
-            <MaterialAddingList>
-              {studentList.map((student, index) => (
-                <StudentEmailInput key={index}>
-                  <StyledInput
-                    type="email"
-                    placeholder="Email"
-                    value={student.email}
-                    style={{ width: "80%" }}
-                    onChange={(e) => {
-                      updateStudentEmail(index, e.target.value);
-                    }}
-                  />
-                </StudentEmailInput>
-              ))}
-            </MaterialAddingList>
-            <StyledAddButton
-              onClick={() => handleAddStudentEmail(studentList)}
-              style={{ marginTop: "10px", fontSize: "16px" }}
-            >
-              Add Students email
-            </StyledAddButton>
+              <GeneralSpan fontSize={18} fontWeight={600}>
+                Current Students
+              </GeneralSpan>
+              <MaterialAddingList style={{ height: '330px' }}>
+                {students.map((student, index) => (
+                  <LessonsDivOption style={{ cursor: 'default' }} isOn={false} onClick={(e) => { }} key={index}>
+                    <UserName>{student.toLowerCase()}</UserName>
+                    <RemoveButton
+                      isVisible={true}
+                      onClick={() => {
+                        removeStudent(student);
+                      }}
+                    >
+                      <img src="./icons/delete-icon-x.svg" alt="" />
+                    </RemoveButton>{" "}
+                  </LessonsDivOption>
+                ))}
+              </MaterialAddingList>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '45%' }}>
+              <GeneralSpan fontSize={18} fontWeight={600} >
+                Update Course Student
+              </GeneralSpan>
+              <AddSubTopicButton onClick={addAnotherStudent}>
+                <img src="./icons/green-plus-icon.svg" alt="" />
+              </AddSubTopicButton>
+              <MaterialAddingList>
+                {studentList.map((student, index) => (
+                  <StudentEmailInput key={index}>
+                    <StyledInput
+                      type="email"
+                      placeholder="Email"
+                      value={student.email}
+                      style={{ width: "80%" }}
+                      onChange={(e) => {
+                        updateStudentEmail(index, e.target.value);
+                      }}
+                    />
+                  </StudentEmailInput>
+                ))}
+              </MaterialAddingList>
+
+              <StyledAddButton
+                onClick={() => handleAddStudentEmail(studentList)}
+                style={{ marginTop: "10px", fontSize: "16px", width: "100%" }}
+              >
+                Add Students email
+              </StyledAddButton>
+            </div>
 
             {loading && (
               <LoadingDiv>
