@@ -183,7 +183,7 @@ const SideBar: React.FC = () => {
                 onClick={(e) => handleClick(e, mainSub._id)}
                 key={mainSub._id}
               >
-                <UserName>{mainSub.title}</UserName>
+                <UserName style={{ textTransform: 'capitalize' }}>{mainSub.title}</UserName>
                 {!isAdmin && <img src="/icons/next.svg" alt="open" />}
                 <RemoveButton isVisible={isAdmin} onClick={() => { }}>
                   <img src="./icons/delete-icon-x.svg" alt="" />

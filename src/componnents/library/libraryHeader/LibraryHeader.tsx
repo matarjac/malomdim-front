@@ -37,7 +37,7 @@ export const LibraryHeader: React.FC = () => {
   const currentSub: IMainSub | undefined = mainSubList.find(
     (sub) => sub._id === todayMainSubject
   );
-  let headTitle = "No course today";
+  let headTitle = "No course css";
   let dateStart = new Date();
   let dateEnd = new Date();
   let startDatString =
@@ -66,13 +66,29 @@ export const LibraryHeader: React.FC = () => {
     }, 500);
   };
 
+  const chooseLanguageSymbol = () => {
+    const lowerredHeadTitle = headTitle.toLowerCase();
+    console.log(lowerredHeadTitle);
+    let symbol = './language-logos/default-symbol.svg';
+    if (lowerredHeadTitle.includes('css')) { symbol = './language-logos/css-symbol.svg'; }
+    else if (lowerredHeadTitle.includes('javascript')) { symbol = './language-logos/javascript-symbol.svg'; }
+    else if (lowerredHeadTitle.includes('typescript')) { symbol = './language-logos/typescript-symbol.svg'; }
+    else if (lowerredHeadTitle.includes('html')) { symbol = './language-logos/html-symbol.svg'; }
+    else if (lowerredHeadTitle.includes('node')) { symbol = './language-logos/node-symbol.svg'; }
+    else if (lowerredHeadTitle.includes('react')) { symbol = './language-logos/react-symbol.svg'; }
+    else { symbol = './language-logos/default-symbol.svg' }
+
+    return symbol;
+  }
+
   useEffect(() => {
     fillProgress();
+    chooseLanguageSymbol();
   }, [todayMainSubject, mainSubList]);
   return (
     <HeaderContainer>
       <div style={{ display: "flex", gap: "10px" }}>
-        <img src="./language-logos/react-symbol.svg" alt="" />
+        <img src={chooseLanguageSymbol()} alt="" />
         <HeaderTitleSpan>{headTitle}</HeaderTitleSpan>
       </div>
       <div className={libraryStyles.progressBar}>
