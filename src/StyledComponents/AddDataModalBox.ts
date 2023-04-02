@@ -4,7 +4,9 @@ interface IModalContentSize {
   width: number;
   height: number;
 }
-
+interface ISendEmail {
+  isSent: boolean;
+}
 export const ModalOverLay = styled.div`
   position: absolute;
   top: 0px;
@@ -80,4 +82,24 @@ export const LoadingDiv = styled.div`
   height: 100%;
   background-color: #2d2b52;
   border-radius: 18px;
+`;
+export const EmailButton = styled.button<ISendEmail>`
+  background-color: ${(props) => (props.isSent ? "rgb(25 192 50)" : "#2d2b52")};
+  position: absolute;
+  right: 60px;
+  border: none;
+  outline: none;
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 5px;
+  transition: 0.2s cubic-bezier(1, 0.1, 0.76, 0.63);
+  &:hover {
+    background-color: rgb(25 192 50);
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  }
 `;

@@ -14,6 +14,7 @@ import {
   StyledDurationButtons,
   StyledAddButton,
   LoadingDiv,
+  EmailButton,
 } from "../../StyledComponents/AddDataModalBox";
 import {
   FilterButton,
@@ -51,6 +52,7 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
   const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
   const students = useSelector((state: RootState) => state.students.allStudent);
   const [loading, setLoading] = useState<boolean>(false);
+  const [sending, setSending] = useState<string>("");
   const [studentList, setStudentList] = useState([{ email: "" }]);
   const addAnotherStudent = () => {
     setStudentList([...studentList, { email: "" }]);
@@ -71,10 +73,10 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
       if (values.some((val) => val == "")) {
         isInputEmpty = true;
       }
-      if (values.filter(address => !(address.includes('@')))) {
-        console.log('no in some @')
+      if (values.filter((address) => !address.includes("@"))) {
+        console.log("no in some @");
       } else {
-        console.log('ok');
+        console.log("ok");
         isEmailValid = true;
       }
 
@@ -88,7 +90,14 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
       ? alert("please fill all input fields with proper email addresses.")
       : addStudent(studentEmails);
   };
-
+  const handleSendingEmail = async (student: string) => {
+    console.log(student);
+    setSending(student);
+    await axios.post(serverAddress + "/user/email", {
+      email: student,
+    });
+    setSending("");
+  };
   const addStudent = async (studentAddingList: IStudentEmailList[]) => {
     try {
       setLoading(true);
@@ -142,17 +151,26 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
             width={70}
             height={80}
             onClick={(e) => e.stopPropagation()}
-            style={{ gap: '10px', flexDirection: 'row' }}
+            style={{ gap: "10px", flexDirection: "row" }}
           >
-            <div style={{ width: '45%' }}>
-
+            <div style={{ width: "45%" }}>
               <GeneralSpan fontSize={18} fontWeight={600}>
                 Current Students
               </GeneralSpan>
-              <MaterialAddingList style={{ height: '330px' }}>
+              <MaterialAddingList style={{ height: "330px" }}>
                 {students.map((student, index) => (
-                  <LessonsDivOption style={{ cursor: 'default' }} isOn={false} onClick={(e) => { }} key={index}>
-                    <UserName>{student.toLowerCase()}</UserName>
+                  <LessonsDivOption
+                    isOn={false}
+                    onClick={(e) => {}}
+                    key={index}
+                  >
+                    <UserName>{student}</UserName>
+                    <EmailButton
+                      isSent={sending === student}
+                      onClick={() => handleSendingEmail(student)}
+                    >
+                      send invitation
+                    </EmailButton>
                     <RemoveButton
                       isVisible={true}
                       onClick={() => {
@@ -165,8 +183,15 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
                 ))}
               </MaterialAddingList>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '45%' }}>
-              <GeneralSpan fontSize={18} fontWeight={600} >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+                width: "45%",
+              }}
+            >
+              <GeneralSpan fontSize={18} fontWeight={600}>
                 Update Course Student
               </GeneralSpan>
               <AddSubTopicButton onClick={addAnotherStudent}>
