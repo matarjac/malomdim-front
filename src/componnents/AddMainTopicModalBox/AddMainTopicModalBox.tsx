@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { text } from "stream/consumers";
 import { updatedMainSub } from "../../store/Slicers/mainSub";
@@ -30,10 +30,21 @@ interface IMainTopicData {
 const AddMainTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
   const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
   const dispatch = useDispatch();
-  const isFirstSub: boolean = true;
   const [date, setDate] = useState(new Date());
   const [durationCount, setDurationCount] = useState<number>(1);
   const [newTopicTitle, setNewTopicTitle] = useState<string>("");
+  const [isFirstMainTopic, setIsFirstMainTopic] = useState<boolean>(false);
+
+  const mainSubject: IMainSub[] = useSelector(
+    (state: RootState) => state.mainSub.mainSubList
+  );
+
+  useEffect(() => {
+
+    mainSubject.length ? setIsFirstMainTopic(false) : setIsFirstMainTopic(true);
+  }, [props.isShown]);
+
+
   const increaseDay = () => setDurationCount(durationCount + 1);
   const decreaseDay = () => {
     if (durationCount !== 1) {
@@ -105,7 +116,7 @@ const AddMainTopicModalBox: React.FC<IModalBox> = (props: IModalBox) => {
               placeholder={"Topic title"}
               onChange={(e) => inputTextChanged(e)}
             />
-            {isFirstSub && (
+            {isFirstMainTopic && (
               <>
                 <GeneralSpan fontSize={18} fontWeight={600}>
                   Start Date

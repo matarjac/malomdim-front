@@ -68,7 +68,6 @@ export const LibraryHeader: React.FC = () => {
 
   const chooseLanguageSymbol = () => {
     const lowerredHeadTitle = headTitle.toLowerCase();
-    console.log(lowerredHeadTitle);
     let symbol = './language-logos/default-symbol.svg';
     if (lowerredHeadTitle.includes('css')) { symbol = './language-logos/css-symbol.svg'; }
     else if (lowerredHeadTitle.includes('javascript')) { symbol = './language-logos/javascript-symbol.svg'; }
