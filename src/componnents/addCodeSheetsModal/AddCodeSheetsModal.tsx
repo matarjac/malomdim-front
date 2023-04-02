@@ -14,6 +14,8 @@ import { RootState } from "../../store/store";
 import { IMaterials, ISubTopics } from "../../Types/interface/dataInterfaces";
 import axios from "axios";
 import { serverAddress } from "../../utility/serverAdress";
+import { LoadingDiv } from "../../StyledComponents/AddDataModalBox";
+import { ThreeDots } from "react-loader-spinner";
 
 interface IAddCodeSheetProps {
   setShowCodeSheetModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,10 +31,11 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
   const [body, setBody] = useState<string>("");
   const [category, setCategory] = useState("text");
   const [codeType, setCodeType] = useState("");
+  const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleCategoryType = (newCategoryType: string) => {
     setCategory(newCategoryType);
-    // setBody("");
   };
   const subTopics: string = useSelector(
     (state: RootState) => state.subTopic.currentSubTopic
@@ -50,17 +53,23 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
     };
 
     try {
+      setLoading(true);
       const AddUserMaterialToDataBase = await axios.post(
         serverAddress + "/materials/",
-        formData
+        formData,
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
       );
       dispatch(updatedMaterial(AddUserMaterialToDataBase.data.data));
       setShowCodeSheetModal(false);
     } catch (error: any) {
       console.log(error);
       alert(error.response.data.message);
+      setLoading(false);
       return [];
     }
+    setLoading(false);
   };
   return (
     <div className="modal-overlay">
@@ -163,6 +172,19 @@ const AddCodeSheetsModal: React.FC<IAddCodeSheetProps> = ({
             </button>
           </form>
         </div>
+        {loading && (
+          <LoadingDiv>
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="#f0f0f0"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              visible={true}
+            />
+          </LoadingDiv>
+        )}
       </div>
     </div>
   );

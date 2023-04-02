@@ -113,8 +113,9 @@ export const ContentCube: React.FC<IContentCube> = (props) => {
           codeType={props.codeType}
           description={props.description}
           isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-        />
+          setIsModalOpen={setIsModalOpen} 
+          publisher={""}        
+          />
       )}
     </>
   );

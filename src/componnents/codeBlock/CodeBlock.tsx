@@ -24,11 +24,14 @@ interface CodeBlockProps {
   title: string;
   isModalOpen: string;
   setIsModalOpen: any;
+  publisher:string;
 }
+
+
 
 function CodeBlock(props: CodeBlockProps) {
   const codeRef = useRef<HTMLElement>(null);
-
+  console.log(props.publisher);
   useEffect(() => {
     if (codeRef.current && props.codeType) {
       hljs.highlightBlock(codeRef.current);
@@ -79,6 +82,7 @@ function CodeBlock(props: CodeBlockProps) {
           />
         </button>
         <div className="code-block-container">
+       <p className="user-name">{props.publisher || "student"}</p>
           <div className="code-block-titel">{props.title}</div>
           <div className="description-container">
             <span>Description</span>

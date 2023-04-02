@@ -139,3 +139,10 @@ code::-webkit-scrollbar {
   overflow: hidden;
   white-space: normal;
 }
+
+.user-name{
+  color:  #ffffff66;;
+  font-size: 20px;
+  margin-right: 400px;
+  text-transform: uppercase;
+}
