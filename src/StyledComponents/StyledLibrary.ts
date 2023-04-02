@@ -46,6 +46,9 @@ export const LibrarySection = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
+  @media (max-width: 391px) {
+    height: 65vh;
+  }
 `;
 
 export const LibraryContainer = styled.div`
@@ -56,7 +59,13 @@ export const LibraryContainer = styled.div`
   box-shadow: 0px 4.74576px 30.8475px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 391px) {
+    height: 500px;
+    width: 350px;
+  }
 `;
+
 export const DateSpan = styled.span`
   color: white;
   font-weight: 500;
@@ -76,6 +85,7 @@ export const HeaderContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
+
 `;
 
 export const HeaderTitleContainer = styled.div`
@@ -89,6 +99,9 @@ export const HeaderTitleSpan = styled.span`
   font-size: 36px;
   line-height: 54px;
   text-transform: capitalize;
+  @media (max-width: 391px) {
+    font-size: 25px;
+  }
 `;
 
 export const LibrarySideMenuContainer = styled.div`
@@ -100,6 +113,11 @@ export const LibrarySideMenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  @media (max-width: 391px) {
+    padding: 0px 0px;
+    width:35%;
+    font-size: 8px;
+  }
 `;
 
 export const GeneralSpan = styled.span<IGeneralSpan>`
@@ -107,6 +125,9 @@ export const GeneralSpan = styled.span<IGeneralSpan>`
   font-size: ${(props) => props.fontSize}px;
   font-weight: ${(props) => props.fontWeight};
   line-height: 22px;
+  @media (max-width: 391px) {
+   display: none;
+  }
 `;
 
 export const SubTopicsListContainer = styled.div`
@@ -142,17 +163,24 @@ export const SubTopicButton = styled.button<IbuttonSelected>`
 `;
 
 export const LibraryContentContainer = styled.div`
-  width: 75%;
+  width: 85%;
   height: 100%;
   border-bottom-right-radius: 18px;
   padding: 14px 35px 18px;
+
+  @media (max-width: 391px) {
+    padding: 5px 73px 22px 13px;
+  }
 `;
 
 export const FiltersContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  gap: 20px;
+  gap: 10px;
   padding: 4px 10px;
+  @media (max-width: 391px) {
+  margin-left:250px;
+  }
 `;
 
 export const FiltersList = styled.ul`
@@ -162,6 +190,10 @@ export const FiltersList = styled.ul`
   border-radius: 8.99192px;
   background-color: #1a193a;
   padding: 4px;
+  @media (max-width: 391px) {
+
+      
+  }
 `;
 
 export const FilterButton = styled.button<IbuttonSelected>`
@@ -177,6 +209,11 @@ export const FilterButton = styled.button<IbuttonSelected>`
   color: white;
   background-color: ${(props) => (props.isSelected ? "#8471DF" : "")};
   border-radius: 7.19354px;
+  @media (max-width: 391px) {
+    min-width: 35px; 
+    font-size: 10px; 
+    padding: 5px 5px 5px 5px;
+}
 `;
 
 export const AddCodeSheetButton = styled.button`
@@ -193,6 +230,11 @@ export const AddCodeSheetButton = styled.button`
   border: 1px solid #8471df;
   border-radius: 6px;
   cursor: pointer;
+
+  @media (max-width: 391px) {
+    font-size: 12px;
+    gap: 2px;
+}
 `;
 export const CardGrid = styled.div`
   display: grid;
@@ -206,5 +248,10 @@ export const CardGrid = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
+  }
+  @media (max-width: 391px) {
+    width: 118%;
+    height: 90%;
+    padding: 12px;
   }
 `;

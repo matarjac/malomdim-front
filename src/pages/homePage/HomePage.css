@@ -3,3 +3,9 @@
   flex-direction: row;
   width: 100vw;
 }
+
+@media (max-width: 391px) {
+  .pageFrame {
+    flex-direction: column;
+  }
+}

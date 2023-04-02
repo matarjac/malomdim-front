@@ -14,6 +14,12 @@ export const StyledSideBar = styled.div`
   background: #232245;
   box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.18);
   border-radius: 0px;
+
+  @media (max-width: 391px) {
+    width: 100%;
+    height: 250px;
+    flex-direction: row;
+  }
 `;
 export const StyleUser = styled.div`
   display: flex;
@@ -32,6 +38,9 @@ export const UserName = styled.span`
   font-size: 15px;
   color: #ffffff;
   text-transform:lowercase ;
+  @media (max-width: 391px) {
+    font-size: 12px;
+  }
 `;
 export const UserType = styled.span`
   font-weight: 400;
@@ -114,4 +123,10 @@ export const MainSubList = styled.div`
     display: none;
   }
   padding-top: 5px;
+
+  @media (max-width: 391px) {
+    padding: 5px 5px 5px ;
+    flex-direction: row;
+    height: 50px;
+  }
 `;
