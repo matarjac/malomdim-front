@@ -10,6 +10,10 @@ const getMainSubData = async () => {
   return await fetch(serverAddress + "/mainSub")
     .then((response) => response.json())
     .then((data) => {
+      if (!data.data.todaySub) {
+        data.data.todaySub = "";
+      }
+      console.log(data.data);
       return data.data;
     })
     .catch((error) => {
@@ -22,13 +26,17 @@ const mainSubData = await getMainSubData();
 export const MainSubSlice = createSlice({
   name: "MainSub",
   initialState: {
-    mainSubList: mainSubData.mainSubList || [],
-    currentMainSub: mainSubData.todaySub._id || "",
+    mainSubList: mainSubData.mainSubList,
+    currentMainSub: mainSubData.todaySub._id,
   } as IMainSubState,
   reducers: {
     updatedMainSub: (state, action) => {
       state.mainSubList = action.payload.mainSubList;
-      state.currentMainSub = action.payload.todaySub._id;
+      if (action.payload.todaySub._id !== null) {
+        state.currentMainSub = action.payload.todaySub._id;
+      } else {
+        state.currentMainSub = "";
+      }
     },
     updatedCurrentMainSub: (state, action) => {
       state.currentMainSub = action.payload;

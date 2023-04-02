@@ -37,7 +37,7 @@ export const LibraryHeader: React.FC = () => {
   const currentSub: IMainSub | undefined = mainSubList.find(
     (sub) => sub._id === todayMainSubject
   );
-  let headTitle = "curse isn't today";
+  let headTitle = "No course today";
   let dateStart = new Date();
   let dateEnd = new Date();
   let startDatString =
@@ -73,9 +73,7 @@ export const LibraryHeader: React.FC = () => {
     <HeaderContainer>
       <div style={{ display: "flex", gap: "10px" }}>
         <img src="./language-logos/react-symbol.svg" alt="" />
-        <HeaderTitleSpan>
-          {headTitle ? headTitle : "No Subject Yet"}
-        </HeaderTitleSpan>
+        <HeaderTitleSpan>{headTitle}</HeaderTitleSpan>
       </div>
       <div className={libraryStyles.progressBar}>
         <ProgressBarProgress widthPer={progress} />
