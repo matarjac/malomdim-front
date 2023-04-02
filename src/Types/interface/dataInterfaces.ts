@@ -16,7 +16,10 @@ export interface IMaterials {
   body: string;
   category: string;
   codeType: string;
+  publisher: string;
 }
+
+
 export interface ISubTopics {
   _id: string;
   idMainSub: string;
