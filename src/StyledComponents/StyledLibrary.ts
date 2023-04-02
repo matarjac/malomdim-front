@@ -54,6 +54,7 @@ export const LibrarySection = styled.div`
 export const LibraryContainer = styled.div`
   width: 951.86px;
   height: 645.46px;
+  scale: 0.9;
   background-color: #2d2b52;
   border-radius: 21.3559px;
   box-shadow: 0px 4.74576px 30.8475px rgba(0, 0, 0, 0.1);
@@ -63,6 +64,9 @@ export const LibraryContainer = styled.div`
   @media (max-width: 391px) {
     height: 500px;
     width: 350px;
+  }
+  @media (min-height: 800px) {
+    scale: 1;
   }
 `;
 
@@ -85,7 +89,6 @@ export const HeaderContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
-
 `;
 
 export const HeaderTitleContainer = styled.div`
@@ -115,7 +118,7 @@ export const LibrarySideMenuContainer = styled.div`
   gap: 8px;
   @media (max-width: 391px) {
     padding: 0px 0px;
-    width:35%;
+    width: 35%;
     font-size: 8px;
   }
 `;
@@ -126,7 +129,7 @@ export const GeneralSpan = styled.span<IGeneralSpan>`
   font-weight: ${(props) => props.fontWeight};
   line-height: 22px;
   @media (max-width: 391px) {
-   display: none;
+    display: none;
   }
 `;
 
@@ -179,7 +182,7 @@ export const FiltersContainer = styled.div`
   gap: 10px;
   padding: 4px 10px;
   @media (max-width: 391px) {
-  margin-left:250px;
+    margin-left: 250px;
   }
 `;
 
@@ -191,8 +194,6 @@ export const FiltersList = styled.ul`
   background-color: #1a193a;
   padding: 4px;
   @media (max-width: 391px) {
-
-      
   }
 `;
 
@@ -210,10 +211,10 @@ export const FilterButton = styled.button<IbuttonSelected>`
   background-color: ${(props) => (props.isSelected ? "#8471DF" : "")};
   border-radius: 7.19354px;
   @media (max-width: 391px) {
-    min-width: 35px; 
-    font-size: 10px; 
+    min-width: 35px;
+    font-size: 10px;
     padding: 5px 5px 5px 5px;
-}
+  }
 `;
 
 export const AddCodeSheetButton = styled.button`
@@ -234,7 +235,7 @@ export const AddCodeSheetButton = styled.button`
   @media (max-width: 391px) {
     font-size: 12px;
     gap: 2px;
-}
+  }
 `;
 export const CardGrid = styled.div`
   display: grid;
