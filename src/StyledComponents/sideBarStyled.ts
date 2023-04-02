@@ -31,6 +31,7 @@ export const UserName = styled.span`
   font-weight: 400;
   font-size: 15px;
   color: #ffffff;
+  text-transform:lowercase ;
 `;
 export const UserType = styled.span`
   font-weight: 400;

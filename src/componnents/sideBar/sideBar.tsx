@@ -150,21 +150,23 @@ const SideBar: React.FC = () => {
             </UserNameTypeDiv>
           </StyleUser>
         </SideBarContainer>
-        {isAdmin && (
-          <AddCodeSheetButton
-            onClick={() => {
-              setAddStudentModal(true);
-            }}
-          >
-            <img
-              style={{ scale: "100%" }}
-              src="./icons/addCodeSheet-icon.svg"
-              alt=""
-            />
-            Student
-          </AddCodeSheetButton>
-        )}
-        <AddCodeSheetButton onClick={logOut}>Log Out</AddCodeSheetButton>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          {isAdmin && (
+            <AddCodeSheetButton
+              onClick={() => {
+                setAddStudentModal(true);
+              }}
+            >
+              <img
+                style={{ scale: "100%" }}
+                src="./icons/addCodeSheet-icon.svg"
+                alt=""
+              />
+              Student
+            </AddCodeSheetButton>
+          )}
+          <AddCodeSheetButton onClick={logOut}>Log Out</AddCodeSheetButton>
+        </div>
         <LessonsDivHeader>
           <AllLessonDiv>
             <img src="/icons/file.svg" alt="file" />
@@ -183,7 +185,7 @@ const SideBar: React.FC = () => {
               >
                 <UserName>{mainSub.title}</UserName>
                 {!isAdmin && <img src="/icons/next.svg" alt="open" />}
-                <RemoveButton isVisible={isAdmin} onClick={() => {}}>
+                <RemoveButton isVisible={isAdmin} onClick={() => { }}>
                   <img src="./icons/delete-icon-x.svg" alt="" />
                 </RemoveButton>
               </LessonsDivOption>
