@@ -118,8 +118,10 @@ const SideBar: React.FC = () => {
     }
   };
   const putDataInStudent = async () => {
-    const students = await getStudentData();
-    dispatch(updatedStudent(students));
+    if (user.role === "teacher") {
+      const students = await getStudentData();
+      dispatch(updatedStudent(students));
+    }
   };
   const logOut = () => {
     sessionStorage.clear();
@@ -127,7 +129,7 @@ const SideBar: React.FC = () => {
   };
 
   useEffect(() => {
-    if (user.role === "teacher") {
+    if (user) {
       putDataInStudent();
     }
     dispatch(setSubTopic(selected));
