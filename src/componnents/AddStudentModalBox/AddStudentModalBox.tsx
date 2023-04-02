@@ -14,6 +14,7 @@ import {
   StyledDurationButtons,
   StyledAddButton,
   LoadingDiv,
+  EmailButton,
 } from "../../StyledComponents/AddDataModalBox";
 import {
   FilterButton,
@@ -51,6 +52,7 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
   const user = JSON.parse(sessionStorage.getItem("user") ?? "null");
   const students = useSelector((state: RootState) => state.students.allStudent);
   const [loading, setLoading] = useState<boolean>(false);
+  const [sending, setSending] = useState<string>("");
   const [studentList, setStudentList] = useState([{ email: "" }]);
   const addAnotherStudent = () => {
     setStudentList([...studentList, { email: "" }]);
@@ -74,7 +76,14 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
       ? alert("please fill all input filleds.")
       : addStudent(studentEmails);
   };
-
+  const handleSendingEmail = async (student: string) => {
+    console.log(student);
+    setSending(student);
+    await axios.post(serverAddress + "/user/email", {
+      email: student,
+    });
+    setSending("");
+  };
   const addStudent = async (studentAddingList: IStudentEmailList[]) => {
     try {
       setLoading(true);
@@ -136,6 +145,12 @@ const AddStudentModalBox: React.FC<IAddMaterialModalBox> = (
               {students.map((student, index) => (
                 <LessonsDivOption isOn={false} onClick={(e) => {}} key={index}>
                   <UserName>{student}</UserName>
+                  <EmailButton
+                    isSent={sending === student}
+                    onClick={() => handleSendingEmail(student)}
+                  >
+                    send invitation
+                  </EmailButton>
                   <RemoveButton
                     isVisible={true}
                     onClick={() => {
