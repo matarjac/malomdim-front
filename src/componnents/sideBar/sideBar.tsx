@@ -138,8 +138,6 @@ const SideBar: React.FC = () => {
   return (
     <>
       <StyledSideBar>
-        <div className="mobile-side-bar">
-          <div  className="mobile-side-bar-name">
             <SideBarContainer>
               <StyleUser>
                 <StyledAvatar>
@@ -170,9 +168,6 @@ const SideBar: React.FC = () => {
               )}
               <AddCodeSheetButton onClick={logOut}>Log Out</AddCodeSheetButton>
             </div>
-          </div>
-
-          <div>
             <LessonsDivHeader>
               <AllLessonDiv>
                 <img src="/icons/file.svg" alt="file" />
@@ -197,34 +192,6 @@ const SideBar: React.FC = () => {
                   </LessonsDivOption>
                 ))}
             </MainSubList>
-          </div>
-        </div>
-
-        {/* <LessonsDivHeader>
-          <AllLessonDiv>
-            <img src="/icons/file.svg" alt="file" />
-            <UserName>All Lessons</UserName>
-          </AllLessonDiv>
-          {/* <img src="/icons/addButton.svg" alt="add" /> */}
-          {/* {isAdmin && <AddButton onClick={() => setAddLessonModal(true)} />}
-        </LessonsDivHeader>
-        <MainSubList>
-          {mainSubject &&
-            mainSubject.map((mainSub) => (
-              <LessonsDivOption
-                isOn={selected === mainSub._id}
-                onClick={(e) => handleClick(e, mainSub._id)}
-                key={mainSub._id}
-              >
-                <UserName style={{ textTransform: 'capitalize' }}>{mainSub.title}</UserName>
-                {!isAdmin && <img src="/icons/next.svg" alt="open" />}
-                <RemoveButton isVisible={isAdmin} onClick={() => { }}>
-                  <img src="./icons/delete-icon-x.svg" alt="" />
-                </RemoveButton>
-              </LessonsDivOption>
-            ))}
-        </MainSubList> */} 
-
       </StyledSideBar>
       <AddMainTopicModalBox isShown={addLessonModal} onClose={onClose} />
       <AddStudentModalBox isShown={addStudentModal} onClose={onClose} />

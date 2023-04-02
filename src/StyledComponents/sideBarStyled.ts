@@ -37,7 +37,8 @@ export const UserName = styled.span`
   font-weight: 400;
   font-size: 15px;
   color: #ffffff;
-  text-transform:lowercase ;
+  text-transform: capitalize;
+  
   @media (max-width: 391px) {
     font-size: 12px;
   }
@@ -123,6 +124,7 @@ export const MainSubList = styled.div`
     display: none;
   }
   padding-top: 5px;
+
 
   @media (max-width: 391px) {
     padding: 5px 5px 5px ;
