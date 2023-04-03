@@ -42,12 +42,12 @@
   width: 500px;
   display: flex;
   justify-content: space-around;
-  background-color: rgba(52,53,65);
+  background-color: rgba(52, 53, 65);
   height: 40px;
   padding: 5px;
   align-items: center;
-  border-top-left-radius:15px;
-  border-top-right-radius:15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   font-size: 15px;
 }
 .code-block {
@@ -78,7 +78,7 @@
 }
 
 .code-block-header > button:hover {
-  font-weight:bold;
+  font-weight: bold;
   border-radius: 5px;
 }
 
@@ -86,18 +86,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
   width: 500px;
-  height: 500px;
+  /* height: 500px; */
+  height: 100%;
+  text-align: start;
   overflow-y: scroll;
   overflow-x: scroll;
-  border-bottom-left-radius:15px;
-  border-bottom-right-radius:15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   padding: 10px 5px;
 }
 
 code::-webkit-scrollbar {
   display: none;
 }
-.code-block-titel{
+.code-block-titel {
   color: aliceblue;
   font-size: 30px;
   margin-top: 20px;
@@ -140,8 +142,8 @@ code::-webkit-scrollbar {
   white-space: normal;
 }
 
-.user-name{
-  color:  #ffffff66;;
+.user-name {
+  color: #ffffff66;
   font-size: 20px;
   margin-right: 400px;
   text-transform: uppercase;

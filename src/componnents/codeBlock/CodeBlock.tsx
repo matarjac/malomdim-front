@@ -24,10 +24,8 @@ interface CodeBlockProps {
   title: string;
   isModalOpen: string;
   setIsModalOpen: any;
-  publisher:string;
+  publisher: string;
 }
-
-
 
 function CodeBlock(props: CodeBlockProps) {
   const codeRef = useRef<HTMLElement>(null);
@@ -82,7 +80,7 @@ function CodeBlock(props: CodeBlockProps) {
           />
         </button>
         <div className="code-block-container">
-       <p className="user-name">{props.publisher || "student"}</p>
+          <p className="user-name">{props.publisher || "student"}</p>
           <div className="code-block-titel">{props.title}</div>
           <div className="description-container">
             <span>Description</span>
@@ -100,9 +98,11 @@ function CodeBlock(props: CodeBlockProps) {
                 </button>
                 <button onClick={handleCopyClick}>{copyButtonText}</button>
               </div>
-              <code className={props.codeType} ref={codeRef}>
-                {props.code}
-              </code>
+              <pre>
+                <code className={props.codeType} ref={codeRef}>
+                  {props.code}
+                </code>
+              </pre>
             </>
           ) : (
             <>
